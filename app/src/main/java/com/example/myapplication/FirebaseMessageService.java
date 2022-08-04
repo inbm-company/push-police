@@ -42,7 +42,7 @@ public class FirebaseMessageService extends FirebaseMessagingService {
         Log.d("token is" , token);
 
         try {
-            _web.post(serverUrl, token);
+            _web.post(serverUrl+"token", "{\"userId\":\"userid04\",\"token\": \""+token +"\"}");
         } catch (Exception e) {
             _log.e(e.getMessage());
         }
@@ -75,10 +75,6 @@ public class FirebaseMessageService extends FirebaseMessagingService {
     private Notification popupMessage(NotificationCompat.Builder builder, RemoteMessage remoteMessage){
         String title = remoteMessage.getNotification().getTitle();
         String body = remoteMessage.getNotification().getBody();
-
-        _log.simple("in buildMessage local key"+  remoteMessage.getNotification().getBodyLocalizationKey());
-        _log.simple("in buildMessage Priority"+  remoteMessage.getNotification().getNotificationPriority());
-        _log.simple("in buildMessage local args"+  remoteMessage.getNotification().getBodyLocalizationArgs());
 
         Intent notifyIntent = new Intent(this, MainActivity.class);
         notifyIntent.putExtra("notiClick",true);

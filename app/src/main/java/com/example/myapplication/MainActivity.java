@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private WebView webView;
     private FrameLayout frameLayout;
 
-    private final String serverUrl = "http://192.168.10.152:3000/token";
+    private final String serverUrl = "http://192.168.10.152:3000/";
 
     private final String homeUrl = "http://192.168.10.152:5500/";
     private final String noticeUrl = "http://192.168.10.152:5500/notice";
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
         new Thread(()->{
             try {
-                _web.post(serverUrl,"");
+                _web.post(serverUrl+"read","{\"userId\":\"userid04\",\"msgId\":\"msg1234\"}");
             } catch (Exception e) {
                 _log.e(e.getMessage());
             }
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("token to server" , token);
 //                    TODO: body 로 묶기 {userId, token }
                     try {
-                        _web.post(serverUrl, token);
+                        _web.post(serverUrl+"token", "{\"userId\":\"userid04\",\"token\": \""+token +"\"}");
                     } catch (Exception e) {
                         _log.e(e.getMessage());
                     }
