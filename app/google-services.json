@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "789371022222",
+    "project_id": "push-test-for-police",
+    "storage_bucket": "push-test-for-police.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789371022222:android:699b2f464c13cc7d2cd2df",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789371022222-j5najqgk0746ip9snssmhftd5ojdl672.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCT3bjx1XzmWOjtjGmyrrNfMGM25TJj7a0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789371022222-j5najqgk0746ip9snssmhftd5ojdl672.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

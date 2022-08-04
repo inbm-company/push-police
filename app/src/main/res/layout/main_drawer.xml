@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawerMenu"
+    >
+
+    <LinearLayout
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            >
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@android:drawable/ic_notification_overlay"
+                android:contentDescription="TODO" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_notice"
+                android:onClick="clickPushHistory"
+                />
+        </FrameLayout>
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="홈"
+        android:textAlignment="center"
+        android:gravity = "center"
+        android:onClick="clickHome"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:layout_width="match_parent"
+         android:layout_height="50dp"
+        android:text="공지"
+        android:textAlignment="center"
+        android:gravity = "center"
+        android:onClick="clickNotice"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:layout_width="match_parent"
+         android:layout_height="50dp"
+        android:text="설정"
+        android:textAlignment="center"
+        android:gravity = "center"
+        android:onClick="clickSetting"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="챗봇"
+        android:textAlignment="center"
+        android:gravity = "center"
+        android:onClick="clickChatbot"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="전자지갑"
+        android:textAlignment="center"
+        android:gravity = "center"
+        android:onClick="clickPurchase"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:layout_width="match_parent"
+         android:layout_height="50dp"
+        android:text="로그아웃"
+        android:textAlignment="center"
+        android:gravity = "center"
+        android:onClick="clickLogout"
+        android:textColor="@color/black"
+        />
+
+
+
+</LinearLayout>
