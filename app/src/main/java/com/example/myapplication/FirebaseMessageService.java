@@ -4,8 +4,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
@@ -14,10 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.squareup.okhttp.OkHttpClient;
+
+
+
+
 
 public class FirebaseMessageService extends FirebaseMessagingService {
 
@@ -65,14 +66,16 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             builder = new NotificationCompat.Builder(getApplicationContext());
         }
     _log.simple("in onmessage over builder");
-        Notification notification = buildMessage(builder, remoteMessage);
+
+        Notification notification = popupMessage(builder, remoteMessage);
         notificationManager.notify(1, notification);
 
     }
 
-    private Notification buildMessage(NotificationCompat.Builder builder, RemoteMessage remoteMessage){
+    private Notification popupMessage(NotificationCompat.Builder builder, RemoteMessage remoteMessage){
         String title = remoteMessage.getNotification().getTitle();
         String body = remoteMessage.getNotification().getBody();
+
         _log.simple("in buildMessage local key"+  remoteMessage.getNotification().getBodyLocalizationKey());
         _log.simple("in buildMessage Priority"+  remoteMessage.getNotification().getNotificationPriority());
         _log.simple("in buildMessage local args"+  remoteMessage.getNotification().getBodyLocalizationArgs());
