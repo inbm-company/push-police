@@ -18,7 +18,6 @@ import org.json.JSONObject;
 public class SettingActivity extends AppCompatActivity {
     private final String serverUrl = "http://192.168.10.152:3000/";
     private CheckBox checkBox;
-    private Boolean isReady;
     private String userId;
 
 
@@ -29,7 +28,6 @@ public class SettingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         userId = intent.getStringExtra("userId");
 
-//        _log.simple(userId);
         checkBox = findViewById(R.id.allowPushCheck);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
@@ -41,7 +39,6 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
-        isReady = false;
 
 
         getIsAllawedPush();
@@ -51,11 +48,7 @@ public class SettingActivity extends AppCompatActivity {
         onBackPressed();
     }
 
-    public void onChangeCheck (View view) {
-
-
-    }
-
+//    현재 사용자의 푸시 허용상태를 가져옴
     public void getIsAllawedPush(){
         new Thread(() -> {
             try {
@@ -72,6 +65,7 @@ public class SettingActivity extends AppCompatActivity {
         }).start();
     }
 
+    //    현재 사용자의 푸시 허용상태를 바꾸는것을 요청함
     public void setIsAllowedPush() throws JSONException {
         Boolean allow = checkBox.isChecked();
         JSONObject paramObject = new JSONObject();

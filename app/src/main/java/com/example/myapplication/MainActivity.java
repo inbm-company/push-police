@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Boolean doClickEvent = intent.getBooleanExtra("notiClick",false);
+
+//        push 클릭하여 앱을 실행할경우 이벤트 시행
         if(doClickEvent){
             notiClickEvent();
         }
@@ -66,7 +68,10 @@ public class MainActivity extends AppCompatActivity {
         setLayout();
         setWebView();
 
+//        토큰이 새로 발행되었는데 onNewToken이 발생하지 않을경우 호출 할것
         uploadToken();
+//        현재 테스트를위해 web의 호출이 없더라도 splash 화면을 지움
+        removeSplashScreen();
     }
 
     private void setLayout() {
@@ -101,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickMenu(View view) {
-        androidBridge.call_js_func();
         openDrawer(drawerLayout);
     }
 
@@ -116,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void notiClickEvent(){
-
         new Thread(()->{
             try {
                 _web.post(serverUrl+"read","{\"userId\":\"userid04\",\"msgId\":\"msg1234\"}");
@@ -169,18 +172,11 @@ public class MainActivity extends AppCompatActivity {
     public void clickSetting(View view) {
         Intent intent = new Intent(this, SettingActivity.class );
         intent.putExtra("userId", userId);
-//        changeLayout(intent);
-        startActivity(intent);
-    }
-
-
-
-    private void changeLayout(Intent intent) {
         startActivity(intent);
     }
 
     public void clickLogout(View view) {
-        androidBridge.call_logout_func();
+        androidBridge.callJsLogout();
     }
 
 
@@ -195,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void uploadToken(){
+//        현재 기기의 토큰값을 가져옴
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {

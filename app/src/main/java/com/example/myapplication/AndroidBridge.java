@@ -24,8 +24,9 @@ public class AndroidBridge {
         webView.loadUrl(url);
     }
 
+//    web에 로그를 찍어줌
     @JavascriptInterface
-    public void call_log( final String _message){
+    public void callJsLog( final String _message){
         Log.d(TAG, _message);
         handler.post(new Runnable() {
             @Override
@@ -35,18 +36,9 @@ public class AndroidBridge {
         });
     }
 
+//   web의 로그아웃 기능 호출
     @JavascriptInterface
-    public void call_js_func(){
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                webView.loadUrl("javascript:showAndroidToast('test')");
-            }
-        });
-    }
-
-    @JavascriptInterface
-    public void call_logout_func(){
+    public void callJsLogout(){
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -55,12 +47,14 @@ public class AndroidBridge {
         });
     }
 
+// web에서 Android.showToast() 호출시 앱에서 토스트 뛰움
     @JavascriptInterface
     public void showToast(String msg) {
         Toast.makeText(mainActivity.getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 
     }
 
+// web에서 렌더링 완료시 Android.onReady() 호출
     @JavascriptInterface
     public void onReady(String userId) {
         mainActivity.setUserId(userId);

@@ -36,6 +36,7 @@ public class FirebaseMessageService extends FirebaseMessagingService {
         super.onCreate();
     }
 
+//    fcm 토큰 재발급 시에 호출됨
     @Override
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
@@ -49,6 +50,7 @@ public class FirebaseMessageService extends FirebaseMessagingService {
 
     }
 
+//    알림을 받을시에 호출
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
