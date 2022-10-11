@@ -8,13 +8,6 @@
     <include layout="@layout/main_appbar" />
 
 
-<!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="click"-->
-<!--        android:onClick="ClickSettingBtn"-->
-<!--        />-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,13 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="푸시 허용"
-            />
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:id="@+id/allowPushCheck"
+            android:text="버전정보"
             />
 
     </LinearLayout>

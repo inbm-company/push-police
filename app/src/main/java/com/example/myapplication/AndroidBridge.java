@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.os.Handler;
-import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.widget.Toast;
@@ -24,21 +23,28 @@ public class AndroidBridge {
         webView.loadUrl(url);
     }
 
-//    web에 로그를 찍어줌
+    // web 로그인 페이지 로딩 완료
     @JavascriptInterface
-    public void callJsLog( final String _message){
-        Log.d(TAG, _message);
-        handler.post(new Runnable() {
+    public void readyWebview( ){
+        _log.simple("로그인 페이지");
+        Toast.makeText(mainActivity.getApplicationContext(), "로그인 페이지", Toast.LENGTH_SHORT).show();
+
+        new Handler().post(new Runnable() {
             @Override
             public void run() {
-                webView.loadUrl("javascript:alert('["+ _message +"]   ')");
+                mainActivity.removeSplashScreen();
             }
         });
     }
 
-//   web의 로그아웃 기능 호출
+    // web 로그인 완료 후 userID 전달
     @JavascriptInterface
-    public void callJsLogout(){
+    public void readyWebview(String userID ){
+        Toast.makeText(mainActivity.getApplicationContext(), userID, Toast.LENGTH_SHORT).show();
+    }
+
+    @JavascriptInterface
+    public void clickLogout(){
         handler.post(new Runnable() {
             @Override
             public void run() {
