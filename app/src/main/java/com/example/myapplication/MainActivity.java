@@ -1,10 +1,8 @@
 package com.example.myapplication;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
-import android.os.Build;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,8 +15,11 @@ import android.view.View;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.view.ViewTreeObserver;
+import android.webkit.ConsoleMessage;
+import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
@@ -27,9 +28,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingService;
-
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -40,13 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
     private final String serverUrl = "http://192.168.10.152:3000/";
 
-    private final String homeUrl = "http://192.168.10.152:5500/";
-    private final String noticeUrl = "http://192.168.10.152:5500/notice";
-    private final String chatbotUrl = "http://192.168.10.152:5500/chatbot";
-    private final String purchaseUrl = "http://192.168.10.152:5500/";
-    private final String pushHistoryUrl = "http://192.168.10.152:5500/history";
+    private final String homeUrl = "https://bgi.police.go.kr/police/";
+    private final String noticeUrl = homeUrl+"notice.do";
+    private final String chatbotUrl = homeUrl+"user-chatbot.do";
+    private final String purchaseUrl = homeUrl+"user-sc.do";
+    private final String pushHistoryUrl = homeUrl+"user-notification.do";
 
-    private String url = homeUrl;
+    private String url = homeUrl+"user-login.do";
 
     private AndroidBridge androidBridge;
 
@@ -69,9 +67,9 @@ public class MainActivity extends AppCompatActivity {
         setWebView();
 
 //        토큰이 새로 발행되었는데 onNewToken이 발생하지 않을경우 호출 할것
-        uploadToken();
+//        uploadToken();
 //        현재 테스트를위해 web의 호출이 없더라도 splash 화면을 지움
-        removeSplashScreen();
+  //            removeSplashScreen();
     }
 
     private void setLayout() {
@@ -85,13 +83,36 @@ public class MainActivity extends AppCompatActivity {
 
     private void setWebView() {
         webView = (WebView) findViewById(R.id.mainWebView);
+
+        // javaScript 허용
         webView.getSettings().setJavaScriptEnabled(true);
+        // local storage 허용
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.getSettings().setDefaultTextEncodingName("UTF-8");
 
         webView.loadUrl(url);
-        webView.setWebChromeClient(new WebChromeClient());
-        webView.setWebViewClient(new WebViewClientClass());
-
         androidBridge = new AndroidBridge(webView, MainActivity.this);
+
+        // for webview debugging in chrome
+        webView.setWebContentsDebuggingEnabled(true);
+        webView.setWebChromeClient(new WebChromeClientClass());
+        webView.setWebViewClient(new WebViewClient() {
+            public void onPageFinished(WebView view, String url) {
+                _log.e("setWebView onPageStarted url:: "+ url);
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                _log.e("setWebView onPageStarted url:: "+ url);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                _log.e("setWebView onReceivedError error:: "+ error.getErrorCode());
+            }
+        });
 
         webView.addJavascriptInterface(androidBridge, "Android");
     }
@@ -170,24 +191,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickSetting(View view) {
-        Intent intent = new Intent(this, SettingActivity.class );
+        Intent intent = new Intent(this, VersionInfoActivity.class );
         intent.putExtra("userId", userId);
         startActivity(intent);
     }
 
     public void clickLogout(View view) {
-        androidBridge.callJsLogout();
+        androidBridge.clickLogout();
     }
 
+    private static class WebChromeClientClass extends WebChromeClient {
 
+        @Override public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+            return super.onJsAlert(view, url, message, result);
+        }
 
-    private static class WebViewClientClass extends WebViewClient {
-
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
+        public boolean onConsoleMessage(ConsoleMessage cm) {
+            _log.simple("MyApplication"+cm.message() + " -- From line "+ cm.lineNumber() + " of "+ cm.sourceId() );
             return true;
         }
+
     }
 
     private void uploadToken(){

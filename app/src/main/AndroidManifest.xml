@@ -29,17 +29,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingActivity"
+            android:name=".VersionInfoActivity"
             android:theme="@style/Theme.MyApplication.NoActionBar"
             >
 
         </activity>
-        <activity
-            android:name=".ResultActivity"
-            android:launchMode="singleTask"
-            android:taskAffinity=""
-            android:excludeFromRecents="true">
-        </activity>
+<!--        <activity-->
+<!--            android:name=".ResultActivisty"-->
+<!--            android:launchMode="singleTask"-->
+<!--            android:taskAffinity=""-->
+<!--            android:excludeFromRecents="true">-->
+<!--        </activity>-->
         <service
             android:name=".FirebaseMessageService"
             android:exported="true"
