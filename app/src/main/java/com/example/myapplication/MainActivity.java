@@ -67,9 +67,7 @@ public class MainActivity extends AppCompatActivity {
         setWebView();
 
 //        토큰이 새로 발행되었는데 onNewToken이 발생하지 않을경우 호출 할것
-//        uploadToken();
-//        현재 테스트를위해 web의 호출이 없더라도 splash 화면을 지움
-  //            removeSplashScreen();
+       //uploadToken();
     }
 
     private void setLayout() {
@@ -78,7 +76,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void removeSplashScreen(){
-        frameLayout.removeAllViews();
+        runOnUiThread(new Runnable() {
+            public void run() {
+                frameLayout.removeAllViews();
+            }
+        });
+
     }
 
     private void setWebView() {
@@ -88,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         // local storage 허용
         webView.getSettings().setDomStorageEnabled(true);
+        String userAgent = webView.getSettings().getUserAgentString();
+        webView.getSettings().setUserAgentString(userAgent+" android_app");
         webView.getSettings().setDefaultTextEncodingName("UTF-8");
 
         webView.loadUrl(url);
@@ -114,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        webView.addJavascriptInterface(androidBridge, "Android");
+        webView.addJavascriptInterface(androidBridge, "android");
     }
 
 
@@ -161,43 +166,46 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public void clickHome(View view){
-        changeUrl(homeUrl);
-        closeDrawer(drawerLayout);
-    }
-
-    public void clickNotice(View view) {
-        changeUrl(noticeUrl);
-        closeDrawer(drawerLayout);
-    }
-
-    public void clickChatbot(View view){
-        changeUrl(chatbotUrl);
-        closeDrawer(drawerLayout);
-    }
-
-    public void clickPurchase(View view){
-        changeUrl(purchaseUrl);
-        closeDrawer(drawerLayout);
-    }
-
+    // 알림목록
     public void clickPushHistory (View view){
         changeUrl(pushHistoryUrl);
         closeDrawer(drawerLayout);
     }
 
-    private void changeUrl(String newUrl){
-        androidBridge.setUrl(newUrl);
+    // 제출한 증명서
+    public void clickPurchase(View view){
+        changeUrl(purchaseUrl);
+        closeDrawer(drawerLayout);
     }
 
-    public void clickSetting(View view) {
+    // 공지사항
+    public void clickNotice(View view) {
+        changeUrl(noticeUrl);
+        closeDrawer(drawerLayout);
+    }
+
+    // 챗봇
+    public void clickChatbot(View view){
+        changeUrl(chatbotUrl);
+        closeDrawer(drawerLayout);
+    }
+
+    // 버전 정보
+    public void clickVersion(View view) {
+        closeDrawer(drawerLayout);
         Intent intent = new Intent(this, VersionInfoActivity.class );
         intent.putExtra("userId", userId);
         startActivity(intent);
     }
 
+    // 로그아웃
     public void clickLogout(View view) {
+        closeDrawer(drawerLayout);
         androidBridge.clickLogout();
+    }
+
+    private void changeUrl(String newUrl){
+        androidBridge.setUrl(newUrl);
     }
 
     private static class WebChromeClientClass extends WebChromeClient {
@@ -213,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void uploadToken(){
+    public void uploadToken(){
 //        현재 기기의 토큰값을 가져옴
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
@@ -229,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("token to server" , token);
 //                    TODO: body 로 묶기 {userId, token }
                     try {
-                        _web.post(serverUrl+"token", "{\"userId\":\"userid04\",\"token\": \""+token +"\"}");
+                        _web.post(serverUrl+"token", "{\"userId\":\""+getUserId() +"\",\"token\": \""+token +"\"}");
                     } catch (Exception e) {
                         _log.e(e.getMessage());
                     }

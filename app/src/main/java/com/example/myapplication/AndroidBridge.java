@@ -2,9 +2,9 @@ package com.example.myapplication;
 
 import android.os.Handler;
 import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.widget.Toast;
-
 
 public class AndroidBridge {
 
@@ -41,30 +41,31 @@ public class AndroidBridge {
     @JavascriptInterface
     public void readyWebview(String userID ){
         Toast.makeText(mainActivity.getApplicationContext(), userID, Toast.LENGTH_SHORT).show();
-    }
-
-    @JavascriptInterface
-    public void clickLogout(){
-        handler.post(new Runnable() {
+        new Handler().post(new Runnable() {
             @Override
             public void run() {
-                webView.loadUrl("javascript:logout()");
+                mainActivity.setUserId(userID);
+                // 토큰 정보 전달
+                mainActivity.uploadToken();
             }
         });
     }
 
-// web에서 Android.showToast() 호출시 앱에서 토스트 뛰움
+    public void clickLogout(){
+        mainActivity.runOnUiThread(() ->
+            webView.evaluateJavascript("javascript:clickLogout()", new ValueCallback<String>() {
+                @Override
+                public void onReceiveValue(String value) {
+                    _log.e("test logout result");
+                }
+            })
+        );
+    }
+
+    // web에서 Android.showToast() 호출시 앱에서 토스트 뛰움
     @JavascriptInterface
     public void showToast(String msg) {
         Toast.makeText(mainActivity.getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-
-    }
-
-// web에서 렌더링 완료시 Android.onReady() 호출
-    @JavascriptInterface
-    public void onReady(String userId) {
-        mainActivity.setUserId(userId);
-        mainActivity.removeSplashScreen();
 
     }
 
