@@ -31,33 +31,31 @@
                 />
         </FrameLayout>
     </LinearLayout>
-
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="홈"
+        android:text="알림목록"
         android:textAlignment="center"
         android:gravity = "center"
-        android:onClick="clickHome"
+        android:onClick="clickPushHistory"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="제출한 증명서"
+        android:textAlignment="center"
+        android:gravity = "center"
+        android:onClick="clickPurchase"
         android:textColor="@color/black"
         />
     <TextView
         android:layout_width="match_parent"
          android:layout_height="50dp"
-        android:text="공지"
+        android:text="공지사항"
         android:textAlignment="center"
         android:gravity = "center"
         android:onClick="clickNotice"
-        android:textColor="@color/black"
-        />
-    <TextView
-        android:layout_width="match_parent"
-         android:layout_height="50dp"
-        android:text="설정"
-        android:textAlignment="center"
-        android:gravity = "center"
-        android:onClick="clickSetting"
         android:textColor="@color/black"
         />
     <TextView
@@ -72,10 +70,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="전자지갑"
+        android:text="버전정보"
         android:textAlignment="center"
         android:gravity = "center"
-        android:onClick="clickPurchase"
+        android:onClick="clickVersion"
         android:textColor="@color/black"
         />
     <TextView
