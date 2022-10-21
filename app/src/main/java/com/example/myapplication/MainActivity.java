@@ -1,54 +1,66 @@
 package com.example.myapplication;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.webkit.ConsoleMessage;
-import android.webkit.JsResult;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.myapplication.common.Constants;
+import com.example.myapplication.fragment.TgtrFragment;
+import com.example.myapplication.fragment.VersionInfoFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
-    private WebView webView;
-    private FrameLayout frameLayout;
 
-    private final String serverUrl = "http://192.168.10.152:3000/";
+    private FrameLayout splashFl;
 
-    private final String homeUrl = "https://bgi.police.go.kr/police/";
-    private final String noticeUrl = homeUrl+"notice.do";
-    private final String chatbotUrl = homeUrl+"user-chatbot.do";
-    private final String purchaseUrl = homeUrl+"user-sc.do";
-    private final String pushHistoryUrl = homeUrl+"user-notification.do";
+    private RelativeLayout toolbarIcon;
 
-    private String url = homeUrl+"user-login.do";
+    private Toolbar toolbar;
 
-    private AndroidBridge androidBridge;
+    private LinearLayout pushHistoryLl;
+    private LinearLayout purchaseLl;
+    private LinearLayout introducingItemLl;
+    private LinearLayout noticeBoardItemLl;
 
-    private String userId;
+    private FragmentTransaction transaction;
+    private FragmentManager fragmentManager;
+
+    private TextView loginLogoutTv;
+
+    private String userId = "";
+    private String backStr;
+
+    private Toast toast;
+
+    private long backKeyPressedTime = 0;
+
+    private TgtrFragment tgtrFragment;
+    private VersionInfoFragment versionInfoFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,88 +68,107 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = getIntent();
-        Boolean doClickEvent = intent.getBooleanExtra("notiClick",false);
+        Boolean doClickEvent = intent.getBooleanExtra("notiClick", false);
 
-//        push 클릭하여 앱을 실행할경우 이벤트 시행
-        if(doClickEvent){
+        // push 클릭하여 앱을 실행할경우 이벤트 시행
+        if (doClickEvent) {
             notiClickEvent();
         }
 
         setLayout();
-        setWebView();
-
-//        토큰이 새로 발행되었는데 onNewToken이 발생하지 않을경우 호출 할것
-       //uploadToken();
+        setupFragment();
+        changeLoginAndLogoutMenu();
     }
 
     private void setLayout() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.mainDrawerView);
-        frameLayout = (FrameLayout)  findViewById(R.id.mainFrameLayout);
+        drawerLayout = findViewById(R.id.mainDrawerView);
+        splashFl = findViewById(R.id.splash_fl);
+        toolbarIcon = findViewById(R.id.toolbar_icon);
+        toolbar = findViewById(R.id.toolbar);
+        pushHistoryLl = findViewById(R.id.push_history_ll);
+        purchaseLl = findViewById(R.id.purchase_ll);
+        introducingItemLl = findViewById(R.id.introducing_item_ll);
+        noticeBoardItemLl = findViewById(R.id.notice_board_item_ll);
+        loginLogoutTv = findViewById(R.id.login_logout_tv);
+
+        backStr = this.getResources().getString(R.string.back_presssed);
+        setToolbar("nor");
     }
 
-    protected void removeSplashScreen(){
-        runOnUiThread(new Runnable() {
-            public void run() {
-                frameLayout.removeAllViews();
-            }
-        });
-
+    /**
+     * 앱 실행시 시작하는 프래그먼트
+     */
+    private void setupFragment() {
+        fragmentManager = getSupportFragmentManager();
+        transaction = fragmentManager.beginTransaction();
+        tgtrFragment = TgtrFragment.newInstance();
+        transaction.add(R.id.frame_layout, tgtrFragment).commitNow();
     }
 
-    private void setWebView() {
-        webView = (WebView) findViewById(R.id.mainWebView);
-
-        // javaScript 허용
-        webView.getSettings().setJavaScriptEnabled(true);
-        // local storage 허용
-        webView.getSettings().setDomStorageEnabled(true);
-        String userAgent = webView.getSettings().getUserAgentString();
-        webView.getSettings().setUserAgentString(userAgent+" android_app");
-        webView.getSettings().setDefaultTextEncodingName("UTF-8");
-
-        webView.loadUrl(url);
-        androidBridge = new AndroidBridge(webView, MainActivity.this);
-
-        // for webview debugging in chrome
-        webView.setWebContentsDebuggingEnabled(true);
-        webView.setWebChromeClient(new WebChromeClientClass());
-        webView.setWebViewClient(new WebViewClient() {
-            public void onPageFinished(WebView view, String url) {
-                _log.e("setWebView onPageStarted url:: "+ url);
-            }
-
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
-                _log.e("setWebView onPageStarted url:: "+ url);
-            }
-
-            @Override
-            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-                super.onReceivedError(view, request, error);
-                _log.e("setWebView onReceivedError error:: "+ error.getErrorCode());
-            }
-        });
-
-        webView.addJavascriptInterface(androidBridge, "android");
+    /**
+     * 로그상태에 따른 메뉴 분기
+     *
+     * @param status
+     */
+    private void setToolbar(String status) {
+        if (status.equals("nor")) {
+            // 메인 화면, 로그인 화면
+            toolbarIcon.setVisibility(View.GONE);
+        } else {
+            // 나머지 화면
+            toolbarIcon.setVisibility(View.VISIBLE);
+        }
     }
 
-
+    /**
+     * DrawerLayout open
+     *
+     * @param drawerLayout
+     */
     private void openDrawer(DrawerLayout drawerLayout) {
-        drawerLayout.openDrawer(GravityCompat.START);
+        drawerLayout.openDrawer(GravityCompat.END);
     }
 
-    private void  closeDrawer(DrawerLayout drawerLayout){
-        drawerLayout.closeDrawer(GravityCompat.START);
+    /**
+     * drawerLayout close
+     *
+     * @param drawerLayout
+     */
+    private void closeDrawer(DrawerLayout drawerLayout) {
+        drawerLayout.closeDrawer(GravityCompat.END);
     }
 
+    public void changeFragment(String page) {
+        fragmentManager = getSupportFragmentManager();
+        transaction = fragmentManager.beginTransaction();
+
+        if (page.equals("version")) {
+            toolbar.setVisibility(View.GONE);
+            if (versionInfoFragment == null) {
+                versionInfoFragment = VersionInfoFragment.newInstance();
+                transaction.add(R.id.frame_layout, versionInfoFragment).commit();
+            } else {
+                transaction.replace(R.id.frame_layout, versionInfoFragment).commit();
+            }
+        } else {
+            toolbar.setVisibility(View.VISIBLE);
+
+            if (tgtrFragment == null) {
+                tgtrFragment = TgtrFragment.newInstance();
+                transaction.add(R.id.frame_layout, tgtrFragment).commitNow();
+            } else {
+                transaction.replace(R.id.frame_layout, tgtrFragment).commit();
+            }
+        }
+    }
+
+    // 햄버거 메뉴 버튼
     public void clickMenu(View view) {
         openDrawer(drawerLayout);
     }
 
-
     public void setUserId(String id) {
-        _log.simple("set id"+id);
+        _log.simple("set id" + id);
         this.userId = id;
     }
 
@@ -145,99 +176,223 @@ public class MainActivity extends AppCompatActivity {
         return userId;
     }
 
-    public void notiClickEvent(){
-        new Thread(()->{
+    /**
+     * 로그인/로그아웃 메뉴 상태 수정
+     */
+    public void changeLoginAndLogoutMenu() {
+        runOnUiThread(() -> {
+            pushHistoryLl.setVisibility(View.GONE);
+            purchaseLl.setVisibility(View.GONE);
+
+            if (getUserId().isEmpty()) {
+                loginLogoutTv.setText("로그인");
+            } else {
+                loginLogoutTv.setText("로그아웃");
+                pushHistoryLl.setVisibility(View.VISIBLE);
+                purchaseLl.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    /**
+     * push 알림 항목 클릭
+     */
+    public void notiClickEvent() {
+        new Thread(() -> {
             try {
-                _web.post(serverUrl+"read","{\"userId\":\"userid04\",\"msgId\":\"msg1234\"}");
+                _web.post(Constants.serverUrl + "read", "{\"userId\":\"userid04\",\"msgId\":\"msg1234\"}");
             } catch (Exception e) {
                 _log.e(e.getMessage());
             }
         }).start();
     }
 
-//=======================================================================
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()){
-            webView.goBack();
-            return true;
+    /**
+     * 알림목록 메뉴 클릭
+     * @param view
+     */
+    public void clickPushHistory(View view) {
+        if (tgtrFragment != null) {
+            tgtrFragment.changeUrl(Constants.pushHistoryUrl);
         }
 
-        return super.onKeyDown(keyCode, event);
-    }
-
-    // 알림목록
-    public void clickPushHistory (View view){
-        changeUrl(pushHistoryUrl);
         closeDrawer(drawerLayout);
     }
 
-    // 제출한 증명서
-    public void clickPurchase(View view){
-        changeUrl(purchaseUrl);
+    /**
+     * 제출한 증명서 메뉴 클릭
+     * @param view
+     */
+    public void clickPurchase(View view) {
+        if (tgtrFragment != null) {
+            tgtrFragment.changeUrl(Constants.purchaseUrl);
+        }
+
         closeDrawer(drawerLayout);
     }
 
-    // 공지사항
+    /**
+     * 소개 폴더 클릭
+     * @param view
+     */
+    public void clickIntroducing(View view) {
+        int visibility = introducingItemLl.getVisibility();
+
+        if (visibility == 0) {
+            introducingItemLl.setVisibility(View.GONE);
+        } else {
+            introducingItemLl.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * 시스템 소개 메뉴 클릭
+     * @param view
+     */
+    public void clickIntroSystem(View view) {
+        _log.e("시스템 소개 클릭::" + view);
+        if (tgtrFragment != null) {
+            tgtrFragment.changeUrl(Constants.introducingUrl);
+        }
+
+        closeDrawer(drawerLayout);
+    }
+
+    /**
+     * 법적근거 메뉴 클릭
+     * @param view
+     */
+    public void clickLegalBasis(View view) {
+        _log.e("법적근거 클릭::" + view);
+        if (tgtrFragment != null) {
+            tgtrFragment.changeUrl(Constants.legalBasisUrl);
+        }
+
+        closeDrawer(drawerLayout);
+    }
+
+    /**
+     * 게시판 폴더 클릭
+     * @param view
+     */
+    public void clickNoticeBoard(View view) {
+        int visibility = noticeBoardItemLl.getVisibility();
+
+        if (visibility == 0) {
+            noticeBoardItemLl.setVisibility(View.GONE);
+        } else {
+            noticeBoardItemLl.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * 공지사항 메뉴 클릭
+     * @param view
+     */
     public void clickNotice(View view) {
-        changeUrl(noticeUrl);
+        if (tgtrFragment != null) {
+            tgtrFragment.changeUrl(Constants.noticeUrl);
+        }
+
         closeDrawer(drawerLayout);
     }
 
-    // 챗봇
-    public void clickChatbot(View view){
-        changeUrl(chatbotUrl);
+    /**
+     * 자주 묻는 질문 메뉴 클릭
+     * @param view
+     */
+    public void clickFaq(View view) {
+        if (tgtrFragment != null) {
+            tgtrFragment.changeUrl(Constants.faqUrl);
+        }
+
         closeDrawer(drawerLayout);
     }
 
-    // 버전 정보
+    /**
+     * Q&A 메뉴 클릭
+     * @param view
+     */
+    public void clickQa(View view) {
+        if (tgtrFragment != null) {
+            tgtrFragment.changeUrl(Constants.qaUrl);
+        }
+
+        closeDrawer(drawerLayout);
+    }
+
+    /**
+     * 챗봇 메뉴 클릭
+     * @param view
+     */
+    public void clickChatbot(View view) {
+        if (tgtrFragment != null) {
+            tgtrFragment.changeUrl(Constants.chatbotUrl);
+        }
+
+        closeDrawer(drawerLayout);
+    }
+
+    /**
+     * 버전정보 메뉴 클릭
+     * @param view
+     */
     public void clickVersion(View view) {
         closeDrawer(drawerLayout);
-        Intent intent = new Intent(this, VersionInfoActivity.class );
-        intent.putExtra("userId", userId);
-        startActivity(intent);
+        changeFragment("version");
     }
 
-    // 로그아웃
-    public void clickLogout(View view) {
+    /**
+     * 로그인/로그아웃 메뉴 클릭
+     * @param view
+     */
+    public void clickLoginAndLogout(View view) {
+        _log.e("test login and logout" + getUserId());
+        if (getUserId().isEmpty()) {
+            if (tgtrFragment != null) {
+                tgtrFragment.changeUrl(Constants.loginUrl);
+            }
+        } else {
+            if (tgtrFragment != null) {
+                tgtrFragment.clickLogout();
+            }
+        }
+
         closeDrawer(drawerLayout);
-        androidBridge.clickLogout();
     }
 
-    private void changeUrl(String newUrl){
-        androidBridge.setUrl(newUrl);
+    /**
+     * splash 화면 안보이게 처리
+     */
+    public void removeSplashScreen() {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                splashFl.removeAllViews();
+            }
+        });
     }
 
-    private static class WebChromeClientClass extends WebChromeClient {
-
-        @Override public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-            return super.onJsAlert(view, url, message, result);
-        }
-
-        public boolean onConsoleMessage(ConsoleMessage cm) {
-            _log.simple("MyApplication"+cm.message() + " -- From line "+ cm.lineNumber() + " of "+ cm.sourceId() );
-            return true;
-        }
-
-    }
-
-    public void uploadToken(){
-//        현재 기기의 토큰값을 가져옴
+    /**
+     * 토근 값 전송
+     */
+    public void uploadToken() {
+        // 현재 기기의 토큰값을 가져옴
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
 
-                if(!task.isSuccessful()){
-                    Log.e("fcm fail get token", "fail to get token");
+                if (!task.isSuccessful()) {
+                    _log.e("fcm fail get token");
                     return;
                 }
+
                 String token = task.getResult();
-                Log.d("fcm token onComplete", token);
-                new Thread(()->{
-                    Log.d("token to server" , token);
-//                    TODO: body 로 묶기 {userId, token }
+                new Thread(() -> {
                     try {
-                        _web.post(serverUrl+"token", "{\"userId\":\""+getUserId() +"\",\"token\": \""+token +"\"}");
+                        JSONObject data = new JSONObject();
+                        data.put("appToken", token);
+                        data.put("perCrtUid", "(주)강원랜드-2022-0071-0001");
+                        _web.post(Constants.serverUrl + "app/token.do", data.toString());
                     } catch (Exception e) {
                         _log.e(e.getMessage());
                     }
@@ -246,9 +401,27 @@ public class MainActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.e("err:failed get token", e.getLocalizedMessage());
+                Log.e("failed get token", e.getLocalizedMessage());
             }
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+
+            toast = Toast.makeText(this, backStr, Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            toast.cancel();
+            this.finish();
+            finishAffinity();
+            System.runFinalization();
+            // 메뉴 언어 변경 후 백키로 종료, 앱 실행시 언어 변경이 안돼 주석 처리 함.
+            System.exit(0);
+        }
+    }
 }
