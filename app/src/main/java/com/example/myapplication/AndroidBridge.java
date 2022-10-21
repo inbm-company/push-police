@@ -1,10 +1,16 @@
 package com.example.myapplication;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Handler;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.widget.Toast;
+
+import com.example.myapplication.fragment.TgtrFragment;
+
+import androidx.fragment.app.Fragment;
 
 public class AndroidBridge {
 
@@ -12,11 +18,11 @@ public class AndroidBridge {
     final public Handler handler = new Handler();
 
     private WebView webView;
-    private MainActivity mainActivity;
+    private Fragment fragment;
 
-    public AndroidBridge(WebView _webView, MainActivity _mainActivity) {
-        webView = _webView;
-        mainActivity = _mainActivity;
+    public AndroidBridge(Fragment fragment, WebView webView) {
+        this.webView = webView;
+        this.fragment = fragment;
     }
 
     public void setUrl(String url){
@@ -26,13 +32,14 @@ public class AndroidBridge {
     // web 로그인 페이지 로딩 완료
     @JavascriptInterface
     public void readyWebview( ){
-        _log.simple("로그인 페이지");
-        Toast.makeText(mainActivity.getApplicationContext(), "로그인 페이지", Toast.LENGTH_SHORT).show();
+        _log.e("test 메인화면 페이지");
+        Toast.makeText(fragment.getContext(), "로그인 페이지", Toast.LENGTH_SHORT).show();
 
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                mainActivity.removeSplashScreen();
+                _log.e("test removesplace");
+                ((TgtrFragment) fragment).removeSplashScreen();
             }
         });
     }
@@ -40,33 +47,29 @@ public class AndroidBridge {
     // web 로그인 완료 후 userID 전달
     @JavascriptInterface
     public void readyWebview(String userID ){
-        Toast.makeText(mainActivity.getApplicationContext(), userID, Toast.LENGTH_SHORT).show();
+        Toast.makeText(fragment.getContext(), userID, Toast.LENGTH_SHORT).show();
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                mainActivity.setUserId(userID);
-                // 토큰 정보 전달
-                mainActivity.uploadToken();
+                ((TgtrFragment) fragment).setUserId(userID);
             }
         });
     }
 
     public void clickLogout(){
-        mainActivity.runOnUiThread(() ->
-            webView.evaluateJavascript("javascript:clickLogout()", new ValueCallback<String>() {
-                @Override
-                public void onReceiveValue(String value) {
-                    _log.e("test logout result");
-                }
-            })
-        );
+        webView.evaluateJavascript("javascript:clickLogout()", new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String value) {
+                _log.e("test logout result");
+                ((TgtrFragment) fragment).setUserId("");
+            }
+        });
     }
 
     // web에서 Android.showToast() 호출시 앱에서 토스트 뛰움
     @JavascriptInterface
     public void showToast(String msg) {
-        Toast.makeText(mainActivity.getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(fragment.getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
 }

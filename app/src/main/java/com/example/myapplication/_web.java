@@ -61,7 +61,7 @@ public class _web {
             response = client.newCall(request).execute();
             html = response.body().string();
         } catch (Exception e) {
-//            _log.m("post error", e.getMessage());
+            _log.m("post error", e.getMessage());
             throw new Exception();
         }
         return html;

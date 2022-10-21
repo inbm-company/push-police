@@ -3,89 +3,254 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawerMenu"
-    >
+    android:id="@+id/drawerMenu">
 
+    <!-- 알림목록 -->
     <LinearLayout
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent">
-
-        <FrameLayout
-            android:layout_width="wrap_content"
+        android:id="@+id/push_history_ll"
+        android:layout_width="match_parent"
+        android:layout_height="50px"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_marginLeft="10px"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_notice"/>
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            >
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@android:drawable/ic_notification_overlay"
-                android:contentDescription="TODO" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_notice"
-                android:onClick="clickPushHistory"
-                />
-        </FrameLayout>
+            android:layout_marginLeft="8px"
+            android:text="알림목록"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:onClick="clickPushHistory"
+            />
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="알림목록"
-        android:textAlignment="center"
-        android:gravity = "center"
-        android:onClick="clickPushHistory"
-        android:textColor="@color/black"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="제출한 증명서"
-        android:textAlignment="center"
-        android:gravity = "center"
-        android:onClick="clickPurchase"
-        android:textColor="@color/black"
-        />
-    <TextView
-        android:layout_width="match_parent"
-         android:layout_height="50dp"
-        android:text="공지사항"
-        android:textAlignment="center"
-        android:gravity = "center"
-        android:onClick="clickNotice"
-        android:textColor="@color/black"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="챗봇"
-        android:textAlignment="center"
-        android:gravity = "center"
-        android:onClick="clickChatbot"
-        android:textColor="@color/black"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="버전정보"
-        android:textAlignment="center"
-        android:gravity = "center"
-        android:onClick="clickVersion"
-        android:textColor="@color/black"
-        />
-    <TextView
-        android:layout_width="match_parent"
-         android:layout_height="50dp"
-        android:text="로그아웃"
-        android:textAlignment="center"
-        android:gravity = "center"
-        android:onClick="clickLogout"
-        android:textColor="@color/black"
-        />
 
+    <!-- 제출한 증명서 -->
+    <LinearLayout
+        android:id="@+id/purchase_ll"
+        android:layout_width="match_parent"
+        android:layout_height="50px"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_marginLeft="10px"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_notice"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8px"
+            android:text="제출한 증명서"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:onClick="clickPurchase"
+            />
+    </LinearLayout>
 
+    <!-- 소개 -->
+    <LinearLayout
+        android:id="@+id/introducing_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_marginLeft="10px"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_notice"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8px"
+                android:text="소개"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:onClick="clickIntroducing"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/introducing_item_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="8px"
+                android:text="시스템 소개"
+                android:layout_marginStart="48px"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:onClick="clickIntroSystem"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="8px"
+                android:text="법적근거"
+                android:layout_marginStart="48px"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:onClick="clickLegalBasis"
+                />
+        </LinearLayout>
+    </LinearLayout>
 
+    <!-- 게시판 -->
+    <LinearLayout
+        android:id="@+id/notice_board_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_marginLeft="10px"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_notice"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8px"
+                android:text="게시판"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:onClick="clickNoticeBoard"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/notice_board_item_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="8px"
+                android:text="공지사항"
+                android:layout_marginStart="48px"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:onClick="clickNotice"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="8px"
+                android:text="자주묻는 질문"
+                android:layout_marginStart="48px"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:onClick="clickFaq"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="8px"
+                android:text="Q&amp;A"
+                android:layout_marginStart="48px"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:onClick="clickQa"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 챗봇 -->
+    <LinearLayout
+        android:id="@+id/chatbot_ll"
+        android:layout_width="match_parent"
+        android:layout_height="50px"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_marginLeft="10px"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_notice"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8px"
+            android:text="챗봇"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:onClick="clickChatbot"
+            />
+    </LinearLayout>
+
+    <!-- 버전정보 -->
+    <LinearLayout
+        android:id="@+id/version_info_ll"
+        android:layout_width="match_parent"
+        android:layout_height="50px"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_marginLeft="10px"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_notice"/>
+        <TextView
+            android:id="@+id/version_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8px"
+            android:text="버전정보"
+            android:textAlignment="textStart"
+            android:onClick="clickVersion"
+            android:textColor="@color/black"></TextView>
+            />
+    </LinearLayout>
+
+    <!-- 로그인/로그아웃 -->
+    <LinearLayout
+        android:id="@+id/login_logout_ll"
+        android:layout_width="match_parent"
+        android:layout_height="50px"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_marginLeft="10px"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_notice"/>
+        <TextView
+            android:id="@+id/login_logout_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8px"
+            android:text="로그인"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:onClick="clickLoginAndLogout"
+            />
+    </LinearLayout>
 </LinearLayout>
