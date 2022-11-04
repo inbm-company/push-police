@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -44,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
     private LinearLayout pushHistoryLl;
     private LinearLayout purchaseLl;
-    private LinearLayout introducingItemLl;
     private LinearLayout noticeBoardItemLl;
 
     private FragmentTransaction transaction;
@@ -62,10 +63,14 @@ public class MainActivity extends AppCompatActivity {
     private TgtrFragment tgtrFragment;
     private VersionInfoFragment versionInfoFragment;
 
+    private SharedPreferences pref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        pref = getSharedPreferences("police", MODE_PRIVATE);
 
         Intent intent = getIntent();
         Boolean doClickEvent = intent.getBooleanExtra("notiClick", false);
@@ -75,9 +80,9 @@ public class MainActivity extends AppCompatActivity {
             notiClickEvent();
         }
 
+        uploadToken();
         setLayout();
         setupFragment();
-        changeLoginAndLogoutMenu();
     }
 
     private void setLayout() {
@@ -87,12 +92,13 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         pushHistoryLl = findViewById(R.id.push_history_ll);
         purchaseLl = findViewById(R.id.purchase_ll);
-        introducingItemLl = findViewById(R.id.introducing_item_ll);
         noticeBoardItemLl = findViewById(R.id.notice_board_item_ll);
         loginLogoutTv = findViewById(R.id.login_logout_tv);
 
         backStr = this.getResources().getString(R.string.back_presssed);
-        setToolbar("nor");
+
+        changeLoginAndLogoutMenu();
+        setVisibilityToolbarIcon();
     }
 
     /**
@@ -103,21 +109,6 @@ public class MainActivity extends AppCompatActivity {
         transaction = fragmentManager.beginTransaction();
         tgtrFragment = TgtrFragment.newInstance();
         transaction.add(R.id.frame_layout, tgtrFragment).commitNow();
-    }
-
-    /**
-     * 로그상태에 따른 메뉴 분기
-     *
-     * @param status
-     */
-    private void setToolbar(String status) {
-        if (status.equals("nor")) {
-            // 메인 화면, 로그인 화면
-            toolbarIcon.setVisibility(View.GONE);
-        } else {
-            // 나머지 화면
-            toolbarIcon.setVisibility(View.VISIBLE);
-        }
     }
 
     /**
@@ -138,12 +129,62 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.closeDrawer(GravityCompat.END);
     }
 
+    /**
+     * drawer layout close
+     */
+    public void callCloseDrawer(){
+        _log.e("test close::"+ drawerLayout );
+        if(drawerLayout != null){
+            _log.e("test close::"+ drawerLayout );
+            closeDrawer(drawerLayout);
+        }
+    }
+
+    /**
+     * drawer layout 오픈 상태 리턴
+     * @return
+     */
+    public boolean getIsDrawerOpen(){
+        return drawerLayout.isDrawerOpen(GravityCompat.END);
+    }
+
+    /**
+     * toolbar icon visibility
+     *
+     */
+    public void setVisibilityToolbarIcon(){
+        ImageButton btnPushHistory = findViewById(R.id.btn_push_history);
+        ImageButton btnPurchase = findViewById(R.id.btn_purchase);
+        ImageButton btnChatbot = findViewById(R.id.btn_chatbot);
+
+        runOnUiThread(() -> {
+            btnPushHistory.setVisibility(View.GONE);
+            btnPurchase.setVisibility(View.GONE);
+            btnChatbot.setVisibility(View.VISIBLE);
+
+            if (!getUserId().isEmpty()) {
+                btnPushHistory.setVisibility(View.VISIBLE);
+                btnPurchase.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    /**
+     * toolbar visibility
+     *
+     * @param visibility
+     */
+    public void setVisibilityToolbar(int visibility) {
+        _log.e("test setVisibilityToolbar::"+visibility);
+        toolbar.setVisibility(visibility);
+    }
+
     public void changeFragment(String page) {
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
 
         if (page.equals("version")) {
-            toolbar.setVisibility(View.GONE);
+            setVisibilityToolbar(View.GONE);
             if (versionInfoFragment == null) {
                 versionInfoFragment = VersionInfoFragment.newInstance();
                 transaction.add(R.id.frame_layout, versionInfoFragment).commit();
@@ -151,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                 transaction.replace(R.id.frame_layout, versionInfoFragment).commit();
             }
         } else {
-            toolbar.setVisibility(View.VISIBLE);
+            setVisibilityToolbar(View.VISIBLE);
 
             if (tgtrFragment == null) {
                 tgtrFragment = TgtrFragment.newInstance();
@@ -173,7 +214,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getUserId() {
-        return userId;
+       return this.userId;
+    }
+
+    public void setToken(String token) {
+        _log.e("test setToken::"+ token);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("token", token);
+        editor.apply();
+    }
+
+    public String getToken() {
+        _log.e("test setToken::"+ pref.getString("token", ""));
+        return pref.getString("token", "");
     }
 
     /**
@@ -186,10 +239,12 @@ public class MainActivity extends AppCompatActivity {
 
             if (getUserId().isEmpty()) {
                 loginLogoutTv.setText("로그인");
+               // setVisibilityToolbar(View.visi);
             } else {
                 loginLogoutTv.setText("로그아웃");
                 pushHistoryLl.setVisibility(View.VISIBLE);
                 purchaseLl.setVisibility(View.VISIBLE);
+                //setVisibilityToolbar(View.VISIBLE);
             }
         });
     }
@@ -205,6 +260,20 @@ public class MainActivity extends AppCompatActivity {
                 _log.e(e.getMessage());
             }
         }).start();
+    }
+
+    /**
+     * 로고 클릭
+     */
+    public void gotoMain(View view) {
+        if (tgtrFragment != null) {
+            if(getUserId().isEmpty()){
+                tgtrFragment.changeUrl(Constants.mainUrl);
+            }else{
+                tgtrFragment.changeUrl(Constants.indexUrl);
+            }
+
+        }
     }
 
     /**
@@ -226,46 +295,6 @@ public class MainActivity extends AppCompatActivity {
     public void clickPurchase(View view) {
         if (tgtrFragment != null) {
             tgtrFragment.changeUrl(Constants.purchaseUrl);
-        }
-
-        closeDrawer(drawerLayout);
-    }
-
-    /**
-     * 소개 폴더 클릭
-     * @param view
-     */
-    public void clickIntroducing(View view) {
-        int visibility = introducingItemLl.getVisibility();
-
-        if (visibility == 0) {
-            introducingItemLl.setVisibility(View.GONE);
-        } else {
-            introducingItemLl.setVisibility(View.VISIBLE);
-        }
-    }
-
-    /**
-     * 시스템 소개 메뉴 클릭
-     * @param view
-     */
-    public void clickIntroSystem(View view) {
-        _log.e("시스템 소개 클릭::" + view);
-        if (tgtrFragment != null) {
-            tgtrFragment.changeUrl(Constants.introducingUrl);
-        }
-
-        closeDrawer(drawerLayout);
-    }
-
-    /**
-     * 법적근거 메뉴 클릭
-     * @param view
-     */
-    public void clickLegalBasis(View view) {
-        _log.e("법적근거 클릭::" + view);
-        if (tgtrFragment != null) {
-            tgtrFragment.changeUrl(Constants.legalBasisUrl);
         }
 
         closeDrawer(drawerLayout);
@@ -319,6 +348,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         closeDrawer(drawerLayout);
+
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(intent, 100);
     }
 
     /**
@@ -387,10 +421,13 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 String token = task.getResult();
+                setToken(token);
+
                 new Thread(() -> {
                     try {
                         JSONObject data = new JSONObject();
                         data.put("appToken", token);
+                        // 대상자로 변경해야 함.
                         data.put("perCrtUid", "(주)강원랜드-2022-0071-0001");
                         _web.post(Constants.serverUrl + "app/token.do", data.toString());
                     } catch (Exception e) {
@@ -408,6 +445,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        // drawer open시
+        if(getIsDrawerOpen()){
+            callCloseDrawer();
+            return;
+        }
+
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             backKeyPressedTime = System.currentTimeMillis();
 
@@ -420,7 +464,6 @@ public class MainActivity extends AppCompatActivity {
             this.finish();
             finishAffinity();
             System.runFinalization();
-            // 메뉴 언어 변경 후 백키로 종료, 앱 실행시 언어 변경이 안돼 주석 처리 함.
             System.exit(0);
         }
     }
