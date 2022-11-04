@@ -33,7 +33,7 @@ public class AndroidBridge {
     @JavascriptInterface
     public void readyWebview( ){
         _log.e("test 메인화면 페이지");
-        Toast.makeText(fragment.getContext(), "로그인 페이지", Toast.LENGTH_SHORT).show();
+        Toast.makeText(fragment.getContext(), "메인 페이지", Toast.LENGTH_SHORT).show();
 
         new Handler().post(new Runnable() {
             @Override
@@ -56,12 +56,30 @@ public class AndroidBridge {
         });
     }
 
+    // 토큰 값 요청 호출
+    @JavascriptInterface
+    public String getToken(){
+        Toast.makeText(fragment.getContext(), "gettoken", Toast.LENGTH_SHORT).show();
+
+        _log.e("test app token::" + ((TgtrFragment) fragment).getMainActivity().getToken());
+        return ((TgtrFragment) fragment).getMainActivity().getToken();
+    }
+
     public void clickLogout(){
         webView.evaluateJavascript("javascript:clickLogout()", new ValueCallback<String>() {
             @Override
             public void onReceiveValue(String value) {
                 _log.e("test logout result");
                 ((TgtrFragment) fragment).setUserId("");
+            }
+        });
+    }
+
+    public void clearStorage() {
+        webView.evaluateJavascript("javascript:clearStorage()", new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String value) {
+                _log.e("test clearstorage result");
             }
         });
     }

@@ -14,4 +14,13 @@
         <item name="android:colorBackground">@color/white</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <!-- dialog 테마 -->
+    <style name="Theme.Transparent" parent="Theme.AppCompat">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
 </resources>

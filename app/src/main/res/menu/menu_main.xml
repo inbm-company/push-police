@@ -5,6 +5,23 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:title="게시판"
+        android:icon="@drawable/ic_notice"
+        >
+        <menu>
+            <item
+                android:id="@+id/action_settings2"
+                android:orderInCategory="100"
+                android:title="공지사항"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_settings3"
+                android:orderInCategory="100"
+                android:title="자주 묻는 질문"
+                android:icon="@drawable/ic_notice"
+                app:showAsAction="never"/>
+        </menu>
+    </item>
+
+
 </menu>

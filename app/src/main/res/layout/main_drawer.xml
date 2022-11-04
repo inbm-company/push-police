@@ -3,8 +3,23 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawerMenu">
-
+    android:id="@+id/drawerMenu"
+    android:background="@color/drawer_bg"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="56dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="159dp"
+        android:layout_gravity="center_horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ></ImageView>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></ImageView>
+    </LinearLayout>
     <!-- 알림목록 -->
     <LinearLayout
         android:id="@+id/push_history_ll"
@@ -17,7 +32,7 @@
             android:layout_height="40px"
             android:layout_marginLeft="10px"
             android:layout_gravity="center"
-            android:src="@drawable/ic_notice"/>
+            android:src="@mipmap/forum"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,11 +52,11 @@
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="40px"
-            android:layout_height="40px"
+            android:layout_width="@dimen/icon_w"
+            android:layout_height="@dimen/icon_h"
             android:layout_marginLeft="10px"
             android:layout_gravity="center"
-            android:src="@drawable/ic_notice"/>
+            android:src="@mipmap/forum"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,65 +68,7 @@
             />
     </LinearLayout>
 
-    <!-- 소개 -->
-    <LinearLayout
-        android:id="@+id/introducing_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50px"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="40px"
-                android:layout_height="40px"
-                android:layout_marginLeft="10px"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_notice"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8px"
-                android:text="소개"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:onClick="clickIntroducing"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/introducing_item_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10px"
-                android:layout_marginLeft="8px"
-                android:text="시스템 소개"
-                android:layout_marginStart="48px"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:onClick="clickIntroSystem"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10px"
-                android:layout_marginLeft="8px"
-                android:text="법적근거"
-                android:layout_marginStart="48px"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:onClick="clickLegalBasis"
-                />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- 게시판 -->
+     <!-- 게시판 -->
     <LinearLayout
         android:id="@+id/notice_board_ll"
         android:layout_width="match_parent"
@@ -123,11 +80,11 @@
             android:layout_height="50px"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="40px"
-                android:layout_height="40px"
+                android:layout_width="@dimen/icon_w"
+                android:layout_height="@dimen/icon_h"
                 android:layout_marginLeft="10px"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_notice"/>
+                android:src="@mipmap/forum"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

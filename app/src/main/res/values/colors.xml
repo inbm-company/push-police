@@ -31,4 +31,6 @@
     <color name="colorAccent">#239F40</color>
     <color name="error_color">#ff30f2</color>
 
+    <color name="drawer_bg">#F20F2C56</color>
+
 </resources>

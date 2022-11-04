@@ -18,4 +18,7 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">192.168.0.24</domain>
     </domain-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">bgi.police.go.kr</domain>
+    </domain-config>
 </network-security-config>
