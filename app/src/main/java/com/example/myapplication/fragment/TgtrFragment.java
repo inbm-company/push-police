@@ -400,8 +400,8 @@ public class TgtrFragment extends Fragment {
      */
     public void setUserId(String userID){
         if(!userID.isEmpty()){
-            // 로그인 직후 호출시
-            ((MainActivity) getActivity()).uploadToken();
+            // 로그인 직후 token 전달 api 실행
+            ((MainActivity) getActivity()).appToken();
         }
 
         ((MainActivity) getActivity()).setUserId(userID);

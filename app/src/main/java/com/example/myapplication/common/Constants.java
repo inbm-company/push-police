@@ -16,4 +16,7 @@ public class Constants {
     public static final String faqUrl = homeUrl+"user-faq.do";
     public static final String qaUrl = homeUrl+"user-qa.do";
 
+    //api
+    public static final String appToken = serverUrl+"app/token.do";
+
 }

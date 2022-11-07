@@ -407,6 +407,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * token api
+     */
+    public void appToken() {
+        new Thread(() -> {
+            try {
+                JSONObject data = new JSONObject();
+                data.put("appToken", getToken());
+                // 대상자로 변경해야 함.
+                data.put("perCrtUid", "(주)강원랜드-2022-0071-0001");
+                _web.post(Constants.appToken, data.toString());
+            } catch (Exception e) {
+                _log.e(e.getMessage());
+            }
+        }).start();
+    }
+
+    /**
      * 토근 값 전송
      */
     public void uploadToken() {
@@ -422,18 +439,6 @@ public class MainActivity extends AppCompatActivity {
 
                 String token = task.getResult();
                 setToken(token);
-
-                new Thread(() -> {
-                    try {
-                        JSONObject data = new JSONObject();
-                        data.put("appToken", token);
-                        // 대상자로 변경해야 함.
-                        data.put("perCrtUid", "(주)강원랜드-2022-0071-0001");
-                        _web.post(Constants.serverUrl + "app/token.do", data.toString());
-                    } catch (Exception e) {
-                        _log.e(e.getMessage());
-                    }
-                }).start();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
