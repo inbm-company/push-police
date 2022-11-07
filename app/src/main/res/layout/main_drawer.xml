@@ -38,8 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8px"
             android:text="알림목록"
+            android:textSize="18sp"
+            android:textColor="@color/white"
             android:textAlignment="textStart"
-            android:textColor="@color/black"
             android:onClick="clickPushHistory"
             />
     </LinearLayout>
@@ -63,7 +64,8 @@
             android:layout_marginLeft="8px"
             android:text="제출한 증명서"
             android:textAlignment="textStart"
-            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textColor="@color/white"
             android:onClick="clickPurchase"
             />
     </LinearLayout>
@@ -91,7 +93,8 @@
                 android:layout_marginLeft="8px"
                 android:text="게시판"
                 android:textAlignment="textStart"
-                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textColor="@color/white"
                 android:onClick="clickNoticeBoard"
                 />
         </LinearLayout>
@@ -109,7 +112,8 @@
                 android:text="공지사항"
                 android:layout_marginStart="48px"
                 android:textAlignment="textStart"
-                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textColor="@color/white"
                 android:onClick="clickNotice"
                 />
             <TextView
@@ -120,7 +124,8 @@
                 android:text="자주묻는 질문"
                 android:layout_marginStart="48px"
                 android:textAlignment="textStart"
-                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textColor="@color/white"
                 android:onClick="clickFaq"
                 />
             <TextView
@@ -131,7 +136,8 @@
                 android:text="Q&amp;A"
                 android:layout_marginStart="48px"
                 android:textAlignment="textStart"
-                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textColor="@color/white"
                 android:onClick="clickQa"
                 />
         </LinearLayout>
@@ -149,14 +155,15 @@
             android:layout_height="40px"
             android:layout_marginLeft="10px"
             android:layout_gravity="center"
-            android:src="@drawable/ic_notice"/>
+            android:src="@mipmap/forum"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8px"
             android:text="챗봇"
             android:textAlignment="textStart"
-            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textColor="@color/white"
             android:onClick="clickChatbot"
             />
     </LinearLayout>
@@ -173,7 +180,7 @@
             android:layout_height="40px"
             android:layout_marginLeft="10px"
             android:layout_gravity="center"
-            android:src="@drawable/ic_notice"/>
+            android:src="@mipmap/forum"/>
         <TextView
             android:id="@+id/version_tv"
             android:layout_width="match_parent"
@@ -182,7 +189,9 @@
             android:text="버전정보"
             android:textAlignment="textStart"
             android:onClick="clickVersion"
-            android:textColor="@color/black"></TextView>
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            ></TextView>
             />
     </LinearLayout>
 
@@ -198,7 +207,7 @@
             android:layout_height="40px"
             android:layout_marginLeft="10px"
             android:layout_gravity="center"
-            android:src="@drawable/ic_notice"/>
+            android:src="@mipmap/forum"/>
         <TextView
             android:id="@+id/login_logout_tv"
             android:layout_width="match_parent"
@@ -206,7 +215,8 @@
             android:layout_marginLeft="8px"
             android:text="로그인"
             android:textAlignment="textStart"
-            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textColor="@color/white"
             android:onClick="clickLoginAndLogout"
             />
     </LinearLayout>
