@@ -46,12 +46,12 @@ public class AndroidBridge {
 
     // web 로그인 완료 후 userID 전달
     @JavascriptInterface
-    public void readyWebview(String userID ){
-        Toast.makeText(fragment.getContext(), userID, Toast.LENGTH_SHORT).show();
+    public void readyWebview(String userCI ){
+        Toast.makeText(fragment.getContext(), userCI, Toast.LENGTH_SHORT).show();
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                ((TgtrFragment) fragment).setUserId(userID);
+                ((TgtrFragment) fragment).setUserCI(userCI);
             }
         });
     }
@@ -70,7 +70,7 @@ public class AndroidBridge {
             @Override
             public void onReceiveValue(String value) {
                 _log.e("test logout result");
-                ((TgtrFragment) fragment).setUserId("");
+                ((TgtrFragment) fragment).setUserCI("");
             }
         });
     }

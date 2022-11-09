@@ -396,15 +396,15 @@ public class TgtrFragment extends Fragment {
 
     /**
      * 로그인 직후 호출 및 사용자 정보 수정시에 사용 함.
-     * @param userID
+     * @param userCI
      */
-    public void setUserId(String userID){
-        if(!userID.isEmpty()){
+    public void setUserCI(String userCI){
+        if(!userCI.isEmpty()){
             // 로그인 직후 token 전달 api 실행
             ((MainActivity) getActivity()).appToken();
         }
 
-        ((MainActivity) getActivity()).setUserId(userID);
+        ((MainActivity) getActivity()).setUserCI(userCI);
         ((MainActivity) getActivity()).changeLoginAndLogoutMenu();
         ((MainActivity) getActivity()).setVisibilityToolbarIcon();
 
