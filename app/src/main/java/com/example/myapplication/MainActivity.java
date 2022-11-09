@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             btnPurchase.setVisibility(View.GONE);
             btnChatbot.setVisibility(View.VISIBLE);
 
-            if (!getUserId().isEmpty()) {
+            if (!getUserCI().isEmpty()) {
                 btnPushHistory.setVisibility(View.VISIBLE);
                 btnPurchase.setVisibility(View.VISIBLE);
             }
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void setVisibilityToolbar(int visibility) {
         _log.e("test setVisibilityToolbar::"+visibility);
-        toolbar.setVisibility(visibility);
+        //toolbar.setVisibility(visibility);
     }
 
     public void changeFragment(String page) {
@@ -208,12 +208,12 @@ public class MainActivity extends AppCompatActivity {
         openDrawer(drawerLayout);
     }
 
-    public void setUserId(String id) {
+    public void setUserCI(String id) {
         _log.simple("set id" + id);
         this.userId = id;
     }
 
-    public String getUserId() {
+    public String getUserCI() {
        return this.userId;
     }
 
@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
             pushHistoryLl.setVisibility(View.GONE);
             purchaseLl.setVisibility(View.GONE);
 
-            if (getUserId().isEmpty()) {
+            if (getUserCI().isEmpty()) {
                 loginLogoutTv.setText("로그인");
                // setVisibilityToolbar(View.visi);
             } else {
@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void gotoMain(View view) {
         if (tgtrFragment != null) {
-            if(getUserId().isEmpty()){
+            if(getUserCI().isEmpty()){
                 tgtrFragment.changeUrl(Constants.mainUrl);
             }else{
                 tgtrFragment.changeUrl(Constants.indexUrl);
@@ -381,8 +381,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void clickLoginAndLogout(View view) {
-        _log.e("test login and logout" + getUserId());
-        if (getUserId().isEmpty()) {
+        _log.e("test login and logout" + getUserCI());
+        if (getUserCI().isEmpty()) {
             if (tgtrFragment != null) {
                 tgtrFragment.changeUrl(Constants.loginUrl);
             }
@@ -415,8 +415,9 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject data = new JSONObject();
                 data.put("appToken", getToken());
                 // 대상자로 변경해야 함.
-                data.put("perCrtUid", "(주)강원랜드-2022-0071-0001");
-                _web.post(Constants.appToken, data.toString());
+                data.put("memberCi", getUserCI());
+                String result = _web.post(Constants.appToken, data.toString());
+                _log.e("test result::"+ result);
             } catch (Exception e) {
                 _log.e(e.getMessage());
             }
