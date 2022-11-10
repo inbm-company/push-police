@@ -2,4 +2,8 @@
     <dimen name="fab_margin">48dp</dimen>
     <dimen name="icon_w">16dp</dimen>
     <dimen name="icon_h">20dp</dimen>
+    <dimen name="drawer_start">20dp</dimen>
+    <dimen name="drawer_end">20dp</dimen>
+    <dimen name="drawer_logt_t">73dp</dimen>
+    <dimen name="drawer_logt_b">36dp</dimen>
 </resources>

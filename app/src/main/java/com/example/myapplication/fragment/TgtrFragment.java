@@ -305,21 +305,26 @@ public class TgtrFragment extends Fragment {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            return super.shouldOverrideUrlLoading(view, request);
+            if(isFirstLoad){
+                clearStorage();
+            }
+            isFirstLoad = false;
+            return true;
+            //return super.shouldOverrideUrlLoading(view, request);
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
 
-            if(url.contains("user-introducing-system.do") ||
-                    url.contains("user-legal-basis.do") ||
-                    url.contains("user-notice.do") ||
-                    url.contains("user-faq.do") ||
-                    url.contains("user-qa.do") ){
-                ((MainActivity) getActivity()).setVisibilityToolbar(View.GONE);
-            }else{
-                ((MainActivity) getActivity()).setVisibilityToolbar(View.VISIBLE);
-            }
+//            if(url.contains("user-introducing-system.do") ||
+//                    url.contains("user-legal-basis.do") ||
+//                    url.contains("user-notice.do") ||
+//                    url.contains("user-faq.do") ||
+//                    url.contains("user-qa.do") ){
+//                ((MainActivity) getActivity()).setVisibilityToolbar(View.GONE);
+//            }else{
+//                ((MainActivity) getActivity()).setVisibilityToolbar(View.VISIBLE);
+//            }
             _log.e("test onPageStarted(url:"+url+ ", isFirstLoad:"+isFirstLoad+")");
             super.onPageStarted(view, url, favicon);
 
@@ -329,11 +334,6 @@ public class TgtrFragment extends Fragment {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             _log.e("test fragment (url:"+url+")"+isFirstLoad);
-
-            if(isFirstLoad){
-               clearStorage();
-            }
-            isFirstLoad = false;
         }
 
         @Override
@@ -396,15 +396,15 @@ public class TgtrFragment extends Fragment {
 
     /**
      * 로그인 직후 호출 및 사용자 정보 수정시에 사용 함.
-     * @param userID
+     * @param userCI
      */
-    public void setUserId(String userID){
-        if(!userID.isEmpty()){
-            // 로그인 직후 호출시
-            ((MainActivity) getActivity()).uploadToken();
+    public void setUserCI(String userCI){
+        if(!userCI.isEmpty()){
+            // 로그인 직후 token 전달 api 실행
+            ((MainActivity) getActivity()).appToken();
         }
 
-        ((MainActivity) getActivity()).setUserId(userID);
+        ((MainActivity) getActivity()).setUserCI(userCI);
         ((MainActivity) getActivity()).changeLoginAndLogoutMenu();
         ((MainActivity) getActivity()).setVisibilityToolbarIcon();
 
