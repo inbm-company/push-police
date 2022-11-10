@@ -305,21 +305,26 @@ public class TgtrFragment extends Fragment {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            return super.shouldOverrideUrlLoading(view, request);
+            if(isFirstLoad){
+                clearStorage();
+            }
+            isFirstLoad = false;
+            return true;
+            //return super.shouldOverrideUrlLoading(view, request);
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
 
-            if(url.contains("user-introducing-system.do") ||
-                    url.contains("user-legal-basis.do") ||
-                    url.contains("user-notice.do") ||
-                    url.contains("user-faq.do") ||
-                    url.contains("user-qa.do") ){
-                ((MainActivity) getActivity()).setVisibilityToolbar(View.GONE);
-            }else{
-                ((MainActivity) getActivity()).setVisibilityToolbar(View.VISIBLE);
-            }
+//            if(url.contains("user-introducing-system.do") ||
+//                    url.contains("user-legal-basis.do") ||
+//                    url.contains("user-notice.do") ||
+//                    url.contains("user-faq.do") ||
+//                    url.contains("user-qa.do") ){
+//                ((MainActivity) getActivity()).setVisibilityToolbar(View.GONE);
+//            }else{
+//                ((MainActivity) getActivity()).setVisibilityToolbar(View.VISIBLE);
+//            }
             _log.e("test onPageStarted(url:"+url+ ", isFirstLoad:"+isFirstLoad+")");
             super.onPageStarted(view, url, favicon);
 
@@ -329,11 +334,6 @@ public class TgtrFragment extends Fragment {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             _log.e("test fragment (url:"+url+")"+isFirstLoad);
-
-            if(isFirstLoad){
-               clearStorage();
-            }
-            isFirstLoad = false;
         }
 
         @Override
