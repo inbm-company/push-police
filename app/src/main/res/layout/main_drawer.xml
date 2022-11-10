@@ -5,20 +5,28 @@
     android:layout_height="match_parent"
     android:id="@+id/drawerMenu"
     android:background="@color/drawer_bg"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
+    android:paddingLeft="@dimen/drawer_start"
+    android:paddingRight="@dimen/drawer_end"
     android:paddingBottom="56dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="159dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/drawer_logt_t"
+        android:layout_marginBottom="@dimen/drawer_logt_b"
         android:layout_gravity="center_horizontal">
-        <ImageView
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            ></ImageView>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></ImageView>
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                android:text="경찰청 \n신원조사 온라인 접수시스템"/>
+        </RelativeLayout>
     </LinearLayout>
     <!-- 알림목록 -->
     <LinearLayout
@@ -26,19 +34,21 @@
         android:layout_width="match_parent"
         android:layout_height="50px"
         android:layout_marginTop="40dp"
+        android:layout_marginStart="20px"
+        android:layout_marginEnd="20px"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="40px"
             android:layout_height="40px"
             android:layout_marginLeft="10px"
             android:layout_gravity="center"
-            android:src="@mipmap/forum"/>
+            android:src="@drawable/ic_push"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8px"
             android:text="알림목록"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="@color/white"
             android:textAlignment="textStart"
             android:onClick="clickPushHistory"
@@ -57,14 +67,14 @@
             android:layout_height="@dimen/icon_h"
             android:layout_marginLeft="10px"
             android:layout_gravity="center"
-            android:src="@mipmap/forum"/>
+            android:src="@drawable/ic_purchase"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8px"
             android:text="제출한 증명서"
             android:textAlignment="textStart"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="@color/white"
             android:onClick="clickPurchase"
             />
@@ -86,14 +96,14 @@
                 android:layout_height="@dimen/icon_h"
                 android:layout_marginLeft="10px"
                 android:layout_gravity="center"
-                android:src="@mipmap/forum"/>
+                android:src="@drawable/ic_notice"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8px"
                 android:text="게시판"
                 android:textAlignment="textStart"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textColor="@color/white"
                 android:onClick="clickNoticeBoard"
                 />
@@ -155,14 +165,14 @@
             android:layout_height="40px"
             android:layout_marginLeft="10px"
             android:layout_gravity="center"
-            android:src="@mipmap/forum"/>
+            android:src="@drawable/ic_chatbot"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8px"
             android:text="챗봇"
             android:textAlignment="textStart"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="@color/white"
             android:onClick="clickChatbot"
             />
@@ -180,7 +190,7 @@
             android:layout_height="40px"
             android:layout_marginLeft="10px"
             android:layout_gravity="center"
-            android:src="@mipmap/forum"/>
+            android:src="@drawable/ic_version"/>
         <TextView
             android:id="@+id/version_tv"
             android:layout_width="match_parent"
@@ -189,7 +199,7 @@
             android:text="버전정보"
             android:textAlignment="textStart"
             android:onClick="clickVersion"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="@color/white"
             ></TextView>
             />
@@ -207,7 +217,7 @@
             android:layout_height="40px"
             android:layout_marginLeft="10px"
             android:layout_gravity="center"
-            android:src="@mipmap/forum"/>
+            android:src="@drawable/ic_login"/>
         <TextView
             android:id="@+id/login_logout_tv"
             android:layout_width="match_parent"
@@ -215,7 +225,7 @@
             android:layout_marginLeft="8px"
             android:text="로그인"
             android:textAlignment="textStart"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="@color/white"
             android:onClick="clickLoginAndLogout"
             />
