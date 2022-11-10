@@ -1,9 +1,21 @@
 <resources>
-    <dimen name="fab_margin">200dp</dimen>
-    <dimen name="icon_w">16dp</dimen>
-    <dimen name="icon_h">20dp</dimen>
-    <dimen name="drawer_start">20dp</dimen>
-    <dimen name="drawer_end">20dp</dimen>
-    <dimen name="drawer_logt_t">73dp</dimen>
-    <dimen name="drawer_logt_b">36dp</dimen>
+    <dimen name="font_14">14sp</dimen>
+    <dimen name="font_20">20sp</dimen>
+
+    <dimen name="h_1">1dp</dimen>
+    <dimen name="size_1">1dp</dimen>
+    <dimen name="size_2">2dp</dimen>
+    <dimen name="size_5">5dp</dimen>
+    <dimen name="size_6">6dp</dimen>
+    <dimen name="size_8">8dp</dimen>
+    <dimen name="size_10">10dp</dimen>
+    <dimen name="size_12">12dp</dimen>
+    <dimen name="size_14">14dp</dimen>
+    <dimen name="size_16">16dp</dimen>
+    <dimen name="size_20">20dp</dimen>
+    <dimen name="size_35">35dp</dimen>
+    <dimen name="size_36">36dp</dimen>
+    <dimen name="size_38">38dp</dimen>
+    <dimen name="size_48">48dp</dimen>
+    <dimen name="size_73">73dp</dimen>
 </resources>

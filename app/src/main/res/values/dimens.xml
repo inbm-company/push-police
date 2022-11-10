@@ -1,10 +1,32 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="icon_w">16dp</dimen>
-    <dimen name="icon_h">20dp</dimen>
-    <dimen name="drawer_start">20dp</dimen>
-    <dimen name="drawer_end">20dp</dimen>
-    <dimen name="drawer_logt_t">73dp</dimen>
-    <dimen name="drawer_logt_b">36dp</dimen>
 
+    <!-- ldpi 120dp, 0.75px -->
+    <!-- mdpi 160dp, 1px -->
+    <!-- hdpi 240dp, 1.5px -->
+    <!-- xdpi 320dp, 2px -->
+    <!-- xxdpi 480dp, 3px -->
+    <!-- xxxdpi 640dp, 4px -->
+    <dimen name="font_14">14sp</dimen>
+    <dimen name="font_18">18sp</dimen>
+    <dimen name="font_20">20sp</dimen>
+
+    <dimen name="size_1">1dp</dimen>
+    <dimen name="size_2">2dp</dimen>
+    <dimen name="size_5">5dp</dimen>
+    <dimen name="size_6">6dp</dimen>
+    <dimen name="size_8">8dp</dimen>
+    <dimen name="size_10">10dp</dimen>
+    <dimen name="size_12">12dp</dimen>
+    <dimen name="size_14">14dp</dimen>
+    <dimen name="size_15">15dp</dimen>
+    <dimen name="size_16">16dp</dimen>
+    <dimen name="size_20">20dp</dimen>
+    <dimen name="size_22">22dp</dimen>
+    <dimen name="size_24">24dp</dimen>
+    <dimen name="size_35">35dp</dimen>
+    <dimen name="size_36">36dp</dimen>
+    <dimen name="size_38">38dp</dimen>
+    <dimen name="size_48">48dp</dimen>
+    <dimen name="size_50">50dp</dimen>
+    <dimen name="size_73">73dp</dimen>
 </resources>

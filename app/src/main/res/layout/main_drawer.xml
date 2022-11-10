@@ -5,50 +5,71 @@
     android:layout_height="match_parent"
     android:id="@+id/drawerMenu"
     android:background="@color/drawer_bg"
-    android:paddingLeft="@dimen/drawer_start"
-    android:paddingRight="@dimen/drawer_end"
+    android:paddingLeft="@dimen/size_20"
+    android:paddingRight="@dimen/size_20"
     android:paddingBottom="56dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/drawer_logt_t"
-        android:layout_marginBottom="@dimen/drawer_logt_b"
-        android:layout_gravity="center_horizontal">
+        android:layout_marginTop="@dimen/size_73"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:id="@+id/menu_logo"
+                android:layout_width="@dimen/size_48"
+                android:layout_height="@dimen/size_48"
+                android:src="@drawable/police_logo"/>
             <TextView
+                android:layout_toRightOf="@id/menu_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="@dimen/size_35"
+                android:textSize="@dimen/font_14"
                 android:textColor="@color/white"
                 android:text="경찰청 \n신원조사 온라인 접수시스템"/>
         </RelativeLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <View
+                android:id="@+id/line"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_1"
+                android:layout_weight="4"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white"/>
+            <ImageButton
+                android:layout_weight="1"
+                android:layout_marginStart="10px"
+                android:layout_width="@dimen/size_16"
+                android:layout_height="@dimen/size_16"
+                android:src="@drawable/ic_x"
+                android:background="@color/appbar"/>
+        </LinearLayout>
     </LinearLayout>
     <!-- 알림목록 -->
     <LinearLayout
         android:id="@+id/push_history_ll"
         android:layout_width="match_parent"
-        android:layout_height="50px"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="20px"
-        android:layout_marginEnd="20px"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_35"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="40px"
-            android:layout_height="40px"
-            android:layout_marginLeft="10px"
-            android:layout_gravity="center"
+            android:layout_width="@dimen/size_16"
+            android:layout_height="@dimen/size_24"
             android:src="@drawable/ic_push"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8px"
+            android:layout_marginLeft="@dimen/size_10"
             android:text="알림목록"
-            android:textSize="20sp"
+            android:textSize="@dimen/font_20"
             android:textColor="@color/white"
             android:textAlignment="textStart"
             android:onClick="clickPushHistory"
@@ -59,22 +80,23 @@
     <LinearLayout
         android:id="@+id/purchase_ll"
         android:layout_width="match_parent"
-        android:layout_height="50px"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_35"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="@dimen/icon_w"
-            android:layout_height="@dimen/icon_h"
+            android:layout_width="@dimen/size_16"
+            android:layout_height="@dimen/size_20"
             android:layout_marginLeft="10px"
             android:layout_gravity="center"
             android:src="@drawable/ic_purchase"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8px"
             android:text="제출한 증명서"
+            android:layout_marginLeft="@dimen/size_10"
             android:textAlignment="textStart"
-            android:textSize="20sp"
+            android:textSize="@dimen/font_20"
             android:textColor="@color/white"
             android:onClick="clickPurchase"
             />
@@ -85,25 +107,25 @@
         android:id="@+id/notice_board_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/size_35"
+        android:gravity="center_vertical"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50px"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="@dimen/icon_w"
-                android:layout_height="@dimen/icon_h"
-                android:layout_marginLeft="10px"
+                android:layout_width="@dimen/size_20"
+                android:layout_height="@dimen/size_20"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_notice"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8px"
+                android:layout_marginLeft="@dimen/size_10"
                 android:text="게시판"
                 android:textAlignment="textStart"
-                android:textSize="20sp"
+                android:textSize="@dimen/font_20"
                 android:textColor="@color/white"
                 android:onClick="clickNoticeBoard"
                 />
@@ -113,40 +135,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:layout_marginStart="@dimen/size_48"
+            android:visibility="visible">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10px"
-                android:layout_marginLeft="8px"
+                android:layout_marginTop="@dimen/size_15"
                 android:text="공지사항"
-                android:layout_marginStart="48px"
                 android:textAlignment="textStart"
-                android:textSize="18sp"
+                android:textSize="@dimen/font_18"
                 android:textColor="@color/white"
                 android:onClick="clickNotice"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10px"
-                android:layout_marginLeft="8px"
+                android:layout_marginTop="@dimen/size_15"
                 android:text="자주묻는 질문"
-                android:layout_marginStart="48px"
                 android:textAlignment="textStart"
-                android:textSize="18sp"
+                android:textSize="@dimen/font_18"
                 android:textColor="@color/white"
                 android:onClick="clickFaq"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10px"
-                android:layout_marginLeft="8px"
+                android:layout_marginTop="@dimen/size_15"
                 android:text="Q&amp;A"
-                android:layout_marginStart="48px"
                 android:textAlignment="textStart"
-                android:textSize="18sp"
+                android:textSize="@dimen/font_18"
                 android:textColor="@color/white"
                 android:onClick="clickQa"
                 />
@@ -157,22 +174,22 @@
     <LinearLayout
         android:id="@+id/chatbot_ll"
         android:layout_width="match_parent"
-        android:layout_height="50px"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_35"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="40px"
-            android:layout_height="40px"
-            android:layout_marginLeft="10px"
+            android:layout_width="@dimen/size_20"
+            android:layout_height="@dimen/size_20"
             android:layout_gravity="center"
             android:src="@drawable/ic_chatbot"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8px"
+            android:layout_marginLeft="@dimen/size_10"
             android:text="챗봇"
             android:textAlignment="textStart"
-            android:textSize="20sp"
+            android:textSize="@dimen/font_20"
             android:textColor="@color/white"
             android:onClick="clickChatbot"
             />
@@ -182,24 +199,24 @@
     <LinearLayout
         android:id="@+id/version_info_ll"
         android:layout_width="match_parent"
-        android:layout_height="50px"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_35"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="40px"
-            android:layout_height="40px"
-            android:layout_marginLeft="10px"
+            android:layout_width="@dimen/size_20"
+            android:layout_height="@dimen/size_20"
             android:layout_gravity="center"
             android:src="@drawable/ic_version"/>
         <TextView
             android:id="@+id/version_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8px"
+            android:layout_marginLeft="@dimen/size_10"
             android:text="버전정보"
             android:textAlignment="textStart"
             android:onClick="clickVersion"
-            android:textSize="20sp"
+            android:textSize="@dimen/font_20"
             android:textColor="@color/white"
             ></TextView>
             />
@@ -209,8 +226,9 @@
     <LinearLayout
         android:id="@+id/login_logout_ll"
         android:layout_width="match_parent"
-        android:layout_height="50px"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_35"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="40px"
