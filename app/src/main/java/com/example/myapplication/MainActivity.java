@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     private LinearLayout pushHistoryLl;
     private LinearLayout purchaseLl;
-    private LinearLayout noticeBoardItemLl;
+    private RelativeLayout noticeBoardItemLl;
 
     private FragmentTransaction transaction;
     private FragmentManager fragmentManager;
