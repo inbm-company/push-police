@@ -276,6 +276,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void clickCloseDrawer() {
+        closeDrawer(drawerLayout);
+    }
+
     /**
      * 알림목록 메뉴 클릭
      * @param view
