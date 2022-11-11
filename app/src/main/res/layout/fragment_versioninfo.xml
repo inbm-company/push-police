@@ -13,94 +13,80 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/appinform_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:collapseIcon="@drawable/ic_launcher_background">
+            android:layout_height="@dimen/size_56"
+            android:background="@color/bar_bg">
 
             <ImageButton
-                android:id="@+id/iv_toolbar_back"
+                android:id="@+id/iv_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginRight="12dp"
-                android:background="@drawable/ic_icons_back_basic_b"
-                android:src="?attr/selectableItemBackground" />
-
+                android:layout_marginStart="@dimen/size_20"
+                android:background="@drawable/ic_icons_back_basic_b" />
             <TextView
                 android:id="@+id/appinform_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="center"
                 android:text="@string/version_info"
-                android:textColor="@color/black"
-                android:textSize="20dp"
+                android:textColor="@color/bar_txt"
+                android:textSize="@dimen/font_15"
                 android:textStyle="normal" />
 
         </androidx.appcompat.widget.Toolbar>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingBottom="58dp">
+            android:layout_marginStart="@dimen/size_20"
+            android:layout_marginEnd="@dimen/size_20"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/ver_bg"
+                android:layout_below="@id/logo"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="@dimen/size_m_40"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/size_38">
+                <TextView
+                    android:id="@+id/tv_noti"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/size_60"
+                    android:gravity="center"
+                    android:textColor="@color/ver_msg_txt"
+                    android:textSize="@dimen/font_16" />
+                <TextView
+                    android:id="@+id/tv_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_10"
+                    android:text="현재버전 1.0.1"
+                    android:textColor="@color/ver_txt"
+                    android:textSize="@dimen/font_12" />
+
+                <Button
+                    android:id="@+id/btn_update"
+                    android:layout_width="154dp"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="@dimen/size_18"
+                    android:text="@string/update"
+                    android:textSize="@dimen/font_13"
+                    android:textColor="@color/white"
+                    android:background="@color/logo_txt1"/>
+            </LinearLayout>
 
             <ImageView
-                android:layout_width="125.7dp"
-                android:layout_height="123.5dp"
+                android:id="@+id/logo"
+                android:layout_width="@dimen/size_100"
+                android:layout_height="@dimen/size_100"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/logo" />
-
-            <TextView
-                android:id="@+id/tv_version"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_check_auth"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="81dp"
-                android:gravity="center"
-                android:text="현재버전 1.0.1"
-                android:textColor="@color/black80"
-                android:textSize="14dp" />
-
-            <TextView
-                android:id="@+id/tv_notification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_check_auth"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="28dp"
-                android:gravity="center"
-                android:text="@string/new_version"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/tv_non_new_version"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_check_auth"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="28dp"
-                android:gravity="center"
-                android:text="@string/non_new_version"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                android:visibility="gone" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_update"
-            android:layout_width="154dp"
-            android:layout_height="42dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="128dp"
-            android:text="@string/update"
-            android:textColor="@color/white" />
+                android:background="@drawable/police_logo" />
+        </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -108,8 +94,8 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:text="@string/about_app"
-            android:textColor="@color/black"
-            android:textSize="10dp"
+            android:textColor="@color/ver_footer"
+            android:textSize="@dimen/font_12"
             android:typeface="sans" />
     </RelativeLayout>
 

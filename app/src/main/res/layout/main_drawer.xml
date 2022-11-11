@@ -42,7 +42,7 @@
                 android:layout_height="@dimen/size_1"
                 android:layout_weight="4"
                 android:layout_gravity="center_vertical"
-                android:background="@color/white"/>
+                android:background="@color/black60"/>
             <ImageButton
                 android:layout_weight="1"
                 android:layout_marginStart="10px"
@@ -231,16 +231,15 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="40px"
-            android:layout_height="40px"
-            android:layout_marginLeft="10px"
+            android:layout_width="@dimen/size_20"
+            android:layout_height="@dimen/size_20"
             android:layout_gravity="center"
             android:src="@drawable/ic_login"/>
         <TextView
             android:id="@+id/login_logout_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8px"
+            android:layout_marginLeft="@dimen/size_10"
             android:text="로그인"
             android:textAlignment="textStart"
             android:textSize="20sp"

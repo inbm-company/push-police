@@ -25,12 +25,6 @@ public class VersionInfoFragment extends Fragment {
 
     View view;
 
-    ImageButton ivToolbarBack;
-    TextView tvVersion;
-    TextView tvNotification;
-    TextView tvNonNewVersion;
-    Button btnUpdate;
-
     // 경창청 스토어로 수정 필요
     private final String STORE_URL = "https://play.google.com/store/apps/details?id=com.police";
 
@@ -49,16 +43,14 @@ public class VersionInfoFragment extends Fragment {
     }
 
     private void buildUI() {
-        ivToolbarBack = view.findViewById(R.id.iv_toolbar_back);
-        tvVersion = view.findViewById(R.id.tv_version);
-        tvNotification = view.findViewById(R.id.tv_notification);
-        tvNonNewVersion = view.findViewById(R.id.tv_non_new_version);
-        btnUpdate = view.findViewById(R.id.btn_update);
+        ImageButton ivToolbarBack = view.findViewById(R.id.iv_back);
+        TextView tvVersion = view.findViewById(R.id.tv_version);
+        TextView tvNoti = view.findViewById(R.id.tv_noti);
+        Button btnUpdate = view.findViewById(R.id.btn_update);
 
         ivToolbarBack.setOnClickListener(v -> {
             ((MainActivity) getActivity()).changeFragment("tgtr");
         });
-        btnUpdate.setVisibility(View.GONE);
 
         String version = getResources().getString(R.string.app_cur_ver) + getVersionInfo(this.getContext());
         //버전정보 게시
@@ -67,6 +59,7 @@ public class VersionInfoFragment extends Fragment {
         //버전정보 맞지않으면 업데이트 버튼 보이게
         new GetMarketVersion(this.getContext()).execute();
 
+        btnUpdate.setVisibility(View.GONE);
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +72,11 @@ public class VersionInfoFragment extends Fragment {
         });
     }
 
+    /**
+     * 앱 버전 정보
+     * @param mContext
+     * @return
+     */
     public String getVersionInfo(Context mContext) {
         String version = null;
 
