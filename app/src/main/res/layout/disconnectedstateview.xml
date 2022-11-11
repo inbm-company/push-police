@@ -6,40 +6,37 @@
     android:background="@color/white">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:gravity="center"
+    android:layout_marginStart="@dimen/size_20"
+    android:layout_marginEnd="@dimen/size_20"
+    android:orientation="vertical">
         <ImageView
-            android:layout_width="128dp"
-            android:layout_height="128dp"
+            android:id="@+id/logo"
+            android:layout_width="@dimen/size_100"
+            android:layout_height="@dimen/size_100"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/error_icon" />
-
+            android:background="@drawable/police_logo" />
         <TextView
+            android:id="@+id/tv_notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/size_15"
+            android:gravity="center"
             android:text="@string/disconnect_content"
-            android:textAlignment="center"
-            android:textColor="#99000000"
-            android:textSize="16dp" />
-
+            android:textColor="@color/ver_txt"
+            android:textSize="@dimen/font_16" />
         <Button
-            android:id="@+id/btn_retry_connect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@color/transparent"
-            android:clickable="true"
-            android:text="@string/retry_connect"
-            android:textColor="#9536ff"
-            android:textSize="16dp" />
-
+            android:id="@+id/btn_update"
+            android:layout_width="@dimen/size_100"
+            android:layout_height="@dimen/size_35"
+            android:layout_marginTop="@dimen/size_35"
+            android:text="@string/retry"
+            android:textSize="@dimen/font_13"
+            android:textColor="@color/white"
+            android:background="@color/logo_txt1"/>
     </LinearLayout>
-
-
 </RelativeLayout>

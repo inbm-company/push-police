@@ -1,7 +1,10 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,14 +12,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class VersionInfoActivity extends AppCompatActivity {
     private final String serverUrl = "http://192.168.10.152:3000/";
-    private CheckBox checkBox;
-    private String userId;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_version);
+
+        initDisplay();
+    }
+
+    public void initDisplay() {
+        TextView tvNoti = findViewById(R.id.tv_noti);
+        TextView tvVersion = findViewById(R.id.tv_version);
+        Button btnUpdate = findViewById(R.id.btn_update);
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
 //    public void clickBack(View view){
@@ -55,8 +71,4 @@ public class VersionInfoActivity extends AppCompatActivity {
 //            }
 //        }).start();
 //    }
-
-    public void setCheckBoxValue (Boolean isAllow) {
-        checkBox.setChecked(isAllow);
-    }
 }
