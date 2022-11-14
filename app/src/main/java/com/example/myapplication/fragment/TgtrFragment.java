@@ -305,12 +305,13 @@ public class TgtrFragment extends Fragment {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            _log.e("test fragment "+isFirstLoad);
             if(isFirstLoad){
                 clearStorage();
             }
             isFirstLoad = false;
-            return true;
-            //return super.shouldOverrideUrlLoading(view, request);
+
+            return super.shouldOverrideUrlLoading(view, request);
         }
 
         @Override
@@ -333,6 +334,12 @@ public class TgtrFragment extends Fragment {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
+
+//            if(isFirstLoad){
+//                clearStorage();
+//            }
+//            isFirstLoad = false;
+            //return true;
             _log.e("test fragment (url:"+url+")"+isFirstLoad);
         }
 
