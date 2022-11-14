@@ -38,17 +38,17 @@
             android:orientation="horizontal">
             <View
                 android:id="@+id/line"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/size_1"
-                android:layout_weight="4"
                 android:layout_gravity="center_vertical"
                 android:background="@color/black60"/>
             <ImageButton
-                android:layout_weight="1"
+                android:id="@+id/drawer_close_btn"
                 android:layout_marginStart="10px"
                 android:layout_width="@dimen/size_16"
                 android:layout_height="@dimen/size_16"
                 android:src="@drawable/ic_x"
+                android:onClick="clickCloseDrawer"
                 android:background="@color/appbar"/>
         </LinearLayout>
     </LinearLayout>
@@ -102,7 +102,7 @@
             />
     </LinearLayout>
 
-     <!-- 게시판 -->
+    <!-- 게시판 -->
     <LinearLayout
         android:id="@+id/notice_board_ll"
         android:layout_width="match_parent"
@@ -130,36 +130,74 @@
                 android:onClick="clickNoticeBoard"
                 />
         </LinearLayout>
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/notice_board_item_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="@dimen/size_48"
+            android:layout_marginStart="@dimen/size_35"
             android:visibility="visible">
+            <View
+                android:id="@+id/dot_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_1"
+                android:background="@color/logo_txt2"
+                android:layout_marginTop="@dimen/size_15"
+                ></View>
+            <ImageView
+                android:id="@+id/notice_img"
+                android:layout_width="@dimen/size_20"
+                android:layout_height="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_8"
+                android:layout_alignTop="@id/notice_txt"
+                android:src="@drawable/ic_notice"/>
             <TextView
+                android:id="@+id/notice_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/dot_line"
                 android:layout_marginTop="@dimen/size_15"
+                android:layout_toRightOf="@id/notice_img"
                 android:text="공지사항"
                 android:textAlignment="textStart"
                 android:textSize="@dimen/font_18"
                 android:textColor="@color/white"
                 android:onClick="clickNotice"
                 />
+            <ImageView
+                android:id="@+id/faq_img"
+                android:layout_width="@dimen/size_20"
+                android:layout_height="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_8"
+                android:layout_alignTop="@id/faq_txt"
+                android:src="@drawable/ic_notice"/>
             <TextView
+                android:id="@+id/faq_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/faq_img"
                 android:layout_marginTop="@dimen/size_15"
+                android:layout_below="@id/notice_txt"
                 android:text="자주묻는 질문"
                 android:textAlignment="textStart"
                 android:textSize="@dimen/font_18"
                 android:textColor="@color/white"
                 android:onClick="clickFaq"
                 />
+            <ImageView
+                android:id="@+id/qa_img"
+                android:layout_width="@dimen/size_20"
+                android:layout_height="@dimen/size_20"
+                android:layout_marginEnd="@dimen/size_8"
+                android:layout_below="@id/faq_img"
+                android:layout_alignTop="@id/qa_txt"
+                android:src="@drawable/ic_notice"/>
             <TextView
+                android:id="@+id/qa_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/faq_txt"
+                android:layout_toRightOf="@id/qa_img"
                 android:layout_marginTop="@dimen/size_15"
                 android:text="Q&amp;A"
                 android:textAlignment="textStart"
@@ -167,7 +205,7 @@
                 android:textColor="@color/white"
                 android:onClick="clickQa"
                 />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <!-- 챗봇 -->
@@ -219,7 +257,7 @@
             android:textSize="@dimen/font_20"
             android:textColor="@color/white"
             ></TextView>
-            />
+        />
     </LinearLayout>
 
     <!-- 로그인/로그아웃 -->
