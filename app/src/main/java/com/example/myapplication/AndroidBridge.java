@@ -76,7 +76,9 @@ public class AndroidBridge {
     }
 
     public void clearStorage() {
-        webView.evaluateJavascript("javascript:clearStorage()", new ValueCallback<String>() {
+
+        String script = "javascript:window";
+        webView.evaluateJavascript(script.concat(".localStorage.clear()"), new ValueCallback<String>() {
             @Override
             public void onReceiveValue(String value) {
                 _log.e("test clearstorage result");

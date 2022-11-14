@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     private LinearLayout pushHistoryLl;
     private LinearLayout purchaseLl;
-    private LinearLayout noticeBoardItemLl;
+    private RelativeLayout noticeBoardItemLl;
 
     private FragmentTransaction transaction;
     private FragmentManager fragmentManager;
@@ -267,13 +267,17 @@ public class MainActivity extends AppCompatActivity {
      */
     public void gotoMain(View view) {
         if (tgtrFragment != null) {
-            if(getUserCI().isEmpty()){
-                tgtrFragment.changeUrl(Constants.mainUrl);
-            }else{
+//            if(getUserCI().isEmpty()){
+//                tgtrFragment.changeUrl(Constants.mainUrl);
+//            }else{
                 tgtrFragment.changeUrl(Constants.indexUrl);
-            }
+         //   }
 
         }
+    }
+
+    public void clickCloseDrawer() {
+        closeDrawer(drawerLayout);
     }
 
     /**
