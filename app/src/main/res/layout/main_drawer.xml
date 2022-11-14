@@ -102,7 +102,7 @@
             />
     </LinearLayout>
 
-    <!-- 게시판 -->
+     <!-- 게시판 -->
     <LinearLayout
         android:id="@+id/notice_board_ll"
         android:layout_width="match_parent"
@@ -140,8 +140,8 @@
             <View
                 android:id="@+id/dot_line"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/size_1"
-                android:background="@color/logo_txt2"
+                android:layout_height="@dimen/size_2"
+                android:background="@drawable/dot"
                 android:layout_marginTop="@dimen/size_15"
                 ></View>
             <ImageView
@@ -257,7 +257,7 @@
             android:textSize="@dimen/font_20"
             android:textColor="@color/white"
             ></TextView>
-        />
+            />
     </LinearLayout>
 
     <!-- 로그인/로그아웃 -->

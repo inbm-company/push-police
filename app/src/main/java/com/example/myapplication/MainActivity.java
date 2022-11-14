@@ -267,13 +267,17 @@ public class MainActivity extends AppCompatActivity {
      */
     public void gotoMain(View view) {
         if (tgtrFragment != null) {
-            if(getUserCI().isEmpty()){
-                tgtrFragment.changeUrl(Constants.mainUrl);
-            }else{
+//            if(getUserCI().isEmpty()){
+//                tgtrFragment.changeUrl(Constants.mainUrl);
+//            }else{
                 tgtrFragment.changeUrl(Constants.indexUrl);
-            }
+         //   }
 
         }
+    }
+
+    public void clickCloseDrawer() {
+        closeDrawer(drawerLayout);
     }
 
     /**
