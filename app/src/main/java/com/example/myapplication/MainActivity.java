@@ -1,18 +1,17 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
-
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -20,7 +19,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
 
     private TextView loginLogoutTv;
+    public TextView pushBadge;
 
     private String userId = "";
     private String backStr;
@@ -65,9 +69,22 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences pref;
 
+    private ConnectivityManager cm;
+    public static boolean networkChangeFlag = false;
+    public static boolean netWorkConnected = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // 네트워크 체크
+        NetworkRequest.Builder networkBuilder = new NetworkRequest.Builder();
+        networkBuilder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR);
+        cm.registerNetworkCallback(networkBuilder.build(), networkCallback);
+
         setContentView(R.layout.activity_main);
 
         pref = getSharedPreferences("police", MODE_PRIVATE);
@@ -87,13 +104,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void setLayout() {
         drawerLayout = findViewById(R.id.mainDrawerView);
-        splashFl = findViewById(R.id.splash_fl);
         toolbarIcon = findViewById(R.id.toolbar_icon);
         toolbar = findViewById(R.id.toolbar);
         pushHistoryLl = findViewById(R.id.push_history_ll);
         purchaseLl = findViewById(R.id.purchase_ll);
         noticeBoardItemLl = findViewById(R.id.notice_board_item_ll);
         loginLogoutTv = findViewById(R.id.login_logout_tv);
+
+        pushBadge = findViewById(R.id.push_badge);
 
         backStr = this.getResources().getString(R.string.back_presssed);
 
@@ -421,12 +439,25 @@ public class MainActivity extends AppCompatActivity {
                 // 대상자로 변경해야 함.
                 data.put("memberCi", getUserCI());
                 String result = _web.post(Constants.appToken, data.toString());
-                _log.e("test result::"+ result);
+
+               // handler.sendEmptyMessage(100);
             } catch (Exception e) {
                 _log.e(e.getMessage());
             }
         }).start();
     }
+
+//    class ValueHandler extends Handler {
+//        @Override
+//        public void handleMessage(@NonNull Message msg) {
+//            super.handleMessage(msg);
+//            _log.e("test handdle::"+ msg);
+//            if(msg.what == 100){
+//                tgtrFragment.getPushCnt();
+//            }
+//        }
+//    }
+
 
     /**
      * 토근 값 전송
@@ -451,6 +482,60 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("failed get token", e.getLocalizedMessage());
             }
         });
+    }
+
+    public void setPushCnt(String cnt){
+        _log.e("test setPushCnt"+ getIsDrawerOpen()+"/"+cnt);
+        if(drawerLayout != null && getIsDrawerOpen()){
+            pushBadge.setText(cnt);
+        }
+
+    }
+
+    private ConnectivityManager.NetworkCallback  networkCallback = new ConnectivityManager.NetworkCallback() {
+        @Override
+        public void onLost(Network network) {   //네트워크 끊길 때
+            _log.e("abs onLost");
+            networkChangeFlag = true;
+            netWorkConnected = false;
+        }
+
+        @Override
+        public void onAvailable(Network network) {   //네트워크 연결될때 호출
+            _log.e("abs onAvailable::"+ network);
+            networkChangeFlag = true;
+            netWorkConnected = true;
+        }
+
+        @Override
+        public void onCapabilitiesChanged(Network network, NetworkCapabilities networkCapabilities) {
+            super.onCapabilitiesChanged(network, networkCapabilities);
+            _log.e("abs onCapabilitiesChanged::"+ networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED));
+
+            //네트워크 연결 유무.
+            if(networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)){
+                networkChangeFlag = true;
+                netWorkConnected = true;
+            }
+        }
+    };
+
+    private boolean isNetWorkConnected(){
+        boolean result = false;
+        NetworkCapabilities capabilities = cm.getNetworkCapabilities(cm.getActiveNetwork());
+        if(capabilities != null){
+            _log.e("abs isNetWorkConnected " + capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)+"/"+
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR));
+            if(capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)){
+                netWorkConnected = true;
+                return true;
+            }else if(capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)){
+                netWorkConnected = true;
+                return true;
+            }
+        }
+        netWorkConnected = false;
+        return false;
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -54,9 +56,12 @@ public class TgtrFragment extends Fragment {
 
     private LinearLayout networkErrorLl;
 
+    private Button btnRetryConnect;
+
     private ValueCallback mFilePathCallback;
 
     private boolean isFirstLoad = true;
+
 
     public static TgtrFragment newInstance() {
         TgtrFragment  fragment = new TgtrFragment();
@@ -71,6 +76,15 @@ public class TgtrFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_tgtr, container, false);
         webView = view.findViewById(R.id.mainWebView);
         networkErrorLl = view.findViewById(R.id.network_error_ll);
+        btnRetryConnect = networkErrorLl.findViewById(R.id.btn_retry);
+
+        btnRetryConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                networkCheck();
+            }
+        });
+
 
         if (savedInstanceState == null) {
             _log.e("test fragment savedInstanceState null:"+isFirstLoad);
@@ -305,42 +319,22 @@ public class TgtrFragment extends Fragment {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            _log.e("test fragment "+isFirstLoad);
-            if(isFirstLoad){
-                clearStorage();
-            }
-            isFirstLoad = false;
-
             return super.shouldOverrideUrlLoading(view, request);
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-
-//            if(url.contains("user-introducing-system.do") ||
-//                    url.contains("user-legal-basis.do") ||
-//                    url.contains("user-notice.do") ||
-//                    url.contains("user-faq.do") ||
-//                    url.contains("user-qa.do") ){
-//                ((MainActivity) getActivity()).setVisibilityToolbar(View.GONE);
-//            }else{
-//                ((MainActivity) getActivity()).setVisibilityToolbar(View.VISIBLE);
-//            }
+            if(isFirstLoad){
+                clearStorage();
+            }
+            isFirstLoad = false;
             _log.e("test onPageStarted(url:"+url+ ", isFirstLoad:"+isFirstLoad+")");
             super.onPageStarted(view, url, favicon);
-
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-
-//            if(isFirstLoad){
-//                clearStorage();
-//            }
-//            isFirstLoad = false;
-            //return true;
-            _log.e("test fragment (url:"+url+")"+isFirstLoad);
         }
 
         @Override
@@ -382,12 +376,12 @@ public class TgtrFragment extends Fragment {
     //network check
     public void networkCheck() {
 
-//        if (!netWorkConnected) {
-//            llDisconnectedstate.setVisibility(View.VISIBLE);
-//        } else {
-//            llDisconnectedstate.setVisibility(View.GONE);
-//            webView.reload();
-//        }
+        if (!((MainActivity) getActivity()).netWorkConnected) {
+            networkErrorLl.setVisibility(View.VISIBLE);
+        } else {
+            networkErrorLl.setVisibility(View.GONE);
+            webView.reload();
+        }
     }
 
     public MainActivity getMainActivity() {

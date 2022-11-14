@@ -30,7 +30,7 @@
             android:textColor="@color/ver_txt"
             android:textSize="@dimen/font_16" />
         <Button
-            android:id="@+id/btn_update"
+            android:id="@+id/btn_retry"
             android:layout_width="@dimen/size_100"
             android:layout_height="@dimen/size_35"
             android:layout_marginTop="@dimen/size_35"
