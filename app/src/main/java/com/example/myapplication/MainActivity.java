@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
 
     private TextView loginLogoutTv;
-    public TextView pushBadge;
+    private TextView pushBadge;
+    private TextView barPushBadge;
 
     private String userId = "";
     private String backStr;
@@ -112,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         loginLogoutTv = findViewById(R.id.login_logout_tv);
 
         pushBadge = findViewById(R.id.push_badge);
+        barPushBadge = findViewById(R.id.bar_push_badge);
 
         backStr = this.getResources().getString(R.string.back_presssed);
 
@@ -177,11 +179,13 @@ public class MainActivity extends AppCompatActivity {
 
         runOnUiThread(() -> {
             btnPushHistory.setVisibility(View.GONE);
+//            barPushBadge.setVisibility(View.GONE);
             btnPurchase.setVisibility(View.GONE);
             btnChatbot.setVisibility(View.VISIBLE);
 
             if (!getUserCI().isEmpty()) {
                 btnPushHistory.setVisibility(View.VISIBLE);
+//                barPushBadge.setVisibility(View.VISIBLE);
                 btnPurchase.setVisibility(View.VISIBLE);
             }
         });
@@ -194,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void setVisibilityToolbar(int visibility) {
         _log.e("test setVisibilityToolbar::"+visibility);
-        //toolbar.setVisibility(visibility);
+        toolbar.setVisibility(visibility);
     }
 
     public void changeFragment(String page) {
@@ -370,11 +374,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         closeDrawer(drawerLayout);
-
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(intent, 100);
     }
 
     /**
@@ -484,12 +483,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void setPushCnt(String cnt){
+    public void setPushCnt(int cnt){
         _log.e("test setPushCnt"+ getIsDrawerOpen()+"/"+cnt);
-        if(drawerLayout != null && getIsDrawerOpen()){
-            pushBadge.setText(cnt);
-        }
 
+        if(cnt == 0){
+            pushBadge.setVisibility(View.GONE);
+            barPushBadge.setVisibility(View.GONE);
+        }else{
+            pushBadge.setVisibility(View.VISIBLE);
+            barPushBadge.setVisibility(View.VISIBLE);
+
+            String cntStr = String.valueOf(cnt);
+            if(drawerLayout != null){
+                pushBadge.setText(cntStr);
+                barPushBadge.setText(cntStr);
+            }
+        }
     }
 
     private ConnectivityManager.NetworkCallback  networkCallback = new ConnectivityManager.NetworkCallback() {
@@ -520,7 +529,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private boolean isNetWorkConnected(){
+    public boolean isNetWorkConnected(){
         boolean result = false;
         NetworkCapabilities capabilities = cm.getNetworkCapabilities(cm.getActiveNetwork());
         if(capabilities != null){

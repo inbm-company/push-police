@@ -177,6 +177,8 @@ public class TgtrFragment extends Fragment {
                         }else{
                             Toast.makeText(view.getContext(), "Window.open 종료", Toast.LENGTH_LONG).show();
                             dialog.dismiss();
+                            webView.reload();
+
                         }
                         return true;
                     }else{
@@ -368,6 +370,7 @@ public class TgtrFragment extends Fragment {
                 case WebViewClient.ERROR_UNSAFE_RESOURCE:
                     Toast.makeText(mApplicationContext,"WebViewClient,onReceivedError("+errorCode+") 에러 발생 " , Toast.LENGTH_LONG).show();
                     _log.e("WebViewClient,onReceivedError("+errorCode+") 에러 발생 "  );
+                    networkCheck();
                     break;
             }
         }
@@ -375,8 +378,8 @@ public class TgtrFragment extends Fragment {
 
     //network check
     public void networkCheck() {
-
-        if (!((MainActivity) getActivity()).netWorkConnected) {
+        _log.e("test networkCheck" );
+        if (!((MainActivity) getActivity()).isNetWorkConnected()) {
             networkErrorLl.setVisibility(View.VISIBLE);
         } else {
             networkErrorLl.setVisibility(View.GONE);
@@ -408,8 +411,6 @@ public class TgtrFragment extends Fragment {
         ((MainActivity) getActivity()).setUserCI(userCI);
         ((MainActivity) getActivity()).changeLoginAndLogoutMenu();
         ((MainActivity) getActivity()).setVisibilityToolbarIcon();
-
-
     }
 
     /**

@@ -67,8 +67,8 @@ public class AndroidBridge {
 
     // 읽지 않은 알림 갯수
     @JavascriptInterface
-    public String getPushCnt(String cnt){
-        Toast.makeText(fragment.getContext(), "getPushCnt", Toast.LENGTH_SHORT).show();
+    public String getNewMsgCnt(int cnt){
+        Toast.makeText(fragment.getContext(), "getNewMsgCnt", Toast.LENGTH_SHORT).show();
 
         new Handler().post(new Runnable() {
             @Override
@@ -106,31 +106,6 @@ public class AndroidBridge {
             }
         });
     }
-
-//    /**
-//     * 읽지 않은 알림 갯수 가져요기
-//     */
-//    public void getPushCnt() {
-//        _log.e("test fragment getPushCnt"); // "window.localStorage.getItem('name');"
-////        new Handler().post(new Runnable() {
-////            @Override
-////            public void run() {
-////
-////                webView.evaluateJavascript("javascript:localStorage.clear()", new ValueCallback<String>() {
-////                    @Override
-////                    public void onReceiveValue(String value) {
-////                        _log.e("test clearstorage result"+ value);
-////                    }
-////                });
-//
-//        webView.evaluateJavascript("javascript:localStorage.getItem('newMsgCnt')", new ValueCallback<String>() {
-//            @Override
-//            public void onReceiveValue(String value) {
-//                //TgtrFragment.newInstance().getMainActivity().setPushCnt(value);
-//                _log.e("test getPushCnt result"+ value);
-//            }
-//        });
-//    }
 
     // web에서 Android.showToast() 호출시 앱에서 토스트 뛰움
     @JavascriptInterface

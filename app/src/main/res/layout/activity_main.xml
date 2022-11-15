@@ -78,20 +78,40 @@
                         android:id="@+id/toolbar_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
-                        <ImageButton
-                            android:id="@+id/btn_push_history"
-                            android:layout_width="@dimen/size_16"
-                            android:layout_height="@dimen/size_20"
-                            android:layout_marginEnd="@dimen/size_10"
-                            android:background="@drawable/ic_push_d"
-                            android:onClick="clickPushHistory"
-                            android:clickable="true" />
+
+                        <FrameLayout
+                            android:id="@+id/push_fl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageButton
+                                android:id="@+id/btn_push_history"
+                                android:layout_width="@dimen/size_16"
+                                android:layout_height="@dimen/size_20"
+                                android:layout_marginEnd="@dimen/size_10"
+                                android:background="@drawable/ic_push_d"
+                                android:onClick="clickPushHistory"
+                                android:clickable="true" />
+                            <TextView
+                                android:id="@+id/bar_push_badge"
+                                android:layout_width="@dimen/size_12"
+                                android:layout_height="@dimen/size_12"
+                                android:layout_marginLeft="@dimen/size_2"
+                                android:layout_marginStart="@dimen/size_8"
+                                android:layout_marginTop="1dp"
+                                android:text="0"
+                                android:paddingStart="@dimen/size_2"
+                                android:paddingTop="-3dp"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/font_11"
+                                android:visibility="gone"
+                                android:background="@drawable/ic_point"/>
+                        </FrameLayout>
                         <ImageButton
                             android:id="@+id/btn_purchase"
                             android:layout_width="@dimen/size_16"
                             android:layout_height="@dimen/size_20"
                             android:layout_marginEnd="@dimen/size_10"
-                            android:layout_toRightOf="@id/btn_push_history"
+                            android:layout_toRightOf="@id/push_fl"
                             android:background="@drawable/ic_purchase_d"
                             android:onClick="clickPurchase"
                             android:clickable="true" />
