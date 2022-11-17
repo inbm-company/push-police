@@ -33,12 +33,10 @@
                 android:contentDescription="@string/logo"
                 android:onClick="gotoMain"
                 android:src="@drawable/police_logo"
-                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5"
                 app:srcCompat="@drawable/police_logo"
-                tools:visibility="visible"
                 tools:ignore="MissingConstraints"></ImageView>
 
             <TextView
