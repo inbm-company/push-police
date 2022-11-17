@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- KeyCryptM's Strings -->
+    
+    <string name="zix_activity_default_title">"Security input"</string>
+    <string name="zix_activity_done_button">"Done"</string>
+    <string name="zix_activity_done_desc">"Done"</string>
+    <string name="zix_activity_cancel_button">"Cancel"</string>
+    <string name="zix_activity_cancel_desc">"Cancel"</string>
+    <string name="zix_alert_confirm_title">"Notice"</string>
+    <string name="zix_alert_confirm_button">"Confirm"</string>
+    <string name="zix_alert_default_message">"Please enter more than %1$s digits"</string>
+    
+    <string name="zix_funckey_space">"Space"</string>
+    <string name="zix_funckey_backspace">"Backspace"</string>
+    <string name="zix_funckey_shift">"Shift"</string>
+    <string name="zix_funckey_shift_on">"Shift"</string>
+    <string name="zix_funckey_shift_off">"Selected, shift"</string>
+    <string name="zix_funckey_remap">"Rearrange keyboard"</string>
+    <string name="zix_funckey_change_mode">"Change Mode"</string>
+    <string name="zix_funckey_change_eng">"More Numbers and Letters"</string>
+    <string name="zix_funckey_change_sym">"More symbols"</string>
+    <string name="zix_funckey_eng_mode">"Upper Case Mode"</string>
+    <string name="zix_funckey_sym_mode">"Lower Case Mode"</string>
+    <string name="zix_funckey_hide">"hide keyboard"</string>
+    <string name="zix_funckey_confirm">"Done"</string>
+    
+    <string name="zix_template_capital_letter">capital %1$s</string>
+    
+    <string name="zix_symbol_apostrophe">Apostrophe</string>
+    <string name="zix_symbol_ampersand">Ampersand</string>
+    <string name="zix_symbol_angle_bracket_left">Left angle bracket</string>
+    <string name="zix_symbol_angle_bracket_right">Right angle bracket</string>
+    <string name="zix_symbol_asterisk">Asterisk</string>
+    <string name="zix_symbol_at_sign">At</string>
+    <string name="zix_symbol_backslash">Backslash</string>
+    <string name="zix_symbol_bullet">Dot</string>
+    <string name="zix_symbol_caret">Caret</string>
+    <string name="zix_symbol_cent">Cent</string>
+    <string name="zix_symbol_colon">Colon</string>
+    <string name="zix_symbol_comma">Comma</string>
+    <string name="zix_symbol_copyright">Copyright</string>
+    <string name="zix_symbol_curly_bracket_left">Left curly bracket</string>
+    <string name="zix_symbol_curly_bracket_right">Right curly bracket</string>
+    <string name="zix_symbol_degree">Degree</string>
+    <string name ="zix_symbol_division">Division sign</string>
+    <string name="zix_symbol_dollar_sign">Dollar sign</string>
+    <string name="zix_symbol_ellipsis">Ellipsis</string>
+    <string name="zix_symbol_em_dash">Em dash</string>
+    <string name="zix_symbol_en_dash">En dash</string>
+    <string name="zix_symbol_exclamation_mark">Exclamation mark</string>
+    <string name="zix_symbol_grave_accent">Grave accent</string>
+    <string name="zix_symbol_hyphen_minus">Dash</string>
+    <string name="zix_symbol_low_double_quote">Low double quote</string>
+    <string name="zix_symbol_multiplication">Multiplication sign</string>
+    <string name="zix_symbol_new_line">New line</string>
+    <string name="zix_symbol_paragraph_mark">Paragraph mark</string>
+    <string name="zix_symbol_parenthesis_left">Left paren</string>
+    <string name="zix_symbol_parenthesis_right">Right paren</string>
+    <string name="zix_symbol_percent">Percent</string>
+    <string name="zix_symbol_period">Period</string>
+    <string name="zix_symbol_pi">Pi</string>
+    <string name="zix_symbol_pound">Pound</string>
+    <string name="zix_symbol_question_mark">Question mark</string>
+    <string name="zix_symbol_quotation_mark">Quote</string>
+    <string name="zix_symbol_registered_trademark">Registered trademark</string>
+    <string name="zix_symbol_semicolon">Semicolon</string>
+    <string name="zix_symbol_slash">Slash</string>
+    <string name="zix_symbol_smiley">Smiley face</string>
+    <string name="zix_symbol_space">Space</string>
+    <string name="zix_symbol_square_bracket_left">Left square bracket</string>
+    <string name="zix_symbol_square_bracket_right">Right square bracket</string>
+    <string name="zix_symbol_square_root">Square root</string>
+    <string name="zix_symbol_trademark">Trademark</string>
+    <string name="zix_symbol_underscore">Underscore</string>
+    <string name="zix_symbol_vertical_bar">Vertical bar</string>
+    <string name="zix_symbol_not_sign">Not sign</string>
+    <string name="zix_symbol_broken_bar">Broken bar</string>
+    <string name="zix_symbol_micro_sign">Micro sign</string>
+    <string name="zix_symbol_equals">equals</string>
+    <string name="zix_symbol_almost_equals">Almost equals</string>
+    <string name="zix_symbol_not_equals">Not equals</string>
+    <string name="zix_symbol_currency_sign">Currency sign</string>
+    <string name="zix_symbol_section_sign">Section sign</string>
+    <string name="zix_symbol_upwards_arrow">Upwards arrow</string>
+    <string name="zix_symbol_leftwards_arrow">Leftwards arrow</string>
+    <string name="zix_symbol_middle_dot">"Middle Dot"</string>
+    <string name="zix_symbol_pound_sterling">Pound sterling</string>
+    <string name="zix_symbol_euro_sign">Euro sign</string>
+    <string name="zix_symbol_yen_sign">Yen sign</string>
+    <string name="zix_symbol_won_sign">"Won sign"</string>
+    <string name="zix_symbol_wave">"tilde"</string>
+    
+    <!-- 접근성 읽을 때 뒤에 [button]이라고 붙이려면 사용 -->
+    <string name="zix_button">button</string>
+</resources>

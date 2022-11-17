@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/zix_main_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff" >
+
+    <ImageView
+        android:id="@+id/title_image"
+        android:contentDescription="@null"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/zix_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_image" />
+
+    <RelativeLayout
+        android:id="@+id/zix_edit_view"
+        android:layout_margin="3dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/zix_title" >
+
+	    <Button
+	        android:id="@+id/zix_done"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:contentDescription="@string/zix_activity_done_desc"
+	        android:text="@string/zix_activity_done_button" />
+
+	    <View
+	        android:id="@+id/zix_done_sh"
+	        android:layout_width="10dp"
+	        android:layout_height="10dp"
+	        android:layout_alignLeft="@id/zix_done"
+	        android:layout_alignTop="@id/zix_done"
+	        />
+
+		<Button
+			android:id="@+id/zix_cancel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignTop="@id/zix_done"
+			android:layout_toLeftOf="@id/zix_done"
+			android:contentDescription="@string/zix_activity_cancel_desc"
+			android:text="@string/zix_activity_cancel_button" />
+
+		<EditText
+			android:id="@+id/zix_edit"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignTop="@id/zix_done"
+			android:layout_alignBottom="@id/zix_done"
+			android:layout_toLeftOf="@id/zix_cancel"
+			android:background="#d0d0d0"
+			android:inputType="none"
+			android:textColor="#000000" />
+
+    </RelativeLayout>
+
+    <!-- 키패드를 붙이기 위한 뷰 -->
+    <RelativeLayout
+        android:id="@+id/zix_skeypad_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+    <RelativeLayout
+        android:id="@+id/zix_hover_touch_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/zix_skeypad_layout"
+        android:layout_alignBottom="@id/zix_skeypad_layout" />
+
+    <RelativeLayout
+        android:id="@+id/zix_toolbar_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/zix_skeypad_layout" />
+
+    <RelativeLayout
+        android:id="@+id/zix_hover_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+	<RelativeLayout
+		android:id="@+id/key_pad_view"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+	</RelativeLayout>
+</RelativeLayout>

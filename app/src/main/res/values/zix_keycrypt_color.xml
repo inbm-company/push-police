@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="zix_num_keypad_bg">#FFADB2B9</color>
+	<color name="zix_num_btn_bg_normal">#FFFFFFFF</color>
+    <color name="zix_num_btn_bg_pressed">#FF2F3340</color>
+    <color name="zix_num_del_btn_normal">#FF7E7E7E</color>
+    <color name="zix_num_del_btn_pressed">#FF2F3340</color>
+    <color name="zix_num_done_btn_normal">#FF2F3340</color>
+    <color name="zix_num_done_btn_pressed">#FF353A48</color>
+    
+    <color name="zix_qwerty_keypad_bg">#FFADB2B9</color>
+	<color name="zix_qwerty_btn_bg_normal">#FFFFFFFF</color>
+    <color name="zix_qwerty_btn_bg_pressed">#FFC1C4C8</color>
+    <color name="zix_qwerty_num_btn_normal">#FF64686D</color>
+    <color name="zix_qwerty_num_btn_pressed">#FFFFFFFF</color>
+    <color name="zix_qwerty_shift_btn_normal">#FFC1C4C8</color>
+    <color name="zix_qwerty_shift_btn_lock">#FF64686D</color>
+    <color name="zix_qwerty_shift_btn_pressed">#FFFFFFFF</color>
+    <color name="zix_qwerty_del_btn_normal">#FFC1C4C8</color>
+    <color name="zix_qwerty_del_btn_pressed">#FFFFFFFF</color>
+    <color name="zix_qwerty_mode_btn_normal">#FFC1C4C8</color>
+    <color name="zix_qwerty_mode_btn_pressed">#FFFFFFFF</color>
+    <color name="zix_qwerty_remap_btn_normal">#FFC1C4C8</color>
+    <color name="zix_qwerty_remap_btn_pressed">#FFFFFFFF</color>
+    <color name="zix_qwerty_hide_btn_normal">#FFC1C4C8</color>
+    <color name="zix_qwerty_hide_btn_pressed">#FFFFFFFF</color>
+
+</resources>

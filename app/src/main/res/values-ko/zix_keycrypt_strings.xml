@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      KeyCryptM's Strings
+    -->
+    
+    <string name="zix_activity_default_title">"보안 입력창"</string>
+    <string name="zix_activity_done_button">"완료"</string>
+    <string name="zix_activity_done_desc">"입력완료"</string>
+    <string name="zix_activity_cancel_button">"취소"</string>
+    <string name="zix_activity_cancel_desc">"입력취소"</string>
+    <string name="zix_alert_confirm_title">"알림"</string>
+    <string name="zix_alert_confirm_button">"확인"</string>
+    <string name="zix_alert_default_message">"%1$s자리 이상을 입력하세요"</string>
+    
+    <string name="zix_funckey_space">"공백"</string>
+    <string name="zix_funckey_backspace">"삭제"</string>
+    <string name="zix_funckey_shift">"시프트"</string>
+    <string name="zix_funckey_shift_on">"시프트 소문자 입력전환"</string>
+    <string name="zix_funckey_shift_off">"시프트 대문자 입력전환"</string>
+    <string name="zix_funckey_remap">"키보드 재배열"</string>
+    <string name="zix_funckey_change_mode">"입력모드 변경"</string>
+    <string name="zix_funckey_change_eng">"숫자, 영문입력 전환"</string>
+    <string name="zix_funckey_change_sym">"특수문자 입력 전환"</string>
+    <string name="zix_funckey_eng_mode">"대문자 입력모드"</string>
+    <string name="zix_funckey_sym_mode">"소문자 입력모드"</string>
+    <string name="zix_funckey_hide">"키보드 숨김"</string>
+    <string name="zix_funckey_confirm">"입력확인"</string>
+    
+    <string name="zix_template_capital_letter">"대문자 %1$s"</string>
+    
+    <string name="zix_symbol_apostrophe">"아포스트로피"</string>
+    <string name="zix_symbol_ampersand">"앰퍼샌드"</string>
+    <string name="zix_symbol_angle_bracket_left">"왼쪽 꺾쇠 괄호"</string>
+    <string name="zix_symbol_angle_bracket_right">"오른쪽 꺾쇠 괄호"</string>
+    <string name="zix_symbol_asterisk">"별표"</string>
+    <string name="zix_symbol_at_sign">"골뱅이"</string>
+    <string name="zix_symbol_backslash">"백슬래시"</string>
+    <string name="zix_symbol_bullet">"가운데점"</string>
+    <string name="zix_symbol_caret">"캐럿"</string>
+    <string name="zix_symbol_cent">"센트 기호"</string>
+    <string name="zix_symbol_colon">"콜론"</string>
+    <string name="zix_symbol_comma">"쉼표"</string>
+    <string name="zix_symbol_copyright">"저작권 기호"</string>
+    <string name="zix_symbol_curly_bracket_left">"왼쪽 중괄호"</string>
+    <string name="zix_symbol_curly_bracket_right">"오른쪽 중괄호"</string>
+    <string name="zix_symbol_degree">"도 기호"</string>
+    <string name="zix_symbol_division">"나눗셈 부호"</string>
+    <string name="zix_symbol_dollar_sign">"달러 기호"</string>
+    <string name="zix_symbol_ellipsis">"생략 기호"</string>
+    <string name="zix_symbol_em_dash">"엠 대시"</string>
+    <string name="zix_symbol_en_dash">"엔 대시"</string>
+    <string name="zix_symbol_exclamation_mark">"느낌표"</string>
+    <string name="zix_symbol_grave_accent">"억음 기호"</string>
+    <string name="zix_symbol_hyphen_minus">"대시"</string>
+    <string name="zix_symbol_low_double_quote">"아래쪽 큰따옴표"</string>
+    <string name="zix_symbol_multiplication">"곱셈 부호"</string>
+    <string name="zix_symbol_new_line">"새 줄"</string>
+    <string name="zix_symbol_paragraph_mark">"단락 기호"</string>
+    <string name="zix_symbol_parenthesis_left">"왼쪽 괄호"</string>
+    <string name="zix_symbol_parenthesis_right">"오른쪽 괄호"</string>
+    <string name="zix_symbol_percent">"퍼센트"</string>
+    <string name="zix_symbol_period">"마침표"</string>
+    <string name="zix_symbol_pi">"파이"</string>
+    <string name="zix_symbol_pound">"샵"</string>
+    <string name="zix_symbol_question_mark">"물음표"</string>
+    <string name="zix_symbol_quotation_mark">"따옴표"</string>
+    <string name="zix_symbol_registered_trademark">"등록 상표"</string>
+    <string name="zix_symbol_semicolon">"세미콜론"</string>
+    <string name="zix_symbol_slash">"슬래시"</string>
+    <string name="zix_symbol_smiley">"웃는 얼굴"</string>
+    <string name="zix_symbol_space">"스페이스바"</string>
+    <string name="zix_symbol_square_bracket_left">"왼쪽 대괄호"</string>
+    <string name="zix_symbol_square_bracket_right">"오른쪽 대괄호"</string>
+    <string name="zix_symbol_square_root">"제곱근"</string>
+    <string name="zix_symbol_trademark">"상표 기호"</string>
+    <string name="zix_symbol_underscore">"밑줄"</string>
+    <string name="zix_symbol_vertical_bar">"수직 막대"</string>
+    <string name="zix_symbol_not_sign">"부정 기호"</string>
+    <string name="zix_symbol_broken_bar">"수직 막대"</string>
+    <string name="zix_symbol_micro_sign">"마이크로 기호"</string>
+    <string name="zix_symbol_equals">"등호"</string>
+    <string name="zix_symbol_almost_equals">"거의 같음"</string>
+    <string name="zix_symbol_not_equals">"같지 않음"</string>
+    <string name="zix_symbol_currency_sign">"통화 기호"</string>
+    <string name="zix_symbol_section_sign">"섹션 기호"</string>
+    <string name="zix_symbol_upwards_arrow">"위로 화살표"</string>
+    <string name="zix_symbol_leftwards_arrow">"왼쪽 화살표"</string>
+    <string name="zix_symbol_middle_dot">"가운데 점"</string>
+    <string name="zix_symbol_pound_sterling">"파운드 기호"</string>
+    <string name="zix_symbol_euro_sign">"유로 기호"</string>
+    <string name="zix_symbol_yen_sign">"옌 기호"</string>
+    <string name="zix_symbol_won_sign">"원 기호"</string>
+    <string name="zix_symbol_wave">"물결"</string>
+    
+    <!-- 접근성 읽을 때 뒤에 [버튼]이라고 붙이려면 사용 -->
+    <string name="zix_button">버튼</string>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 숫자 키패드 키 셀 사이의 마진 설정 -->
+    <dimen name="num_key_margin_width">2dp</dimen>
+    <dimen name="num_key_margin_height">2dp</dimen>
+    
+    <!-- 숫자 키패드 키패드 상하좌우 마진 설정 -->
+    <dimen name="num_keypad_margin_top">2dp</dimen>
+    <dimen name="num_keypad_margin_bottom">2dp</dimen>
+    <dimen name="num_keypad_margin_left">0dp</dimen>
+    <dimen name="num_keypad_margin_right">0dp</dimen>
+    
+    <!-- 숫자 키패드 키 셀 가로 세로 비율 설정 -->
+    <dimen name="num_key_width_portrait_rate">17dp</dimen>
+    <dimen name="num_key_height_portrait_rate">10dp</dimen>
+    <dimen name="num_key_width_landscape_rate">7dp</dimen>
+    <dimen name="num_key_height_landscape_rate">2dp</dimen>
+    
+    <!-- 영문 키패드 키 셀 사이의 마진 설정 -->
+    <dimen name="qwerty_key_margin_width">1dp</dimen>
+    <dimen name="qwerty_key_margin_height">1dp</dimen>
+    
+    <!-- 영문 키패드 키패드 상하좌우 마진 설정 -->
+    <dimen name="qwerty_keypad_margin_top">6dp</dimen>
+    <dimen name="qwerty_keypad_margin_bottom">6dp</dimen>
+    <dimen name="qwerty_keypad_margin_left">6dp</dimen>
+    <dimen name="qwerty_keypad_margin_right">6dp</dimen>
+    
+    <!-- 영문 키패드 키 셀 가로 세로 비율 설정 -->
+    <dimen name="qwerty_key_width_portrait_rate">56dp</dimen>
+    <dimen name="qwerty_key_height_portrait_rate">82dp</dimen>
+    <dimen name="qwerty_key_width_landscape_rate">41dp</dimen>
+    <dimen name="qwerty_key_height_landscape_rate">56dp</dimen>
+    
+    <!-- 키패드가 '최대 높이 비율' (위의 dimen 설정으로 키패드 출력 시 '최대 높이 비율'을 초과하면 해당 비율로 조정됨) -->
+    <integer name="rate_landscape_height">60</integer>
+    
+</resources>
