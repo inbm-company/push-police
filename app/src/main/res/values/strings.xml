@@ -14,12 +14,32 @@
     <string name="disconnect_content">오프라인 상태입니다. \n인터넷 연결을 확인해주세요.</string>
     <string name="retry_connect">재시도</string>
 
-    <string name="version_info">버전 정보</string>
+
     <string name="app_cur_ver">현재 버전:</string>
     <string name="retry">재시도</string>
     <string name="update">업데이트</string>
     <string name="new_version">최신 버전을 사용 중입니다.</string>
     <string name="non_new_version">최신 버전이 아닙니다.</string>
     <string name="about_app">COPYRIGHT©2021 KOREAN NATIONAL POLICE AGENCY.</string>
+    <string name="police">경찰청</string>
+    <string name="logo">로고</string>
+    <string name="close">닫기</string>
+    <string name="police_app">신원조사접수대상자</string>
+    <string name="push_txt">알림목록</string>
+    <string name="purchase_txt">제출한 목록</string>
+    <string name="notice_board_txt">게시판</string>
+    <string name="notice_txt">공지사항</string>
+    <string name="faq_txt">자주 묻는 질문</string>
+    <string name="qa_txt">Q&amp;A</string>
+    <string name="chatbot_txt">챗봇</string>
+    <string name="version_info">버전 정보</string>
+    <string name="login_logout_txt">로그인 또는 로그아웃</string>
+    <string name="login_txt">로그인</string>
+    <string name="logout_txt">로그아웃</string>
+    <string name="menu_txt">메뉴</string>
+    <string name="num_0">0</string>
+    <string name="back">이전 페이지로 이동</string>
+    <string name="footer_txt">회사정보</string>
+
 
 </resources>

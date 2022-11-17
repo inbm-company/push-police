@@ -1,306 +1,441 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerMenu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawerMenu"
     android:background="@color/drawer_bg"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/size_20"
     android:paddingRight="@dimen/size_20"
     android:paddingBottom="56dp">
-    <LinearLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/menu_logo"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/logo"
+            android:src="@drawable/police_logo"
+            app:layout_constraintEnd_toStartOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="경찰청 \n신원조사 온라인 접수시스템"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_14"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_1"
+            android:layout_marginEnd="30dp"
+            android:background="@color/drawer_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <ImageButton
+            android:id="@+id/drawer_close_btn"
+            android:layout_width="@dimen/size_20"
+            android:layout_height="@dimen/size_20"
+            android:layout_marginStart="10dp"
+            android:background="@color/transparent"
+            android:contentDescription="@string/close"
+            android:onClick="clickCloseDrawer"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/line"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 알림목록 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/push_history_cl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_73"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
-        <RelativeLayout
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="38dp"
+        android:onClick="clickPushHistory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/push_txt"
+            android:src="@drawable/ic_push"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/push_badge"
+            android:layout_width="@dimen/size_14"
+            android:layout_height="@dimen/size_14"
+            android:layout_marginLeft="@dimen/size_m_9"
+            android:layout_marginTop="@dimen/size_1"
+            android:background="@drawable/ic_point"
+            android:paddingLeft="@dimen/size_4"
+            android:text="@string/num_0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_10"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/push_history_cl" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/push_txt"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_20"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--  제출한 증명서 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/purchase_cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="38dp"
+        android:onClick="clickPurchase"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/push_history_cl">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/purchase_txt"
+            android:src="@drawable/ic_purchase"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/purchase_txt"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    &lt;!&ndash; 게시판 &ndash;&gt;-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/notice_board_cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="38dp"
+        android:onClick="clickNoticeBoard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/purchase_cl">
+
+        <ImageView
+            android:id="@+id/notice_board_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/notice_board_txt"
+            android:src="@drawable/ic_notice"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/notice_board_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/notice_board_txt"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_20"
+            app:layout_constraintStart_toEndOf="@+id/notice_board_img"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/notice_board_item_cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notice_board_cl">
+
+        <View
+            android:id="@+id/dot_line"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_5"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/dot"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints"></View>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/notice_cl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="18dp"
+            android:onClick="clickNotice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dot_line">
+
             <ImageView
-                android:id="@+id/menu_logo"
-                android:layout_width="@dimen/size_48"
-                android:layout_height="@dimen/size_48"
-                android:src="@drawable/police_logo"/>
+                android:id="@+id/notice_img"
+                android:layout_width="@dimen/size_4"
+                android:layout_height="@dimen/size_4"
+                android:contentDescription="@string/notice_txt"
+                android:src="@drawable/ic_bullet"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                tools:ignore="MissingConstraints" />
+
             <TextView
-                android:layout_toRightOf="@id/menu_logo"
+                android:id="@+id/notice_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginBottom="@dimen/size_35"
-                android:textSize="@dimen/font_14"
-                android:textColor="@color/white"
-                android:text="경찰청 \n신원조사 온라인 접수시스템"/>
-        </RelativeLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <View
-                android:id="@+id/line"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_1"
-                android:layout_gravity="center_vertical"
-                android:background="@color/black60"/>
-            <ImageButton
-                android:id="@+id/drawer_close_btn"
-                android:layout_marginStart="10px"
-                android:layout_width="@dimen/size_16"
-                android:layout_height="@dimen/size_16"
-                android:src="@drawable/ic_x"
-                android:onClick="clickCloseDrawer"
-                android:background="@color/appbar"/>
-        </LinearLayout>
-    </LinearLayout>
-    <!-- 알림목록 -->
-    <LinearLayout
-        android:id="@+id/push_history_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_35"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="@dimen/size_16"
-                android:layout_height="@dimen/size_24"
-                android:src="@drawable/ic_push"/>
-            <TextView
-                android:id="@+id/push_badge"
-                android:layout_width="@dimen/size_12"
-                android:layout_height="@dimen/size_12"
-                android:layout_marginLeft="@dimen/size_2"
-                android:layout_marginStart="@dimen/size_8"
-                android:layout_marginTop="1dp"
-                android:text="0"
-                android:paddingStart="@dimen/size_2"
-                android:paddingTop="-3dp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_11"
-                android:visibility="gone"
-                android:background="@drawable/ic_point"/>
-        </FrameLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
-            android:text="알림목록"
-            android:textSize="@dimen/font_20"
-            android:textColor="@color/white"
-            android:textAlignment="textStart"
-            android:onClick="clickPushHistory"
-            />
-    </LinearLayout>
-
-    <!-- 제출한 증명서 -->
-    <LinearLayout
-        android:id="@+id/purchase_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_35"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="@dimen/size_16"
-            android:layout_height="@dimen/size_20"
-            android:layout_marginLeft="10px"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_purchase"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="제출한 증명서"
-            android:layout_marginLeft="@dimen/size_10"
-            android:textAlignment="textStart"
-            android:textSize="@dimen/font_20"
-            android:textColor="@color/white"
-            android:onClick="clickPurchase"
-            />
-    </LinearLayout>
-
-     <!-- 게시판 -->
-    <LinearLayout
-        android:id="@+id/notice_board_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_35"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="@dimen/size_20"
-                android:layout_height="@dimen/size_20"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_notice"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/size_10"
-                android:text="게시판"
-                android:textAlignment="textStart"
-                android:textSize="@dimen/font_20"
-                android:textColor="@color/white"
-                android:onClick="clickNoticeBoard"
-                />
-        </LinearLayout>
-        <RelativeLayout
-            android:id="@+id/notice_board_item_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="@dimen/size_35"
-            android:visibility="visible">
-            <View
-                android:id="@+id/dot_line"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_2"
-                android:background="@drawable/dot"
-                android:layout_marginTop="@dimen/size_15"
-                ></View>
-            <ImageView
-                android:id="@+id/notice_img"
-                android:layout_width="@dimen/size_20"
-                android:layout_height="@dimen/size_20"
-                android:layout_marginEnd="@dimen/size_8"
-                android:layout_alignTop="@id/notice_txt"
-                android:src="@drawable/ic_notice"/>
-            <TextView
-                android:id="@+id/notice_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/dot_line"
-                android:layout_marginTop="@dimen/size_15"
-                android:layout_toRightOf="@id/notice_img"
                 android:text="공지사항"
-                android:textAlignment="textStart"
-                android:textSize="@dimen/font_18"
                 android:textColor="@color/white"
-                android:onClick="clickNotice"
-                />
+                android:textSize="@dimen/font_18"
+                app:layout_constraintStart_toEndOf="@id/notice_img"
+                tools:ignore="MissingConstraints" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/faq_cl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="18dp"
+            android:onClick="clickFaq"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/notice_cl">
+
             <ImageView
                 android:id="@+id/faq_img"
-                android:layout_width="@dimen/size_20"
-                android:layout_height="@dimen/size_20"
-                android:layout_marginEnd="@dimen/size_8"
-                android:layout_alignTop="@id/faq_txt"
-                android:src="@drawable/ic_notice"/>
+                android:layout_width="@dimen/size_4"
+                android:layout_height="@dimen/size_4"
+                android:contentDescription="@string/faq_txt"
+                android:src="@drawable/ic_bullet"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                tools:ignore="MissingConstraints" />
+
             <TextView
                 android:id="@+id/faq_txt"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/faq_img"
-                android:layout_marginTop="@dimen/size_15"
-                android:layout_below="@id/notice_txt"
+                android:layout_marginStart="10dp"
                 android:text="자주묻는 질문"
-                android:textAlignment="textStart"
-                android:textSize="@dimen/font_18"
                 android:textColor="@color/white"
-                android:onClick="clickFaq"
-                />
+                android:textSize="@dimen/font_18"
+                app:layout_constraintStart_toEndOf="@id/faq_img"
+                tools:ignore="MissingConstraints" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/qa_cl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="18dp"
+            android:onClick="clickQa"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/faq_cl">
+
             <ImageView
                 android:id="@+id/qa_img"
-                android:layout_width="@dimen/size_20"
-                android:layout_height="@dimen/size_20"
-                android:layout_marginEnd="@dimen/size_8"
-                android:layout_below="@id/faq_img"
-                android:layout_alignTop="@id/qa_txt"
-                android:src="@drawable/ic_notice"/>
+                android:layout_width="@dimen/size_4"
+                android:layout_height="@dimen/size_4"
+                android:contentDescription="@string/qa_txt"
+                android:src="@drawable/ic_bullet"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                tools:ignore="MissingConstraints" />
+
             <TextView
                 android:id="@+id/qa_txt"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/faq_txt"
-                android:layout_toRightOf="@id/qa_img"
-                android:layout_marginTop="@dimen/size_15"
-                android:text="Q&amp;A"
-                android:textAlignment="textStart"
-                android:textSize="@dimen/font_18"
+                android:layout_marginStart="10dp"
+                android:text="@string/qa_txt"
                 android:textColor="@color/white"
-                android:onClick="clickQa"
-                />
-        </RelativeLayout>
-    </LinearLayout>
+                android:textSize="@dimen/font_18"
+                app:layout_constraintStart_toEndOf="@id/qa_img"
+                tools:ignore="MissingConstraints" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 챗봇 -->
-    <LinearLayout
-        android:id="@+id/chatbot_ll"
+    <!--  챗봇 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chatbot_cl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_35"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="38dp"
+        android:onClick="clickChatbot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notice_board_item_cl">
+
         <ImageView
-            android:layout_width="@dimen/size_20"
-            android:layout_height="@dimen/size_20"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_chatbot"/>
-        <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/chatbot_img"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
-            android:text="챗봇"
-            android:textAlignment="textStart"
-            android:textSize="@dimen/font_20"
+            android:contentDescription="@string/chatbot_txt"
+            android:src="@drawable/ic_chatbot"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/chatbot_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/chatbot_txt"
             android:textColor="@color/white"
-            android:onClick="clickChatbot"
-            />
-    </LinearLayout>
-
-    <!-- 버전정보 -->
-    <LinearLayout
-        android:id="@+id/version_info_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_35"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="@dimen/size_20"
-            android:layout_height="@dimen/size_20"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_version"/>
-        <TextView
-            android:id="@+id/version_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
-            android:text="버전정보"
-            android:textAlignment="textStart"
-            android:onClick="clickVersion"
             android:textSize="@dimen/font_20"
-            android:textColor="@color/white"
-            ></TextView>
-            />
-    </LinearLayout>
+            app:layout_constraintStart_toEndOf="@+id/chatbot_img"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 로그인/로그아웃 -->
-    <LinearLayout
-        android:id="@+id/login_logout_ll"
+    <!--   버전정보 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/version_info_cl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_35"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="38dp"
+        android:onClick="clickVersion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chatbot_cl">
+
         <ImageView
-            android:layout_width="@dimen/size_20"
-            android:layout_height="@dimen/size_20"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_login"/>
-        <TextView
-            android:id="@+id/login_logout_tv"
-            android:layout_width="match_parent"
+            android:id="@+id/version_info_img"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
-            android:text="로그인"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="1dp"
+            android:contentDescription="@string/version_info"
+            android:src="@drawable/ic_version"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/version_info_txt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/version_info_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/version_info"
             android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_20"
+            app:layout_constraintStart_toEndOf="@+id/version_info_img"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--   로그인/로그아웃 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/login_logout_cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="38dp"
+        android:onClick="clickLoginAndLogout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/version_info_cl">
+
+        <ImageView
+            android:id="@+id/login_logout_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/login_logout_txt"
+            android:src="@drawable/ic_login"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/login_logout_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/login_txt"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
             android:textSize="20sp"
-            android:textColor="@color/white"
-            android:onClick="clickLoginAndLogout"
-            />
-    </LinearLayout>
-</LinearLayout>
+            app:layout_constraintStart_toEndOf="@+id/login_logout_img"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,15 +33,17 @@
     <color name="error_color">#ff30f2</color>
 
     <color name="drawer_bg">#F20F2C56</color>
+    <color name="drawer_line">#566b88</color>
     <color name="logo_txt1">#131e5c</color>
     <color name="logo_txt2">#a4681d</color>
     <color name="bar_line">#ccd2de</color>
     <color name="bar_bg">#f0f2f5</color>
     <color name="bar_txt">#070707</color>
     <color name="ver_msg_txt">#4778c7</color>
-    <color name="ver_txt">#555555</color>
+    <color name="ver_txt">#070707</color>
     <color name="ver_bg">#f4f7fc</color>
     <color name="ver_footer">#999</color>
+    <color name="network_txt">#555555</color>
 
 
 </resources>

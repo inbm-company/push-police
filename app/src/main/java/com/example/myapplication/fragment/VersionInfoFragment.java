@@ -52,9 +52,11 @@ public class VersionInfoFragment extends Fragment {
             ((MainActivity) getActivity()).changeFragment("tgtr");
         });
 
+        tvNoti.setText(R.string.new_version);
         String version = getResources().getString(R.string.app_cur_ver) + getVersionInfo(this.getContext());
         //버전정보 게시
         tvVersion.setText(version);
+        //btnUpdate.setVisibility(View.GONE);
 
         //버전정보 맞지않으면 업데이트 버튼 보이게
         new GetMarketVersion(this.getContext()).execute();

@@ -8,13 +8,11 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
@@ -47,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
-    private LinearLayout pushHistoryLl;
-    private LinearLayout purchaseLl;
-    private RelativeLayout noticeBoardItemLl;
+    private ConstraintLayout pushHistoryCl;
+    private ConstraintLayout purchaseCl;
+    private ConstraintLayout noticeBoardItemCl;
 
     private FragmentTransaction transaction;
     private FragmentManager fragmentManager;
@@ -93,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Boolean doClickEvent = intent.getBooleanExtra("notiClick", false);
 
+        DisplayMetrics metrics = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        float dd = metrics.densityDpi;
+        _log.e("test device dpi => " + dd);
+
+
         // push 클릭하여 앱을 실행할경우 이벤트 시행
         if (doClickEvent) {
             notiClickEvent();
@@ -105,12 +110,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setLayout() {
         drawerLayout = findViewById(R.id.mainDrawerView);
-        toolbarIcon = findViewById(R.id.toolbar_icon);
-        toolbar = findViewById(R.id.toolbar);
-        pushHistoryLl = findViewById(R.id.push_history_ll);
-        purchaseLl = findViewById(R.id.purchase_ll);
-        noticeBoardItemLl = findViewById(R.id.notice_board_item_ll);
-        loginLogoutTv = findViewById(R.id.login_logout_tv);
+        pushHistoryCl = findViewById(R.id.push_history_cl);
+        purchaseCl = findViewById(R.id.purchase_cl);
+        noticeBoardItemCl = findViewById(R.id.notice_board_item_cl);
+        loginLogoutTv = findViewById(R.id.login_logout_txt);
 
         pushBadge = findViewById(R.id.push_badge);
         barPushBadge = findViewById(R.id.bar_push_badge);
@@ -198,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void setVisibilityToolbar(int visibility) {
         _log.e("test setVisibilityToolbar::"+visibility);
-        toolbar.setVisibility(visibility);
+        //toolbar.setVisibility(visibility);
     }
 
     public void changeFragment(String page) {
@@ -256,16 +259,16 @@ public class MainActivity extends AppCompatActivity {
      */
     public void changeLoginAndLogoutMenu() {
         runOnUiThread(() -> {
-            pushHistoryLl.setVisibility(View.GONE);
-            purchaseLl.setVisibility(View.GONE);
+            pushHistoryCl.setVisibility(View.GONE);
+            purchaseCl.setVisibility(View.GONE);
 
             if (getUserCI().isEmpty()) {
                 loginLogoutTv.setText("로그인");
                // setVisibilityToolbar(View.visi);
             } else {
                 loginLogoutTv.setText("로그아웃");
-                pushHistoryLl.setVisibility(View.VISIBLE);
-                purchaseLl.setVisibility(View.VISIBLE);
+                pushHistoryCl.setVisibility(View.VISIBLE);
+                purchaseCl.setVisibility(View.VISIBLE);
                 //setVisibilityToolbar(View.VISIBLE);
             }
         });
@@ -331,12 +334,12 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void clickNoticeBoard(View view) {
-        int visibility = noticeBoardItemLl.getVisibility();
+        int visibility = noticeBoardItemCl.getVisibility();
 
         if (visibility == 0) {
-            noticeBoardItemLl.setVisibility(View.GONE);
+            noticeBoardItemCl.setVisibility(View.GONE);
         } else {
-            noticeBoardItemLl.setVisibility(View.VISIBLE);
+            noticeBoardItemCl.setVisibility(View.VISIBLE);
         }
     }
 
@@ -486,19 +489,21 @@ public class MainActivity extends AppCompatActivity {
     public void setPushCnt(int cnt){
         _log.e("test setPushCnt"+ getIsDrawerOpen()+"/"+cnt);
 
-        if(cnt == 0){
-            pushBadge.setVisibility(View.GONE);
-            barPushBadge.setVisibility(View.GONE);
-        }else{
-            pushBadge.setVisibility(View.VISIBLE);
-            barPushBadge.setVisibility(View.VISIBLE);
+        runOnUiThread(() -> {
+            if(cnt == 0){
+                pushBadge.setVisibility(View.GONE);
+                barPushBadge.setVisibility(View.GONE);
+            }else{
+                pushBadge.setVisibility(View.VISIBLE);
+                barPushBadge.setVisibility(View.VISIBLE);
 
-            String cntStr = String.valueOf(cnt);
-            if(drawerLayout != null){
-                pushBadge.setText(cntStr);
-                barPushBadge.setText(cntStr);
+                String cntStr = String.valueOf(cnt);
+                if(drawerLayout != null){
+                    pushBadge.setText(cntStr);
+                    barPushBadge.setText(cntStr);
+                }
             }
-        }
+        });
     }
 
     private ConnectivityManager.NetworkCallback  networkCallback = new ConnectivityManager.NetworkCallback() {
