@@ -29,11 +29,18 @@ public class AndroidBridge {
         webView.loadUrl(url);
     }
 
+    // 키패드 핼퍼 객체 생성 및 설정
+    @JavascriptInterface
+    public void setKeyCrypt(final String inputLabel, final int inputType, final int maxLens, final String title, final String hint, final String serverKey, final String uid) {
+        ((TgtrFragment) fragment).setKeyCrypt(inputLabel, inputType, maxLens, title, hint, serverKey, uid);
+    }
+
+
     // web 로그인 페이지 로딩 완료
     @JavascriptInterface
     public void readyWebview( ){
         _log.e("test 메인화면 페이지");
-        Toast.makeText(fragment.getContext(), "메인 페이지", Toast.LENGTH_SHORT).show();
+        Toast.makeText(App.getStaticContext(), "메인 페이지", Toast.LENGTH_SHORT).show();
 
         new Handler().post(new Runnable() {
             @Override

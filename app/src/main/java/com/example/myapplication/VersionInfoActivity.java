@@ -16,22 +16,22 @@ public class VersionInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_version);
+       // setContentView(R.layout.activity_version);
 
         initDisplay();
     }
 
     public void initDisplay() {
-        TextView tvNoti = findViewById(R.id.tv_noti);
-        TextView tvVersion = findViewById(R.id.tv_version);
-        Button btnUpdate = findViewById(R.id.btn_update);
-
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        TextView tvNoti = findViewById(R.id.tv_noti);
+//        TextView tvVersion = findViewById(R.id.tv_version);
+//        Button btnUpdate = findViewById(R.id.btn_update);
+//
+//        btnUpdate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
     }
 

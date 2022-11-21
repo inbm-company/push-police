@@ -33,7 +33,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.nprotect.*;
+import com.nprotect.keycryptm.IxConfigureKeypadItem;
+import com.nprotect.keycryptm.IxKeypadManageHelper;
 
 import org.json.JSONObject;
 
@@ -74,13 +75,15 @@ public class MainActivity extends AppCompatActivity {
     public static boolean networkChangeFlag = false;
     public static boolean netWorkConnected = false;
 
+    // 키패드 헬퍼
+    IxKeypadManageHelper keypadMngHelper;
+    IxConfigureKeypadItem keypadConfig;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        // 키보드 보안
-        //IxSecureManager.initLicense(this, "B27AC1F26BE1", "POLICE_01"); // 라이선스 설정
 
         // 네트워크 체크
         NetworkRequest.Builder networkBuilder = new NetworkRequest.Builder();

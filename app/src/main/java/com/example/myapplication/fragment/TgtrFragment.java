@@ -1,5 +1,6 @@
 package com.example.myapplication.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -9,13 +10,15 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.ConsoleMessage;
+import android.webkit.CookieManager;
 import android.webkit.JsResult;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -25,14 +28,23 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.myapplication.AndroidBridge;
+import com.example.myapplication.App;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication._log;
 import com.example.myapplication.common.Constants;
+
+import com.nprotect.keycryptm.Defines;
+import com.nprotect.keycryptm.IxConfigureInputItemW;
+import com.nprotect.keycryptm.IxKeypadManageHelper;
+import com.nprotect.truemessage.CryptoOperationException;
+import com.nprotect.truemessage.InvaildServerKeyException;
+
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -44,7 +56,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-public class TgtrFragment extends Fragment {
+import static com.example.myapplication.App.*;
+
+public class TgtrFragment extends Fragment implements View.OnTouchListener {
 
     private static final String TAG = "TgtrFragment";
 
@@ -61,6 +75,12 @@ public class TgtrFragment extends Fragment {
     private ValueCallback mFilePathCallback;
 
     private boolean isFirstLoad = true;
+
+    // 보안 키패드 관련 변수
+    private IxKeypadManageHelper keypadMngHelper;
+    private IxConfigureInputItemW inputConfig;
+    private EditText hiddenInputBox;
+    private final int REQUEST_CODE_KEYPAD = 0x2231;
 
 
     public static TgtrFragment newInstance() {
@@ -109,6 +129,15 @@ public class TgtrFragment extends Fragment {
     }
 
     public void setWebView() {
+
+        // 키패드 핼퍼 객체 생성 및 설정
+        keypadMngHelper = new IxKeypadManageHelper(App.getStaticContext(), REQUEST_CODE_KEYPAD);
+        keypadMngHelper.setUiVisibility(Defines.FLAG_INHERIT_UI_VISIBILITY | Defines.FLAG_UI_NO_NUMBER_PAD_HIDEBUTTON | Defines.FLAG_USE_INPUT_ACTIVITY);
+
+        // 입력창 객체 생성 및 설정
+        hiddenInputBox = new EditText(getStaticContext());
+        hiddenInputBox.setFocusable(false);
+
         WebSettings settings = webView.getSettings();
         settings.setDefaultTextEncodingName("UTF-8");
         settings.setJavaScriptEnabled(true);
@@ -122,20 +151,29 @@ public class TgtrFragment extends Fragment {
         settings.setBuiltInZoomControls(true);
         settings.setSupportZoom(true);
         settings.setAllowFileAccess(true);       //
-        //webSettings.setAllowContentAccess(true);    //
+        settings.setAllowContentAccess(true);    //
+        settings.setAllowFileAccessFromFileURLs(true);
+        settings.setAllowUniversalAccessFromFileURLs(true);
         //webSettings.setAppCacheEnabled(true);       // 캐시 삭제
 
         String userAgent = webView.getSettings().getUserAgentString();
         settings.setUserAgentString(userAgent+" android_app");
-        settings.setDefaultTextEncodingName("UTF-8");
 
         androidBridge = new AndroidBridge(this, webView);
         webView.addJavascriptInterface(androidBridge, "android");
+        webView.setOnTouchListener(this);
 
         webView.setWebChromeClient(new TgtrWebChromeClient());
         webView.setWebViewClient(new TgtrWebViewClientClass(this.getContext()));
         webView.setWebContentsDebuggingEnabled(true);   // for webview debugging in chrome
         webView.setBackgroundColor(0x00000000);
+
+        // targetSdkVersion이 21 이상일 경우 웹뷰 추가 설정 필요
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+            CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true);
+        }
+
         webView.loadUrl(Constants.mainUrl);
         webView.clearHistory();
 
@@ -445,7 +483,50 @@ public class TgtrFragment extends Fragment {
         transaction.detach(this).attach(this).commitAllowingStateLoss();
     }
 
+    /**
+     * 보안 키패드 호출
+     */
+    public void setKeyCrypt(final String inputLabel, final int inputType, final int maxLens, final String title, final String hint, final String serverKey, final String uid) {
+        if ( TextUtils.isEmpty(serverKey) ) return;
 
+        // 입력창 config 설정
+        if ( 0 == inputType ) {
+            inputConfig = new IxConfigureInputItemW(hiddenInputBox, Defines.KEYPAD_TYPE_NUMBER, Defines.SHUFFLE_TYPE_GAPKEY);
+        } else {
+            inputConfig = new IxConfigureInputItemW(hiddenInputBox, Defines.KEYPAD_TYPE_QWERTY, Defines.SHUFFLE_TYPE_GAPKEY);
+        }
+
+        if ( 0 < maxLens )
+            inputConfig.setMaxLength(maxLens);
+
+        inputConfig.setMinLength(1);
+
+        inputConfig.setLabel(inputLabel);
+        inputConfig.setUid(uid);
+        inputConfig.setTitle(title);
+        inputConfig.setHint(hint);
+
+        // 키패드 핼퍼에 서버키 설정
+        try {
+            keypadMngHelper.setServerKey(serverKey);
+        } catch (InvaildServerKeyException e) {
+            return;
+        } catch (CryptoOperationException e) {
+            return;
+        }
+
+        // 보안 키패드 시작
+        keypadMngHelper.configureInputBoxAndStart(hiddenInputBox, inputConfig);
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (v == webView && v.hasFocus() == false)
+            v.requestFocus();
+
+        return false;
+    }
 
     /**
      * 백 버튼 시 호출

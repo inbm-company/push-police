@@ -33,7 +33,7 @@
     <color name="error_color">#ff30f2</color>
 
     <color name="drawer_bg">#F20F2C56</color>
-    <color name="drawer_line">#566b88</color>
+    <color name="drawer_line">#42ffffff</color>
     <color name="logo_txt1">#131e5c</color>
     <color name="logo_txt2">#a4681d</color>
     <color name="bar_line">#ccd2de</color>
