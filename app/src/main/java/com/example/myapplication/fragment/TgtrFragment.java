@@ -29,7 +29,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.myapplication.AndroidBridge;
@@ -53,6 +53,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -63,25 +64,22 @@ public class TgtrFragment extends Fragment implements View.OnTouchListener {
     private static final String TAG = "TgtrFragment";
 
     private WebView webView;
-
     private View view;
-
-    private AndroidBridge androidBridge;
-
-    private LinearLayout networkErrorLl;
-
+    private ProgressBar progressBar;
+    private ConstraintLayout networkErrorLl;
     private Button btnRetryConnect;
 
     private ValueCallback mFilePathCallback;
 
     private boolean isFirstLoad = true;
 
+    private AndroidBridge androidBridge;
+
     // 보안 키패드 관련 변수
     private IxKeypadManageHelper keypadMngHelper;
     private IxConfigureInputItemW inputConfig;
     private EditText hiddenInputBox;
     private final int REQUEST_CODE_KEYPAD = 0x2231;
-
 
     public static TgtrFragment newInstance() {
         TgtrFragment  fragment = new TgtrFragment();
@@ -97,6 +95,10 @@ public class TgtrFragment extends Fragment implements View.OnTouchListener {
         webView = view.findViewById(R.id.mainWebView);
         networkErrorLl = view.findViewById(R.id.network_error_ll);
         btnRetryConnect = networkErrorLl.findViewById(R.id.btn_retry);
+
+        // webview 로딩시 프로그래스바
+        progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         btnRetryConnect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -317,6 +319,16 @@ public class TgtrFragment extends Fragment implements View.OnTouchListener {
 
             return true;
         }
+
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            super.onProgressChanged(view, newProgress);
+
+            if(newProgress == 100){
+                progressBar.setVisibility(View.INVISIBLE);
+                _log.e("test web 로딩 중~~~"+ newProgress);
+            }
+        }
     }
 
     /**
@@ -364,6 +376,8 @@ public class TgtrFragment extends Fragment implements View.OnTouchListener {
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            progressBar.setVisibility(View.VISIBLE);
+
             if(isFirstLoad){
                 clearStorage();
             }

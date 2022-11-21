@@ -403,7 +403,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void clickVersion(View view) {
         closeDrawer(drawerLayout);
-        changeFragment("version");
+
+        Intent intent = new Intent( this, VersionInfoActivity.class);
+        startActivity(intent);
+        //changeFragment("version");
     }
 
     /**
