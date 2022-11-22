@@ -26,15 +26,15 @@
         app:layout_constraintVertical_bias="0.5"
         tools:visibility="invisible" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/network_error_ll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/network_error_ll"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
 
-        <include layout="@layout/disconnectedstateview"></include>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        <include layout="@layout/disconnectedstateview"></include>-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

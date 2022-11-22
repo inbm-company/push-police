@@ -8,18 +8,15 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -42,12 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
 
-    private FrameLayout splashFl;
-
-    private RelativeLayout toolbarIcon;
-
-    private Toolbar toolbar;
-
     private ConstraintLayout pushHistoryCl;
     private ConstraintLayout purchaseCl;
     private ConstraintLayout noticeBoardItemCl;
@@ -58,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView loginLogoutTv;
     private TextView pushBadge;
     private TextView barPushBadge;
+
+    private ConstraintLayout networkErrorLl;
+    private Button btnRetryConnect;
 
     private String userId = "";
     private String backStr;
@@ -98,12 +92,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Boolean doClickEvent = intent.getBooleanExtra("notiClick", false);
 
-        DisplayMetrics metrics = new DisplayMetrics();
-        this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        float dd = metrics.densityDpi;
-        _log.e("test device dpi => " + dd);
-
-
         // push 클릭하여 앱을 실행할경우 이벤트 시행
         if (doClickEvent) {
             notiClickEvent();
@@ -121,13 +109,37 @@ public class MainActivity extends AppCompatActivity {
         noticeBoardItemCl = findViewById(R.id.notice_board_item_cl);
         loginLogoutTv = findViewById(R.id.login_logout_txt);
 
+        networkErrorLl = findViewById(R.id.network_error_ll);
+        btnRetryConnect = networkErrorLl.findViewById(R.id.btn_retry);
+
         pushBadge = findViewById(R.id.push_badge);
         barPushBadge = findViewById(R.id.bar_push_badge);
+
+        //네트워크 재시도 버튼
+        btnRetryConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                networkCheck();
+            }
+        });
 
         backStr = this.getResources().getString(R.string.back_presssed);
 
         changeLoginAndLogoutMenu();
         setVisibilityToolbarIcon();
+    }
+
+    //network check
+    public void networkCheck() {
+        if (!isNetWorkConnected()) {
+            networkErrorLl.setVisibility(View.VISIBLE);
+            Toast.makeText(App.getStaticContext(), R.string.retry_msg, Toast.LENGTH_LONG).show();
+        } else {
+            networkErrorLl.setVisibility(View.GONE);
+            if(tgtrFragment != null){
+                tgtrFragment.webViewReload();
+            }
+        }
     }
 
     /**
@@ -151,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * drawerLayout close
-     *
      * @param drawerLayout
      */
     private void closeDrawer(DrawerLayout drawerLayout) {
@@ -162,9 +173,9 @@ public class MainActivity extends AppCompatActivity {
      * drawer layout close
      */
     public void callCloseDrawer(){
-        _log.e("test close::"+ drawerLayout );
         if(drawerLayout != null){
             _log.e("test close::"+ drawerLayout );
+            noticeBoardItemCl.setVisibility(View.GONE);
             closeDrawer(drawerLayout);
         }
     }
@@ -188,26 +199,14 @@ public class MainActivity extends AppCompatActivity {
 
         runOnUiThread(() -> {
             btnPushHistory.setVisibility(View.GONE);
-//            barPushBadge.setVisibility(View.GONE);
             btnPurchase.setVisibility(View.GONE);
             btnChatbot.setVisibility(View.VISIBLE);
 
             if (!getUserCI().isEmpty()) {
                 btnPushHistory.setVisibility(View.VISIBLE);
-//                barPushBadge.setVisibility(View.VISIBLE);
                 btnPurchase.setVisibility(View.VISIBLE);
             }
         });
-    }
-
-    /**
-     * toolbar visibility
-     *
-     * @param visibility
-     */
-    public void setVisibilityToolbar(int visibility) {
-        _log.e("test setVisibilityToolbar::"+visibility);
-        //toolbar.setVisibility(visibility);
     }
 
     public void changeFragment(String page) {
@@ -215,7 +214,6 @@ public class MainActivity extends AppCompatActivity {
         transaction = fragmentManager.beginTransaction();
 
         if (page.equals("version")) {
-            setVisibilityToolbar(View.GONE);
             if (versionInfoFragment == null) {
                 versionInfoFragment = VersionInfoFragment.newInstance();
                 transaction.add(R.id.frame_layout, versionInfoFragment).commit();
@@ -223,8 +221,6 @@ public class MainActivity extends AppCompatActivity {
                 transaction.replace(R.id.frame_layout, versionInfoFragment).commit();
             }
         } else {
-            setVisibilityToolbar(View.VISIBLE);
-
             if (tgtrFragment == null) {
                 tgtrFragment = TgtrFragment.newInstance();
                 transaction.add(R.id.frame_layout, tgtrFragment).commitNow();
@@ -270,12 +266,10 @@ public class MainActivity extends AppCompatActivity {
 
             if (getUserCI().isEmpty()) {
                 loginLogoutTv.setText("로그인");
-               // setVisibilityToolbar(View.visi);
             } else {
                 loginLogoutTv.setText("로그아웃");
                 pushHistoryCl.setVisibility(View.VISIBLE);
                 purchaseCl.setVisibility(View.VISIBLE);
-                //setVisibilityToolbar(View.VISIBLE);
             }
         });
     }
@@ -298,17 +292,12 @@ public class MainActivity extends AppCompatActivity {
      */
     public void gotoMain(View view) {
         if (tgtrFragment != null) {
-//            if(getUserCI().isEmpty()){
-                tgtrFragment.changeUrl(Constants.mainUrl);
-//            }else{
-//                tgtrFragment.changeUrl(Constants.indexUrl);
-         //   }
-
+            tgtrFragment.changeUrl(Constants.mainUrl);
         }
     }
 
     public void clickCloseDrawer(View view) {
-        closeDrawer(drawerLayout);
+        callCloseDrawer();
     }
 
     /**
@@ -320,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
             tgtrFragment.changeUrl(Constants.pushHistoryUrl);
         }
 
-        closeDrawer(drawerLayout);
+        callCloseDrawer();
     }
 
     /**
@@ -332,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
             tgtrFragment.changeUrl(Constants.purchaseUrl);
         }
 
-        closeDrawer(drawerLayout);
+        callCloseDrawer();
     }
 
     /**
@@ -358,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
             tgtrFragment.changeUrl(Constants.noticeUrl);
         }
 
-        closeDrawer(drawerLayout);
+        callCloseDrawer();
     }
 
     /**
@@ -370,7 +359,7 @@ public class MainActivity extends AppCompatActivity {
             tgtrFragment.changeUrl(Constants.faqUrl);
         }
 
-        closeDrawer(drawerLayout);
+        callCloseDrawer();
     }
 
     /**
@@ -382,7 +371,7 @@ public class MainActivity extends AppCompatActivity {
             tgtrFragment.changeUrl(Constants.qaUrl);
         }
 
-        closeDrawer(drawerLayout);
+        callCloseDrawer();
     }
 
     /**
@@ -394,7 +383,7 @@ public class MainActivity extends AppCompatActivity {
             tgtrFragment.changeUrl(Constants.chatbotUrl);
         }
 
-        closeDrawer(drawerLayout);
+        callCloseDrawer();
     }
 
     /**
@@ -402,7 +391,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void clickVersion(View view) {
-        closeDrawer(drawerLayout);
+        callCloseDrawer();
 
         Intent intent = new Intent( this, VersionInfoActivity.class);
         startActivity(intent);
@@ -425,18 +414,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        closeDrawer(drawerLayout);
-    }
-
-    /**
-     * splash 화면 안보이게 처리
-     */
-    public void removeSplashScreen() {
-        runOnUiThread(new Runnable() {
-            public void run() {
-                splashFl.removeAllViews();
-            }
-        });
+        callCloseDrawer();
     }
 
     /**
@@ -457,18 +435,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
     }
-
-//    class ValueHandler extends Handler {
-//        @Override
-//        public void handleMessage(@NonNull Message msg) {
-//            super.handleMessage(msg);
-//            _log.e("test handdle::"+ msg);
-//            if(msg.what == 100){
-//                tgtrFragment.getPushCnt();
-//            }
-//        }
-//    }
-
 
     /**
      * 토근 값 전송
@@ -563,7 +529,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         // drawer open시
         if(getIsDrawerOpen()){
             callCloseDrawer();

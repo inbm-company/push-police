@@ -13,6 +13,7 @@
     <string name="back_presssed">\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.</string>
     <string name="disconnect_content">오프라인 상태입니다. \n인터넷 연결을 확인해주세요.</string>
     <string name="retry_connect">재시도</string>
+    <string name="retry_msg">인터넷 연결을 확인해주세요.</string>
 
 
     <string name="app_cur_ver">현재 버전:</string>

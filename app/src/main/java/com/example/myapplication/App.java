@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.nprotect.IxSecureManager;
+
 public class App extends Application {
 
     private static Context context;
@@ -15,7 +17,7 @@ public class App extends Application {
         App.context = getApplicationContext();
 
         // 키보드 보안
-        //IxSecureManager.initLicense(this, "B27AC1F26BE1", "POLICE_01"); // 라이선스 설정
+        IxSecureManager.initLicense(this, "B27AC1F26BE1", "POLICE_01"); // 라이선스 설정
     }
 
     public static Context getStaticContext() {

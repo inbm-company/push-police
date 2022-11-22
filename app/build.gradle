@@ -36,6 +36,13 @@ android {
         }
     }
     namespace 'com.example.myapplication'
+    sourceSets {
+        main {
+            res {
+                srcDirs 'src/main/res', 'src/main/res/anim'
+            }
+        }
+    }
 }
 
 

@@ -1,7 +1,5 @@
 package com.example.myapplication;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Handler;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
@@ -15,7 +13,6 @@ import androidx.fragment.app.Fragment;
 public class AndroidBridge {
 
     private String TAG = "AndroidBridge";
-    final public Handler handler = new Handler();
 
     private WebView webView;
     private Fragment fragment;
@@ -33,22 +30,6 @@ public class AndroidBridge {
     @JavascriptInterface
     public void setKeyCrypt(final String inputLabel, final int inputType, final int maxLens, final String title, final String hint, final String serverKey, final String uid) {
         ((TgtrFragment) fragment).setKeyCrypt(inputLabel, inputType, maxLens, title, hint, serverKey, uid);
-    }
-
-
-    // web 로그인 페이지 로딩 완료
-    @JavascriptInterface
-    public void readyWebview( ){
-        _log.e("test 메인화면 페이지");
-        Toast.makeText(App.getStaticContext(), "메인 페이지", Toast.LENGTH_SHORT).show();
-
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                _log.e("test removesplace");
-                ((TgtrFragment) fragment).removeSplashScreen();
-            }
-        });
     }
 
     // web 로그인 완료 후 userID 전달

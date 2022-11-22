@@ -27,7 +27,6 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -53,7 +52,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -66,9 +64,6 @@ public class TgtrFragment extends Fragment implements View.OnTouchListener {
     private WebView webView;
     private View view;
     private ProgressBar progressBar;
-    private ConstraintLayout networkErrorLl;
-    private Button btnRetryConnect;
-
     private ValueCallback mFilePathCallback;
 
     private boolean isFirstLoad = true;
@@ -93,20 +88,10 @@ public class TgtrFragment extends Fragment implements View.OnTouchListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_tgtr, container, false);
         webView = view.findViewById(R.id.mainWebView);
-        networkErrorLl = view.findViewById(R.id.network_error_ll);
-        btnRetryConnect = networkErrorLl.findViewById(R.id.btn_retry);
 
         // webview 로딩시 프로그래스바
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
-
-        btnRetryConnect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                networkCheck();
-            }
-        });
-
 
         if (savedInstanceState == null) {
             _log.e("test fragment savedInstanceState null:"+isFirstLoad);
@@ -246,14 +231,12 @@ public class TgtrFragment extends Fragment implements View.OnTouchListener {
             _log.e(getClass().getName()+ "onCloseWindow");
             window.setVisibility(View.GONE);
             window.destroy();
-            //mWebViewSub=null;
             super.onCloseWindow(window);
         }
 
         @Override
         public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
             _log.e(getClass().getName()+ "onJsAlert() url:"+url+", message:"+message);
-            //return super.onJsAlert(view, url, message, result);
             new AlertDialog.Builder(view.getContext())
                     .setTitle("")
                     .setMessage(message)
@@ -395,9 +378,7 @@ public class TgtrFragment extends Fragment implements View.OnTouchListener {
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             super.onReceivedError(view, request, error);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                //Log.i(TAG, "onReceivedError() " + error.getErrorCode() + " ---> " + error.getDescription());
                 onReceivedError(error.getErrorCode(),String.valueOf(error.getDescription()));
-
             }
         }
 
@@ -422,32 +403,20 @@ public class TgtrFragment extends Fragment implements View.OnTouchListener {
                 case WebViewClient.ERROR_UNSAFE_RESOURCE:
                     Toast.makeText(mApplicationContext,"WebViewClient,onReceivedError("+errorCode+") 에러 발생 " , Toast.LENGTH_LONG).show();
                     _log.e("WebViewClient,onReceivedError("+errorCode+") 에러 발생 "  );
-                    networkCheck();
+                    ((MainActivity) getActivity()).networkCheck();
                     break;
             }
         }
     }
 
-    //network check
-    public void networkCheck() {
-        _log.e("test networkCheck" );
-        if (!((MainActivity) getActivity()).isNetWorkConnected()) {
-            networkErrorLl.setVisibility(View.VISIBLE);
-        } else {
-            networkErrorLl.setVisibility(View.GONE);
+    public void webViewReload(){
+        if(webView != null){
             webView.reload();
         }
     }
 
     public MainActivity getMainActivity() {
         return ((MainActivity) getActivity());
-    }
-
-    /**
-     * splash 안보이게 처리
-     */
-    public void removeSplashScreen(){
-        ((MainActivity)getActivity()).removeSplashScreen();
     }
 
     /**
