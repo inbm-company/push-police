@@ -77,7 +77,7 @@ public class AndroidBridge {
             @Override
             public void onReceiveValue(String value) {
                 _log.e("test logout result");
-                ((TgtrFragment) fragment).setUserCI("");
+               // ((TgtrFragment) fragment).setUserCI("");
             }
         });
     }
