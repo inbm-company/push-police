@@ -38,13 +38,6 @@ import com.example.myapplication.R;
 import com.example.myapplication._log;
 import com.example.myapplication.common.Constants;
 
-import com.nprotect.keycryptm.Defines;
-import com.nprotect.keycryptm.IxConfigureInputItemW;
-import com.nprotect.keycryptm.IxKeypadManageHelper;
-import com.nprotect.truemessage.CryptoOperationException;
-import com.nprotect.truemessage.InvaildServerKeyException;
-
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -56,8 +49,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import static com.example.myapplication.App.*;
-
-public class TgtrFragment extends Fragment implements View.OnTouchListener {
+public class TgtrFragment extends Fragment {
+//public class TgtrFragment extends Fragment implements View.OnTouchListener {
 
     private static final String TAG = "TgtrFragment";
 
@@ -71,10 +64,10 @@ public class TgtrFragment extends Fragment implements View.OnTouchListener {
     private AndroidBridge androidBridge;
 
     // 보안 키패드 관련 변수
-    private IxKeypadManageHelper keypadMngHelper;
-    private IxConfigureInputItemW inputConfig;
-    private EditText hiddenInputBox;
-    private final int REQUEST_CODE_KEYPAD = 0x2231;
+//    private IxKeypadManageHelper keypadMngHelper;
+//    private IxConfigureInputItemW inputConfig;
+//    private EditText hiddenInputBox;
+//    private final int REQUEST_CODE_KEYPAD = 0x2231;
 
     public static TgtrFragment newInstance() {
         TgtrFragment  fragment = new TgtrFragment();
@@ -118,12 +111,12 @@ public class TgtrFragment extends Fragment implements View.OnTouchListener {
     public void setWebView() {
 
         // 키패드 핼퍼 객체 생성 및 설정
-        keypadMngHelper = new IxKeypadManageHelper(App.getStaticContext(), REQUEST_CODE_KEYPAD);
-        keypadMngHelper.setUiVisibility(Defines.FLAG_INHERIT_UI_VISIBILITY | Defines.FLAG_UI_NO_NUMBER_PAD_HIDEBUTTON | Defines.FLAG_USE_INPUT_ACTIVITY);
+        //keypadMngHelper = new IxKeypadManageHelper(App.getStaticContext(), REQUEST_CODE_KEYPAD);
+       // keypadMngHelper.setUiVisibility(Defines.FLAG_INHERIT_UI_VISIBILITY | Defines.FLAG_UI_NO_NUMBER_PAD_HIDEBUTTON | Defines.FLAG_USE_INPUT_ACTIVITY);
 
         // 입력창 객체 생성 및 설정
-        hiddenInputBox = new EditText(getStaticContext());
-        hiddenInputBox.setFocusable(false);
+        //hiddenInputBox = new EditText(getStaticContext());
+       // hiddenInputBox.setFocusable(false);
 
         WebSettings settings = webView.getSettings();
         settings.setDefaultTextEncodingName("UTF-8");
@@ -138,9 +131,9 @@ public class TgtrFragment extends Fragment implements View.OnTouchListener {
         settings.setBuiltInZoomControls(true);
         settings.setSupportZoom(true);
         settings.setAllowFileAccess(true);       //
-        settings.setAllowContentAccess(true);    //
-        settings.setAllowFileAccessFromFileURLs(true);
-        settings.setAllowUniversalAccessFromFileURLs(true);
+       // settings.setAllowContentAccess(true);    //
+       // settings.setAllowFileAccessFromFileURLs(true);
+        //settings.setAllowUniversalAccessFromFileURLs(true);
         //webSettings.setAppCacheEnabled(true);       // 캐시 삭제
 
         String userAgent = webView.getSettings().getUserAgentString();
@@ -148,7 +141,7 @@ public class TgtrFragment extends Fragment implements View.OnTouchListener {
 
         androidBridge = new AndroidBridge(this, webView);
         webView.addJavascriptInterface(androidBridge, "android");
-        webView.setOnTouchListener(this);
+        //webView.setOnTouchListener(this);
 
         webView.setWebChromeClient(new TgtrWebChromeClient());
         webView.setWebViewClient(new TgtrWebViewClientClass(this.getContext()));
@@ -469,47 +462,47 @@ public class TgtrFragment extends Fragment implements View.OnTouchListener {
     /**
      * 보안 키패드 호출
      */
-    public void setKeyCrypt(final String inputLabel, final int inputType, final int maxLens, final String title, final String hint, final String serverKey, final String uid) {
-        if ( TextUtils.isEmpty(serverKey) ) return;
+//    public void setKeyCrypt(final String inputLabel, final int inputType, final int maxLens, final String title, final String hint, final String serverKey, final String uid) {
+//        if ( TextUtils.isEmpty(serverKey) ) return;
+//
+//        // 입력창 config 설정
+//        if ( 0 == inputType ) {
+//            inputConfig = new IxConfigureInputItemW(hiddenInputBox, Defines.KEYPAD_TYPE_NUMBER, Defines.SHUFFLE_TYPE_GAPKEY);
+//        } else {
+//            inputConfig = new IxConfigureInputItemW(hiddenInputBox, Defines.KEYPAD_TYPE_QWERTY, Defines.SHUFFLE_TYPE_GAPKEY);
+//        }
+//
+//        if ( 0 < maxLens )
+//            inputConfig.setMaxLength(maxLens);
+//
+//        inputConfig.setMinLength(1);
+//
+//        inputConfig.setLabel(inputLabel);
+//        inputConfig.setUid(uid);
+//        inputConfig.setTitle(title);
+//        inputConfig.setHint(hint);
+//
+//        // 키패드 핼퍼에 서버키 설정
+//        try {
+//            keypadMngHelper.setServerKey(serverKey);
+//        } catch (InvaildServerKeyException e) {
+//            return;
+//        } catch (CryptoOperationException e) {
+//            return;
+//        }
+//
+//        // 보안 키패드 시작
+//        keypadMngHelper.configureInputBoxAndStart(hiddenInputBox, inputConfig);
+//    }
 
-        // 입력창 config 설정
-        if ( 0 == inputType ) {
-            inputConfig = new IxConfigureInputItemW(hiddenInputBox, Defines.KEYPAD_TYPE_NUMBER, Defines.SHUFFLE_TYPE_GAPKEY);
-        } else {
-            inputConfig = new IxConfigureInputItemW(hiddenInputBox, Defines.KEYPAD_TYPE_QWERTY, Defines.SHUFFLE_TYPE_GAPKEY);
-        }
-
-        if ( 0 < maxLens )
-            inputConfig.setMaxLength(maxLens);
-
-        inputConfig.setMinLength(1);
-
-        inputConfig.setLabel(inputLabel);
-        inputConfig.setUid(uid);
-        inputConfig.setTitle(title);
-        inputConfig.setHint(hint);
-
-        // 키패드 핼퍼에 서버키 설정
-        try {
-            keypadMngHelper.setServerKey(serverKey);
-        } catch (InvaildServerKeyException e) {
-            return;
-        } catch (CryptoOperationException e) {
-            return;
-        }
-
-        // 보안 키패드 시작
-        keypadMngHelper.configureInputBoxAndStart(hiddenInputBox, inputConfig);
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (v == webView && v.hasFocus() == false)
-            v.requestFocus();
-
-        return false;
-    }
+//    @SuppressLint("ClickableViewAccessibility")
+//    @Override
+//    public boolean onTouch(View v, MotionEvent event) {
+//        if (v == webView && v.hasFocus() == false)
+//            v.requestFocus();
+//
+//        return false;
+//    }
 
     /**
      * 백 버튼 시 호출

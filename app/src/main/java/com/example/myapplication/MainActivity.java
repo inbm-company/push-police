@@ -30,8 +30,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.nprotect.keycryptm.IxConfigureKeypadItem;
-import com.nprotect.keycryptm.IxKeypadManageHelper;
 
 import org.json.JSONObject;
 
@@ -68,10 +66,6 @@ public class MainActivity extends AppCompatActivity {
     private ConnectivityManager cm;
     public static boolean networkChangeFlag = false;
     public static boolean netWorkConnected = false;
-
-    // 키패드 헬퍼
-    IxKeypadManageHelper keypadMngHelper;
-    IxConfigureKeypadItem keypadConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

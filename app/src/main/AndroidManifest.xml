@@ -40,11 +40,11 @@
         <activity
             android:name=".VersionInfoActivity"
             android:theme="@style/Theme.MyApplication.NoActionBar" />
-        <activity
-            android:name="com.nprotect.keycryptm.IxCustomInputActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout"
-            android:excludeFromRecents="true"
-            android:theme="@android:style/Theme.Translucent" />
+<!--        <activity-->
+<!--            android:name="com.nprotect.keycryptm.IxCustomInputActivity"-->
+<!--            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout"-->
+<!--            android:excludeFromRecents="true"-->
+<!--            android:theme="@android:style/Theme.Translucent" />-->
 
         <service
             android:name=".FirebaseMessageService"
