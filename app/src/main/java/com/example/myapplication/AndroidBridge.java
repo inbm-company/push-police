@@ -35,7 +35,7 @@ public class AndroidBridge {
     // web 로그인 완료 후 userID 전달
     @JavascriptInterface
     public void readyWebview(String userCI ){
-        Toast.makeText(fragment.getContext(), userCI, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(fragment.getContext(), userCI, Toast.LENGTH_SHORT).show();
         new Handler().post(new Runnable() {
             @Override
             public void run() {
@@ -47,7 +47,7 @@ public class AndroidBridge {
     // 토큰 값 요청 호출
     @JavascriptInterface
     public String getToken(){
-        Toast.makeText(fragment.getContext(), "gettoken", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(fragment.getContext(), "gettoken", Toast.LENGTH_SHORT).show();
 
         _log.e("test app token::" + ((TgtrFragment) fragment).getMainActivity().getToken());
         return ((TgtrFragment) fragment).getMainActivity().getToken();
@@ -56,7 +56,7 @@ public class AndroidBridge {
     // 읽지 않은 알림 갯수
     @JavascriptInterface
     public String getNewMsgCnt(int cnt){
-        Toast.makeText(fragment.getContext(), "getNewMsgCnt", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(fragment.getContext(), "getNewMsgCnt", Toast.LENGTH_SHORT).show();
 
         new Handler().post(new Runnable() {
             @Override
@@ -98,7 +98,7 @@ public class AndroidBridge {
     // web에서 Android.showToast() 호출시 앱에서 토스트 뛰움
     @JavascriptInterface
     public void showToast(String msg) {
-        Toast.makeText(fragment.getContext(), msg, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(fragment.getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
 }

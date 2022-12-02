@@ -170,7 +170,7 @@ public class TgtrFragment extends Fragment {
 
         @Override
         public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
-            Toast.makeText(view.getContext(), "window.open 협의가 필요합니다.", Toast.LENGTH_LONG).show();
+            //Toast.makeText(view.getContext(), "window.open 협의가 필요합니다.", Toast.LENGTH_LONG).show();
             WebView newWebView = new WebView(view.getContext());
             WebSettings settings = newWebView.getSettings();
             settings.setJavaScriptEnabled(true);
@@ -193,7 +193,7 @@ public class TgtrFragment extends Fragment {
                         if(newWebView.canGoBack()){
                             newWebView.goBack();
                         }else{
-                            Toast.makeText(view.getContext(), "Window.open 종료", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(view.getContext(), "Window.open 종료", Toast.LENGTH_LONG).show();
                             dialog.dismiss();
                             webView.reload();
 
@@ -394,7 +394,7 @@ public class TgtrFragment extends Fragment {
                 case WebViewClient.ERROR_FILE:
                 case WebViewClient.ERROR_TOO_MANY_REQUESTS:
                 case WebViewClient.ERROR_UNSAFE_RESOURCE:
-                    Toast.makeText(mApplicationContext,"WebViewClient,onReceivedError("+errorCode+") 에러 발생 " , Toast.LENGTH_LONG).show();
+                    //Toast.makeText(mApplicationContext,"WebViewClient,onReceivedError("+errorCode+") 에러 발생 " , Toast.LENGTH_LONG).show();
                     _log.e("WebViewClient,onReceivedError("+errorCode+") 에러 발생 "  );
                     ((MainActivity) getActivity()).networkCheck();
                     break;
@@ -420,6 +420,9 @@ public class TgtrFragment extends Fragment {
         if(!userCI.isEmpty()){
             // 로그인 직후 token 전달 api 실행
             ((MainActivity) getActivity()).appToken();
+        }else{
+            // 로그아웃 상태
+            ((MainActivity) getActivity()).setPushCnt(0);
         }
 
         ((MainActivity) getActivity()).setUserCI(userCI);
