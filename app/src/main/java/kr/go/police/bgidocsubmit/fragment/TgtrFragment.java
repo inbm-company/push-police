@@ -1,6 +1,5 @@
-package com.example.myapplication.fragment;
+package kr.go.police.bgidocsubmit.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -11,10 +10,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.ConsoleMessage;
@@ -27,16 +24,13 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.example.myapplication.AndroidBridge;
-import com.example.myapplication.App;
-import com.example.myapplication.MainActivity;
+import kr.go.police.bgidocsubmit.AndroidBridge;
+import kr.go.police.bgidocsubmit.MainActivity;
 import com.example.myapplication.R;
-import com.example.myapplication._log;
-import com.example.myapplication.common.Constants;
+import kr.go.police.bgidocsubmit._log;
+import kr.go.police.bgidocsubmit.common.Constants;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -48,7 +42,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import static com.example.myapplication.App.*;
 public class TgtrFragment extends Fragment {
 //public class TgtrFragment extends Fragment implements View.OnTouchListener {
 

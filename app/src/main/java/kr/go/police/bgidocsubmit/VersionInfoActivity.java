@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package kr.go.police.bgidocsubmit;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,10 +11,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.myapplication.R;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.common.GetMarketVersion;
+import kr.go.police.bgidocsubmit.common.GetMarketVersion;
 
 
 public class VersionInfoActivity extends AppCompatActivity {

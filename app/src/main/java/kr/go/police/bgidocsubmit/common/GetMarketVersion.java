@@ -1,15 +1,9 @@
-package com.example.myapplication.common;
+package kr.go.police.bgidocsubmit.common;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.view.View;
-
-import com.example.myapplication._log;
-
-import java.io.IOException;
-import java.util.regex.Pattern;
 
 public class GetMarketVersion extends AsyncTask<Void, Void, String> {
 

@@ -1,12 +1,11 @@
-package com.example.myapplication;
+package kr.go.police.bgidocsubmit;
 
 import android.os.Handler;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebView;
-import android.widget.Toast;
 
-import com.example.myapplication.fragment.TgtrFragment;
+import kr.go.police.bgidocsubmit.fragment.TgtrFragment;
 
 import androidx.fragment.app.Fragment;
 

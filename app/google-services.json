@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:789371022222:android:699b2f464c13cc7d2cd2df",
         "android_client_info": {
-          "package_name": "com.example.myapplication"
+          "package_name": "kr.go.police.bgidocsubmit"
         }
       },
       "oauth_client": [

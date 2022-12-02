@@ -1,4 +1,4 @@
-package com.example.myapplication.fragment;
+package kr.go.police.bgidocsubmit.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.myapplication.MainActivity;
+import kr.go.police.bgidocsubmit.MainActivity;
 import com.example.myapplication.R;
-import com.example.myapplication._log;
-import com.example.myapplication.common.GetMarketVersion;
+import kr.go.police.bgidocsubmit._log;
+import kr.go.police.bgidocsubmit.common.GetMarketVersion;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;

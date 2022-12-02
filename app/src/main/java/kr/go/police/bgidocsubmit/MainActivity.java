@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package kr.go.police.bgidocsubmit;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,9 +23,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.myapplication.common.Constants;
-import com.example.myapplication.fragment.TgtrFragment;
-import com.example.myapplication.fragment.VersionInfoFragment;
+import kr.go.police.bgidocsubmit.common.Constants;
+import kr.go.police.bgidocsubmit.fragment.TgtrFragment;
+import kr.go.police.bgidocsubmit.fragment.VersionInfoFragment;
+
+import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;

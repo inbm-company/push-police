@@ -1,4 +1,4 @@
-package com.example.myapplication.common;
+package kr.go.police.bgidocsubmit.common;
 
 public class Constants {
 

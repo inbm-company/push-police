@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package kr.go.police.bgidocsubmit;
 
 import android.util.Log;
 
@@ -14,7 +14,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
 
 public class _web {
 

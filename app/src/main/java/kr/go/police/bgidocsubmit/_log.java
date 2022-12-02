@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package kr.go.police.bgidocsubmit;
 
 import android.util.Log;
 
