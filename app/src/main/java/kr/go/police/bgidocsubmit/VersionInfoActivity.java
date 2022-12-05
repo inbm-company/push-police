@@ -11,11 +11,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.myapplication.R;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import kr.go.police.bgidocsubmit.R;
 import kr.go.police.bgidocsubmit.common.GetMarketVersion;
 
 

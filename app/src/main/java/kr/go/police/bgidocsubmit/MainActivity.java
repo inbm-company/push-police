@@ -23,11 +23,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import kr.go.police.bgidocsubmit.R;
 import kr.go.police.bgidocsubmit.common.Constants;
 import kr.go.police.bgidocsubmit.fragment.TgtrFragment;
 import kr.go.police.bgidocsubmit.fragment.VersionInfoFragment;
 
-import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;

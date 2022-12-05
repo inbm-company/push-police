@@ -26,9 +26,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import kr.go.police.bgidocsubmit.R;
 import kr.go.police.bgidocsubmit.AndroidBridge;
 import kr.go.police.bgidocsubmit.MainActivity;
-import com.example.myapplication.R;
 import kr.go.police.bgidocsubmit._log;
 import kr.go.police.bgidocsubmit.common.Constants;
 
