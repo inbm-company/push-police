@@ -19,4 +19,6 @@ public class Constants {
     //api
     public static final String appToken = serverUrl+"app/token.do";
 
+    public static final int REQUEST_CODE_KEYPAD = 0x2231;
+
 }

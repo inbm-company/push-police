@@ -21,3 +21,4 @@
 #-renamesourcefileattribute SourceFile
 
 -keep class androidx.core.app.CoreComponentFactory { *; }
+-dontwarn com.nprotect.**

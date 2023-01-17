@@ -5,6 +5,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 
+import kr.go.police.bgidocsubmit._log;
+
 public class GetMarketVersion extends AsyncTask<Void, Void, String> {
 
     private final String APP_VERSION_NAME;
@@ -79,6 +81,7 @@ public class GetMarketVersion extends AsyncTask<Void, Void, String> {
             PackageInfo i = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             version = i.versionName;
         } catch (PackageManager.NameNotFoundException e) {
+            _log.m("PackageManager.NameNotFoundException");
         }
         return version;
     }

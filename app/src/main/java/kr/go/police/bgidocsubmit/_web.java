@@ -22,7 +22,6 @@ public class _web {
     
     //Singleton 
     public static OkHttpClient okHttpClient() {
-        _log.e(mClient + " ======== mclient");
         if (mClient == null) {
 
             mClient = new OkHttpClient();
@@ -46,7 +45,7 @@ public class _web {
         return html;
     }
 
-    public static String post(String url, String json) throws Exception {
+    public static String post(String url, String json) {
         String html = "";
         Log.d("in post", url);
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -59,10 +58,10 @@ public class _web {
         try {
             response = client.newCall(request).execute();
             html = response.body().string();
-        } catch (Exception e) {
-            _log.m("post error", e.getMessage());
-            throw new Exception();
+        } catch (IOException e) {
+            _log.m("post error");
         }
+
         return html;
     }
 
@@ -83,7 +82,7 @@ public class _web {
             response = client.newCall(request).execute();
             html = response.body().string();
         } catch (IOException e) {
-            _log.m("delete error", e.getMessage());
+            _log.m("IOException");
         }
         return html;
     }
@@ -95,11 +94,8 @@ public class _web {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         OkHttpClient client = okHttpClient();
 
-
         RequestBody body = RequestBody.create(JSON, json);
         Request.Builder builder = new Request.Builder();
-
-
 
         JSONObject header = null;
         try {
@@ -110,7 +106,7 @@ public class _web {
                 builder.addHeader(header_key, header.getString(header_key));
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            _log.m("JSONException");
         }
 
         Request request = builder.url(url).post(body).build();
@@ -120,7 +116,7 @@ public class _web {
             response = client.newCall(request).execute();
             html = response.body().string();
         } catch (IOException e) {
-            _log.m("post error", e.getMessage());
+            _log.m("IOException");
         }
         return html;
     }
@@ -132,7 +128,6 @@ public class _web {
         OkHttpClient client = okHttpClient();
 
         Request.Builder builder = new Request.Builder();
-        
 
         JSONObject header = null;
         try {
@@ -143,7 +138,7 @@ public class _web {
                 builder.addHeader(header_key, header.getString(header_key));
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            _log.m("JSONException");
         }
 
         Request request = builder.url(url).build();
@@ -154,7 +149,7 @@ public class _web {
             response = client.newCall(request).execute();
             html = response.body().string();
         } catch (IOException e) {
-            _log.m("get error", e.getMessage());
+            _log.m("IOException");
         }
         return html;
     }
@@ -165,7 +160,6 @@ public class _web {
         
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         OkHttpClient client = okHttpClient();
-
 
         RequestBody body = RequestBody.create(JSON, json);
         Request.Builder builder = new Request.Builder();
@@ -179,19 +173,17 @@ public class _web {
                 builder.addHeader(header_key, header.getString(header_key));
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            _log.m("JSONException");
         }
 
         Request request = builder.url(url).delete(body).build();
-
-
         Response response;
 
         try {
             response = client.newCall(request).execute();
             html = response.body().string();
         } catch (IOException e) {
-            _log.m("detele error", e.getMessage());
+            _log.m("IOException");
         }
         return html;
     }

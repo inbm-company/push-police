@@ -42,5 +42,7 @@
     <string name="back">이전 페이지로 이동</string>
     <string name="footer_txt">회사정보</string>
 
+    <string name="noti_channel_id"> bgidocsubmit_00</string>
+
 
 </resources>

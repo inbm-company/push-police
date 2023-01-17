@@ -14,7 +14,6 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import kr.go.police.bgidocsubmit.R;
 import kr.go.police.bgidocsubmit.common.GetMarketVersion;
 
 
@@ -26,7 +25,7 @@ public class VersionInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_versioninfo);
+        setContentView(R.layout.activity_versioninfo);
 
         initDisplay();
     }
@@ -76,6 +75,7 @@ public class VersionInfoActivity extends AppCompatActivity {
             PackageInfo i = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
             version = i.versionName;
         } catch (PackageManager.NameNotFoundException e) {
+            _log.e("PackageManager.NameNotFoundException");
         }
         return version;
     }
