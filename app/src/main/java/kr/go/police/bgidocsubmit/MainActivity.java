@@ -2,6 +2,7 @@ package kr.go.police.bgidocsubmit;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -831,7 +832,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         @Override
         public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
-            _log.e("test onShowFileChooser::"+ webView+"/"+fileChooserParams);
             try {
                 if (mFilePathCallback != null) {
                     mFilePathCallback.onReceiveValue(null);
@@ -843,9 +843,12 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);  // 파일지정 (image, pdf...)
                 intent.addCategory(Intent.CATEGORY_OPENABLE); // 카테고리 지정
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true); // 파일 다중 선택 지정
-                intent.setType("*/*");
-
-                //intent.setType("application/pdf|image/*");
+                String[] mimeTypes = {"application/pdf", "image/*" };
+                // kitkat 이상에서 동작함.
+                intent.setType(mimeTypes.length == 1 ? mimeTypes[0] : "*/*");
+                if (mimeTypes.length > 0) {
+                    intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+                }
 
                 startActivityResult.launch(intent);
             }catch(IllegalStateException e){
@@ -876,18 +879,29 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    _log.e("test onActivityResult:: "+result.getResultCode()+"/"+result.getData());
                     //fileChooser 로 파일 선택 후 onActivityResult 에서 결과를 받아 처리함
                     int resultCode = result.getResultCode();
                     Intent data = result.getData();
+                    Uri[] results = null;
 
-                    if(resultCode == Activity.RESULT_OK) {
-                        //파일 선택 완료 했을 경우
-                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            mFilePathCallback.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, data));
-                        }else{
-                            mFilePathCallback.onReceiveValue(new Uri[]{data.getData()});
+                    if(resultCode == Activity.RESULT_OK && data != null) {
+                        String dataString = data.getDataString();
+                        ClipData clipData = data.getClipData();
+
+                        if(clipData != null){
+                            // 다중파일 업로드 시
+                            results = new Uri[clipData.getItemCount()];
+                            for (int i = 0; i < clipData.getItemCount(); i++) {
+                                ClipData.Item item = clipData.getItemAt(i);
+                                results[i] = item.getUri();
+                            }
                         }
+
+                        if (dataString != null) {
+                            // 단일 파일 업로드
+                            results = new Uri[]{Uri.parse(dataString)};
+                        }
+                        mFilePathCallback.onReceiveValue(results);
                         mFilePathCallback = null;
                     } else {
                         //cancel 했을 경우
