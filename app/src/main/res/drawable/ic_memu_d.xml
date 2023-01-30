@@ -1,9 +1,9 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
   <item
-      android:bottom="@dimen/size_10"
-      android:top="@dimen/size_10"
-      android:right="@dimen/size_13"
-      android:left="@dimen/size_13">
+      android:bottom="@dimen/size_16_5"
+      android:top="@dimen/size_16_5"
+      android:right="@dimen/size_15"
+      android:left="@dimen/size_15">
     <vector
         android:width="18dp"
         android:height="15dp"
